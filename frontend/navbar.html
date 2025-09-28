@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="navbar.css">
+</head>
+<body>
+    
+    <header class="header">
+        <div class="logo-container">
+            <a href="#" class="logo"><img src="components/logo.png" alt="Aura Bank Logo"></a>
+            <a href="#" class="logoname"><img src="components/logoname.png" alt="Aura Bank Logo"></a>
+        </div>
+        <nav class="navbar">
+            <ul class="nav_links">
+                <li><a href="#">About</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><button class="login-btn">Log in</button></li>
+            </ul>
+            <div class="three-line-menu">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        </nav>
+    </header>
+
+<script>
+    const navLinks = document.querySelector('.nav_links');
+    const menuToggle = document.querySelector('.three-line-menu');
+
+    const closeMenu = () => {
+        navLinks.classList.remove('nav-active');
+        if (menuToggle) {
+            menuToggle.classList.remove('active');
+        }
+    }
+
+    
+    if (menuToggle) {
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation(); 
+            if (window.innerWidth <= 768) {
+                const isActive = navLinks.classList.contains('nav-active');
+                if (isActive) {
+                    closeMenu();
+                } else {
+                    navLinks.classList.add('nav-active');
+                    menuToggle.classList.add('active');
+                }
+            }
+        });
+    }
+
+    
+    document.querySelectorAll('.nav_links a, .login-btn').forEach(element => {
+        element.addEventListener('click', () => {
+            if (window.innerWidth <= 768) {
+                closeMenu();
+            }
+        });
+    });
+
+   
+    document.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768) {
+            
+            if (navLinks.classList.contains('nav-active')) {
+               
+                if (!e.target.closest('.nav_links') && !e.target.closest('.three-line-menu')) {
+                    closeMenu();
+                }
+            }
+        }
+    });
+
+    
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+            closeMenu();
+        }
+    });
+</script>
+</body>
+</html>

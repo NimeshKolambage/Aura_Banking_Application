@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page - Aura</title>
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="mainui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div id="navbar"></div>
+
+    <main>
+        <div class="main-content-container">
+
+          <section class="hero-section">
+            <div class="hero-text">
+                <h1>CHANGE THE WAY YOU HANDLE MONEY</h1>
+                <h2>For those who want more from their money — there's Aura. Sign up with no fees, in a tap.</h2>
+                <div class="cta-buttons">
+                    <button class="get-started-button">
+                        <i class="fas fa-rocket"></i>
+                        Get Started
+                    </button>
+                    <button class="learn-more-button">
+                        <i class="fas fa-book-open"></i>
+                        Learn More About Rewards
+                    </button>
+                </div>
+            </div>
+            <spline-viewer class="robot-3d" url="https://prod.spline.design/ifRv4kmXm2MDmUik/scene.splinecode"></spline-viewer>
+        </section>
+
+        <section class="features-section">
+            <h2 class="section-title">Why Choose Aura?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-piggy-bank"></i>
+                    </div>
+                    <h3 class="feature-title">Zero Fees</h3>
+                    <p class="feature-description">No hidden charges, no monthly fees. Keep more of your money where it belongs - with you.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="feature-title">Smart Savings</h3>
+                    <p class="feature-description">Automated savings tools that help you reach your financial goals faster.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h3 class="feature-title">Rewards Program</h3>
+                    <p class="feature-description">Earn cashback and rewards on everyday purchases with our premium program.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Mobile First</h3>
+                    <p class="feature-description">Bank on the go with our intuitive mobile app designed for modern lifestyles.</p>
+                </div>
+            </div>
+        </section>
+
+        </div>
+    </main>
+
+   <footer>
+    <div class="footer-content">
+        <div class="footer-column">
+            <h3>Products</h3>
+            <ul>
+                <li><a href="#">Personal Banking</a></li>
+                <li><a href="#">Business Accounts</a></li>
+                <li><a href="#">Investment</a></li>
+                <li><a href="#">Loans</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>About Us</h3>
+            <ul>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">Press</a></li>
+                <li><a href="#">Blog</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Support</h3>
+            <ul>
+                <li><a href="#">Help Center</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">Security</a></li>
+                <li><a href="#">Status</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Connect</h3>
+            <ul>
+                <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2023 Aura Financial. All rights reserved.</p>
+    </div>
+</footer>
+
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.71/build/spline-viewer.js"></script>
+    <script>
+        fetch("navbar.html")
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById("navbar").innerHTML = data;
+                
+                const navLinks = document.querySelector('.nav_links');
+                const menuToggle = document.querySelector('.three-line-menu');
+
+                if (!navLinks || !menuToggle) {
+                    console.error("Navbar elements not found after fetch.");
+                    return;
+                }
+
+                const closeMenu = () => {
+                    navLinks.classList.remove('nav-active');
+                    if (menuToggle) {
+                        menuToggle.classList.remove('active');
+                    }
+                }
+
+                menuToggle.addEventListener('click', (e) => {
+                    e.stopPropagation(); 
+                    if (window.innerWidth <= 768) {
+                        const isActive = navLinks.classList.contains('nav-active');
+                        if (isActive) {
+                            closeMenu();
+                        } else {
+                            navLinks.classList.add('nav-active');
+                            menuToggle.classList.add('active');
+                        }
+                    }
+                });
+
+                document.querySelectorAll('.nav_links a, .login-btn').forEach(element => {
+                    element.addEventListener('click', () => {
+                        if (window.innerWidth <= 768) {
+                            closeMenu();
+                        }
+                    });
+                });
+
+                document.addEventListener('click', (e) => {
+                    if (window.innerWidth <= 768) {
+                        if (navLinks.classList.contains('nav-active')) {
+                            if (!e.target.closest('.nav_links') && !e.target.closest('.three-line-menu')) {
+                                closeMenu();
+                            }
+                        }
+                    }
+                });
+
+                window.addEventListener('resize', () => {
+                    if (window.innerWidth > 768) {
+                        closeMenu();
+                    }
+                });
+            })
+            .catch(err => console.error("Navbar load error:", err));
+
+    </script>
+</body>
+</html>
