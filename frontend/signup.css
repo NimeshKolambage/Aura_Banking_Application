@@ -39,8 +39,9 @@ a:hover {
     display: flex;
     width: 85%;
     max-width: 1200px;
-    height: 80vh;
-    min-height: 600px;
+    /* ADJUSTED HEIGHT for better fit */
+    height: 90vh;
+    min-height: 550px;
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
@@ -167,7 +168,8 @@ i {
 .form-wrapper {
     width: 80%;
     max-width: 350px;
-    padding: 20px 0;
+    /* ADJUSTED padding for better fit */
+    padding: 10px 0;
     box-sizing: border-box;
 }
 
@@ -180,12 +182,15 @@ h2 {
 
 .subtitle {
     color: var(--light-teal);
-    margin-bottom: 30px;
+    /* ADJUSTED margin for better fit */
+    margin-bottom: 15px;
+    font-size: 0.9em;
 }
 
 .input-group {
     position: relative;
-    margin-bottom: 25px;
+    /* ADJUSTED margin for better fit */
+    margin-bottom: 15px;
 }
 
 .input-group .icon {
@@ -200,12 +205,15 @@ h2 {
 
 input[type="email"],
 input[type="password"],
-input[type="text"] {
+input[type="text"],
+input[type="tel"] {
     width: 100%;
-    padding: 15px 15px 15px 50px;
+    /* ADJUSTED padding for better fit */
+    padding: 12px 15px 12px 50px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 10px;
-    font-size: 1em;
+    /* ADJUSTED font size for better fit */
+    font-size: 0.95em;
     color: var(--light-cream);
     background-color: rgba(255, 255, 255, 0.1);
     box-sizing: border-box;
@@ -213,11 +221,13 @@ input[type="text"] {
 }
 
 input[type="password"] {
-    padding: 15px 45px 15px 50px;
+    /* ADJUSTED padding for better fit */
+    padding: 12px 45px 12px 50px;
 }
 
 .password-field {
-    padding: 15px 45px 15px 50px !important;
+    /* ADJUSTED padding for better fit */
+    padding: 12px 45px 12px 50px !important;
 }
 
 input::placeholder {
@@ -248,33 +258,35 @@ input:focus {
 
 .forgot-password {
     text-align: right;
-    margin-bottom: 25px;
+    /* ADJUSTED margin for better fit */
+    margin-bottom: 15px;
     font-size: 0.9em;
 }
 
 
-
-.sign-in-button {
+.sign-up-button {
     width: 100%;
-    padding: 12px;
+    /* ADJUSTED padding for better fit */
+    padding: 10px;
     border: none;
     border-radius: 15px;
     font-size: 1.1em;
     font-weight: 700;
     cursor: pointer;
-    margin-top: 10px;
+    /* ADJUSTED margin for better fit */
+    margin-top: 5px;
     background: linear-gradient(90deg, var(--medium-teal) 0%, var(--dark-teal) 100%);
     color: var(--light-cream);
     box-shadow: 0 5px 20px rgba(0, 106, 113, 0.6);
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.sign-in-button:hover {
+.sign-up-button:hover {
     transform: translateY(-3px);
     box-shadow: 0 7px 25px rgba(0, 106, 113, 0.8);
 }
 
-.sign-in-button:active {
+.sign-up-button:active {
     transform: translateY(-1px);
 }
 
@@ -384,7 +396,7 @@ input:focus {
         font-size: 0.95em;
     }
 
-    .sign-in-button {
+    .sign-up-button {
         padding: 10px;
         font-size: 1em;
     }
