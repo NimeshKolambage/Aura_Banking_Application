@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In - Aura Bank</title>
-    <link rel="stylesheet" href="login.css">
+    <title>Sign Up - Aura Bank</title>
+    <link rel="stylesheet" href="signup.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
@@ -13,7 +13,7 @@
 <body>
     <div class="split-screen-container">
         <div class="design-panel">
-            <a href="mainui.html" class="back-link">
+            <a href="login.html" class="back-link">
                 <i class="fa-solid fa-angle-left" style="color: #ffffff;"></i>
             </a>
             <a href="mainui.html" class="back-link-logo">
@@ -29,13 +29,28 @@
         </div>
         <div class="form-panel">
             <div class="form-wrapper">
-                <h2>SIGN IN</h2>
-                <p class="subtitle">Sign in with email address</p>
+                <h2>SIGN UP</h2>
+                <p class="subtitle">Create your new account</p>
 
                 <form action="#" method="POST">
                     <div class="input-group">
+                        <span class="icon"><i class="fa-solid fa-user fa-xs"></i></span>
+                        <input type="text" id="fullname" name="fullname" placeholder="Full Name" required>
+                    </div>
+
+                    <div class="input-group">
+                        <span class="icon"><i class="fa-solid fa-user-tag fa-xs"></i></span>
+                        <input type="text" id="username" name="username" placeholder="Username" required>
+                    </div>
+
+                    <div class="input-group">
+                        <span class="icon"><i class="fa-solid fa-phone fa-xs"></i></span>
+                        <input type="tel" id="number" name="number" placeholder="Phone Number" required>
+                    </div>
+
+                    <div class="input-group">
                         <span class="icon"><i class="fa-solid fa-envelope fa-xs"></i></span>
-                        <input type="email" id="email" name="email" placeholder="yourname@gmail.com" required>
+                        <input type="email" id="email" name="email" placeholder="Email Address" required>
                     </div>
 
                     <div class="input-group">
@@ -47,18 +62,18 @@
                     </div>
 
                     <div class="forgot-password">
-                        <a href="signup.html#forgot">Forgot password?</a>
+                        <a href="#forgot">Forgot password?</a>
                     </div>
 
-                    <button type="submit" class="sign-in-button">Sign in</button>
+                    <button type="submit" class="sign-up-button">Sign Up</button>
                 </form>
 
                 <p class="terms-link">
-                    By signing in you agree to our <a href="#">Terms and Conditions</a>
+                    By signing up you agree to our <a href="#">Terms and Conditions</a>
                 </p>
 
                 <p class="signup-link">
-                    Don't have an account? <a href="signup.html">Sign up</a>
+                    Already have an account? <a href="login.html">Sign in</a>
                 </p>
             </div>
         </div>
@@ -89,36 +104,43 @@
 
         document.querySelector('form').addEventListener('submit', function (e) {
             e.preventDefault();
+            const fullname = document.getElementById('fullname').value;
+            const username = document.getElementById('username').value;
+            const number = document.getElementById('number').value;
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
 
-            if (!email || !password) {
+            if (!fullname || !username || !number || !email || !password) {
                 console.error('Validation Error: Please fill in all fields');
                 alert('Please fill in all fields');
                 return;
             }
 
-            // Simulate checking if account exists
-            const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
-            const userExists = registeredUsers.some(user => user.email === email);
+            // Simulate account registration (store in localStorage for demo)
+            const newUser = { fullname, username, number, email, password };
+            let registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
 
-            if (!userExists) {
-                alert('Account not found. Please sign up first.');
-                window.location.href = 'signup.html';
+            if (registeredUsers.some(user => user.email === email)) {
+                alert('An account with this email already exists. Please sign in.');
                 return;
             }
 
-            console.log('Login attempt with:', { email, password });
+            registeredUsers.push(newUser);
+            localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
 
-            const signInButton = document.querySelector('.sign-in-button');
-            const originalText = signInButton.textContent;
-            signInButton.textContent = "Processing...";
+            console.log('New user registered:', newUser);
+
+            const signUpButton = document.querySelector('.sign-up-button');
+            const originalText = signUpButton.textContent;
+            signUpButton.textContent = "Registering...";
 
             setTimeout(() => {
-                signInButton.textContent = originalText;
-                // In a real application, you'd check the password here.
-                alert('Login successful (simulated)!');
-                // window.location.href = 'dashboard.html';
+                signUpButton.textContent = "Success!";
+                setTimeout(() => {
+                    signUpButton.textContent = originalText;
+                    alert('Registration successful! Please sign in.');
+                    window.location.href = 'login.html';
+                }, 500);
             }, 1500);
         });
     </script>
