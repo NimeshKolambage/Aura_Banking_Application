@@ -1,0 +1,621 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    --aura-primary-color: #006A71;
+    --aura-secondary-color: #48A6A7;
+    --aura-background-color: #F2EFE7;
+    --aura-text-color: #000000;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--aura-background-color);
+    min-height: 100vh;
+}
+
+main {
+    padding-top: 100px;
+    padding-bottom: 40px;
+}
+
+.contact-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 5%;
+}
+
+/* Hero Section */
+.contact-hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 60px;
+    margin-bottom: 80px;
+    min-height: 400px;
+}
+
+.hero-content {
+    flex: 1;
+    max-width: 500px;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--aura-primary-color);
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Credit Card Animation */
+.card-animation-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1500px;
+}
+
+.credit-card-image {
+    width: 450px;
+    max-width: 90%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.3),
+        0 10px 20px rgba(0, 106, 113, 0.2);
+    transform-style: preserve-3d;
+    animation: cardFloat3D 8s ease-in-out infinite;
+    transition: all 0.4s ease;
+    cursor: pointer;
+}
+
+.credit-card-image:hover {
+    transform: scale(1.08) rotateY(8deg) rotateX(-5deg);
+    box-shadow: 
+        0 35px 70px rgba(0, 0, 0, 0.4),
+        0 15px 30px rgba(0, 106, 113, 0.3);
+}
+
+@keyframes cardFloat3D {
+    0%, 100% {
+        transform: translateY(0px) rotateY(-2deg) rotateX(2deg);
+    }
+    25% {
+        transform: translateY(-20px) rotateY(-5deg) rotateX(3deg);
+    }
+    50% {
+        transform: translateY(-8px) rotateY(2deg) rotateX(-2deg);
+    }
+    75% {
+        transform: translateY(-20px) rotateY(5deg) rotateX(3deg);
+    }
+}
+
+.credit-card-contact {
+    width: 500px;
+    height: 315px;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: cardRotate 12s ease-in-out infinite;
+    display: flex;
+}
+
+@keyframes cardRotate {
+    0%, 100% {
+        transform: rotateY(0deg) translateY(0px);
+    }
+    25% {
+        transform: rotateY(-15deg) translateY(-20px);
+    }
+    50% {
+        transform: rotateY(0deg) translateY(0px);
+    }
+    75% {
+        transform: rotateY(15deg) translateY(-20px);
+    }
+}
+
+.card-side {
+    position: relative;
+    width: 250px;
+    height: 315px;
+    border-radius: 15px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.card-left {
+    background: linear-gradient(135deg, #E0E0E0, #C0C0C0);
+    border-radius: 15px 0 0 15px;
+    z-index: 1;
+    position: relative;
+}
+
+.card-left::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100px;
+    background: linear-gradient(to right, transparent, #C0C0C0);
+    transform: skewX(-15deg);
+    transform-origin: bottom right;
+}
+
+.card-right {
+    background: linear-gradient(135deg, #C41E3A, #8B0000);
+    border-radius: 0 15px 15px 0;
+    z-index: 2;
+    position: relative;
+    margin-left: -30px;
+}
+
+.card-right::before {
+    content: '';
+    position: absolute;
+    left: -30px;
+    top: 0;
+    bottom: 0;
+    width: 60px;
+    background: linear-gradient(to left, #C41E3A, transparent);
+    transform: skewX(-15deg);
+    transform-origin: bottom left;
+}
+
+.card-content-left,
+.card-content-right {
+    padding: 25px;
+    color: white;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-text {
+    font-size: 16px;
+    color: #999;
+    font-weight: 400;
+}
+
+.chip-container {
+    display: flex;
+    align-items: flex-end;
+    gap: 15px;
+}
+
+.chip-contact {
+    width: 50px;
+    height: 40px;
+    background: linear-gradient(135deg, #D4D4D4, #A0A0A0);
+    border-radius: 8px;
+    position: relative;
+    border: 2px solid #666;
+}
+
+.chip-contact::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    border: 1.5px solid #888;
+    border-radius: 4px;
+}
+
+.chip-number {
+    font-size: 14px;
+    color: #666;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.card-number-left,
+.card-number-right {
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: 3px;
+}
+
+.card-number-left {
+    color: #666;
+}
+
+.card-holder-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.validity {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+.label-small {
+    font-size: 8px;
+    color: #999;
+    line-height: 1.2;
+    text-transform: uppercase;
+}
+
+.date {
+    font-size: 14px;
+    color: #666;
+    font-weight: 600;
+}
+
+.cardholder-name {
+    font-size: 16px;
+    color: #666;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+/* Right Card Content */
+.bank-logo {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.logo-w {
+    width: 50px;
+    height: 30px;
+    background: linear-gradient(135deg, #FF4444, #FF6666, #FF8844);
+    clip-path: polygon(0 0, 33% 0, 50% 100%, 0 100%, 16% 0, 33% 100%, 50% 0, 66% 100%, 83% 0, 100% 100%, 66% 0, 100% 0, 100% 100%, 50% 100%);
+}
+
+.contactless {
+    margin-top: 30px;
+    font-size: 35px;
+    color: white;
+    transform: rotate(90deg);
+    opacity: 0.9;
+}
+
+.card-validity-right {
+    margin-top: 20px;
+}
+
+.month-year-label {
+    font-size: 9px;
+    opacity: 0.8;
+    margin-bottom: 5px;
+}
+
+.expiry-right {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.mastercard-logo {
+    position: relative;
+    margin-top: 20px;
+}
+
+.circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 20px;
+}
+
+.circle-red {
+    background: #FF5F5F;
+    left: 0;
+}
+
+.circle-orange {
+    background: #FFB344;
+    left: 25px;
+    opacity: 0.9;
+}
+
+.mastercard-text {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Contact Content Section */
+.contact-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 60px;
+}
+
+.contact-info h2,
+.contact-form-section h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--aura-primary-color);
+    margin-bottom: 10px;
+}
+
+.info-subtitle,
+.form-subtitle {
+    color: #666;
+    font-size: 1rem;
+    margin-bottom: 40px;
+}
+
+/* Info Cards */
+.info-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-bottom: 60px;
+}
+
+.info-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 106, 113, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 106, 113, 0.2);
+}
+
+.info-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, var(--aura-primary-color), var(--aura-secondary-color));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 28px;
+    color: white;
+}
+
+.info-card h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--aura-text-color);
+    margin-bottom: 10px;
+}
+
+.info-card p {
+    color: #666;
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.info-detail {
+    font-size: 0.9rem !important;
+    color: #999 !important;
+}
+
+/* Contact Form */
+.contact-form {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 106, 113, 0.1);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin-bottom: 25px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-group label {
+    font-weight: 500;
+    color: var(--aura-text-color);
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 14px 18px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s;
+    background: #fafafa;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--aura-secondary-color);
+    background: white;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: var(--aura-primary-color);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 10px;
+}
+
+.submit-btn:hover {
+    background: var(--aura-secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 106, 113, 0.3);
+}
+
+.submit-btn i {
+    margin-right: 10px;
+}
+
+/* Footer */
+footer {
+    background: var(--aura-primary-color);
+    color: white;
+    padding: 40px 5% 20px;
+    margin-top: 80px;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.footer-column h3 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-column h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: var(--aura-secondary-color);
+}
+
+.footer-column ul {
+    list-style: none;
+}
+
+.footer-column ul li {
+    margin-bottom: 10px;
+}
+
+.footer-column a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.footer-column a:hover {
+    color: white;
+    padding-left: 5px;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .contact-hero {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+    }
+
+    .hero-content {
+        max-width: 100%;
+    }
+
+    .credit-card-image {
+        width: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    main {
+        padding-top: 90px;
+    }
+
+    .hero-content h1 {
+        font-size: 2.2rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    .credit-card-image {
+        width: 350px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .contact-form {
+        padding: 30px 20px;
+    }
+
+    .info-cards {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 580px) {
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+
+    .credit-card-image {
+        width: 300px;
+    }
+
+    .info-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-form {
+        padding: 25px 15px;
+    }
+}
+
+@media (max-width: 400px) {
+    .credit-card-image {
+        width: 280px;
+    }
+}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Aura</title>
+    <link rel="stylesheet" href="signup.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="signup-container">
+        <div class="card-section">
+            <div class="card-wrapper">
+                <div class="credit-card">
+                    <div class="card-shine"></div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <div class="card-logo-text">AURA</div>
+                            <div class="card-type-badge">Premium</div>
+                        </div>
+                        
+                        <div class="chip-wrapper">
+                            <div class="chip">
+                                <div class="chip-line"></div>
+                                <div class="chip-line"></div>
+                                <div class="chip-line"></div>
+                                <div class="chip-line"></div>
+                                <div class="chip-main"></div>
+                            </div>
+                            <div class="contactless-icon">
+                                <i class="fas fa-wifi"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="card-number">
+                            <span class="number-group">1234</span>
+                            <span class="number-group">5678</span>
+                            <span class="number-group">9012</span>
+                            <span class="number-group">3456</span>
+                        </div>
+                        
+                        <div class="card-footer">
+                            <div class="card-holder-section">
+                                <div class="label">CARDHOLDER</div>
+                                <div class="name">YOUR NAME</div>
+                            </div>
+                            <div class="card-expiry-section">
+                                <div class="label">EXPIRES</div>
+                                <div class="date">12/28</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-pattern"></div>
+                </div>
+            </div>
+            
+            <div class="benefits-text">
+                <h2>Start Your Financial Journey</h2>
+                <p>Join thousands who trust Aura for zero fees, smart savings, and exclusive rewards on every purchase.</p>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <div class="form-header">
+                <h1>Create Your Account</h1>
+                <p>Sign up to unlock financial freedom</p>
+            </div>
+
+            <form class="signup-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" placeholder="John" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" placeholder="Doe" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="john.doe@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" placeholder="+1 (555) 000-0000" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Create a strong password" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" placeholder="Re-enter your password" required>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms">I agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a></label>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="newsletter">
+                    <label for="newsletter">Send me updates about products and promotions</label>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-rocket"></i> Create Account
+                </button>
+
+                <div class="login-link">
+                    Already have an account? <a href="#">Log In</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
