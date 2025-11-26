@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Aura</title>
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="contact.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div id="navbar"></div>
+
+    <main>
+        <div class="contact-container">
+            
+            <section class="contact-hero">
+                <div class="hero-content">
+                    <h1>Get In Touch With Us</h1>
+                    <p>Have questions? We're here to help you with your financial journey.</p>
+                </div>
+                
+                <div class="card-animation-container">
+                    <img src="components/auracard.png" alt="Aura Bank Card" class="credit-card-image">
+                </div>
+            </section>
+
+            <section class="contact-content">
+                <div class="contact-info">
+                    <h2>Contact Information</h2>
+                    <p class="info-subtitle">Reach out to us through any of these channels</p>
+                    
+                    <div class="info-cards">
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <h3>Phone</h3>
+                            <p>+1 (555) 123-4567</p>
+                            <p class="info-detail">Mon-Fri: 9AM - 6PM</p>
+                        </div>
+                        
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <h3>Email</h3>
+                            <p>support@aura.com</p>
+                            <p class="info-detail">We'll respond within 24hrs</p>
+                        </div>
+                        
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <h3>Office</h3>
+                            <p>123 Finance Street</p>
+                            <p class="info-detail">New York, NY 10001</p>
+                        </div>
+                        
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <h3>Support Hours</h3>
+                            <p>24/7 Live Chat</p>
+                            <p class="info-detail">Always here for you</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-section">
+                    <h2>Send Us A Message</h2>
+                    <p class="form-subtitle">Fill out the form below and we'll get back to you shortly</p>
+                    
+                    <form class="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" placeholder="John Doe" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" placeholder="john.doe@example.com" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" placeholder="+1 (555) 000-0000">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <select id="subject" required>
+                                    <option value="">Select a subject</option>
+                                    <option value="general">General Inquiry</option>
+                                    <option value="support">Technical Support</option>
+                                    <option value="account">Account Issues</option>
+                                    <option value="feedback">Feedback</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" rows="6" placeholder="Tell us how we can help you..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Products</h3>
+                <ul>
+                    <li><a href="#">Personal Banking</a></li>
+                    <li><a href="#">Business Accounts</a></li>
+                    <li><a href="#">Investment</a></li>
+                    <li><a href="#">Loans</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>About Us</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Security</a></li>
+                    <li><a href="#">Status</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Connect</h3>
+                <ul>
+                    <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                    <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                    <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                    <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2023 Aura Financial. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        fetch("navbar.html")
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById("navbar").innerHTML = data;
+                
+                const navLinks = document.querySelector('.nav_links');
+                const menuToggle = document.querySelector('.three-line-menu');
+
+                if (!navLinks || !menuToggle) {
+                    console.error("Navbar elements not found after fetch.");
+                    return;
+                }
+
+                const closeMenu = () => {
+                    navLinks.classList.remove('nav-active');
+                    if (menuToggle) {
+                        menuToggle.classList.remove('active');
+                    }
+                }
+
+                menuToggle.addEventListener('click', (e) => {
+                    e.stopPropagation(); 
+                    if (window.innerWidth <= 768) {
+                        const isActive = navLinks.classList.contains('nav-active');
+                        if (isActive) {
+                            closeMenu();
+                        } else {
+                            navLinks.classList.add('nav-active');
+                            menuToggle.classList.add('active');
+                        }
+                    }
+                });
+
+                document.querySelectorAll('.nav_links a, .login-btn').forEach(element => {
+                    element.addEventListener('click', () => {
+                        if (window.innerWidth <= 768) {
+                            closeMenu();
+                        }
+                    });
+                });
+
+                document.addEventListener('click', (e) => {
+                    if (window.innerWidth <= 768) {
+                        if (navLinks.classList.contains('nav-active')) {
+                            if (!e.target.closest('.nav_links') && !e.target.closest('.three-line-menu')) {
+                                closeMenu();
+                            }
+                        }
+                    }
+                });
+
+                window.addEventListener('resize', () => {
+                    if (window.innerWidth > 768) {
+                        closeMenu();
+                    }
+                });
+            })
+            .catch(err => console.error("Navbar load error:", err));
+    </script>
+</body>
+</html>
