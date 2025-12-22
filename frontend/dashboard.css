@@ -1,0 +1,587 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+    --aura-primary-color: #006A71;
+    --aura-secondary-color: #48A6A7;
+    --aura-background-color: #F2EFE7;
+    --aura-text-color: #000000;
+    --aura-light-bg: #FFFFFF;
+    --aura-border-color: #E0D5C7;
+    --success-color: #27AE60;
+    --warning-color: #F39C12;
+    --danger-color: #E74C3C;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--aura-background-color);
+    color: var(--aura-text-color);
+    min-height: 100vh;
+}
+
+main {
+    padding-top: 0;
+    min-height: calc(100vh - 80px);
+    padding-bottom: 20px;
+}
+
+.dashboard-container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 10px 15px;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 12px 25px;
+    background: linear-gradient(135deg, var(--aura-primary-color) 0%, var(--aura-secondary-color) 100%);
+    border-radius: 10px;
+    color: #FFFFFF;
+    box-shadow: 0 2px 8px rgba(0, 106, 113, 0.15);
+    min-height: 70px;
+}
+
+.navbar-content {
+    display: flex;
+    align-items: center;
+}
+
+.bank-branding {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.navbar-logo {
+    height: 65px;
+    transform: scale(1.5);
+}
+
+.bank-name-logo {
+    height: 75px;
+    padding-left: 10px;
+    transform: scale(2.0);
+}
+
+.welcome-message {
+    padding: 15px 25px;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--aura-primary-color);
+}
+
+.welcome-message span {
+    color: var(--aura-secondary-color);
+    font-weight: 600;
+}
+
+.welcome-message p {
+    margin: 0;
+}
+
+.navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.logout-btn i {
+    font-size: 0.9rem;
+}
+
+/* Dashboard Grid */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+/* Card Styling */
+.card-main,
+.card-section {
+    background-color: var(--aura-light-bg);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* Balance Card */
+.balance-card {
+    grid-column: span 2;
+    background: linear-gradient(135deg, var(--aura-primary-color) 0%, var(--aura-secondary-color) 100%);
+    color: #FFFFFF;
+}
+
+@media (max-width: 768px) {
+    .balance-card {
+        grid-column: span 1;
+    }
+}
+
+.balance-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.balance-header h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.balance-header i {
+    font-size: 1.3rem;
+}
+
+.balance-amount {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.balance-amount .currency {
+    font-size: 1.2rem;
+    margin-right: 5px;
+}
+
+.balance-amount .amount {
+    font-size: 2.2rem;
+}
+
+.balance-info {
+    opacity: 0.85;
+    font-size: 0.85rem;
+    margin-bottom: 18px;
+}
+
+.account-details-mini {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-item .label {
+    font-size: 0.75rem;
+    opacity: 0.75;
+    margin-bottom: 3px;
+}
+
+.detail-item .value {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+/* Quick Actions */
+.quick-actions h3,
+.recent-transactions h3,
+.bill-payments h3,
+.account-summary h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--aura-primary-color);
+    margin-bottom: 15px;
+}
+
+.action-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.action-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 12px;
+    border: 1px solid var(--aura-border-color);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--aura-text-color);
+    gap: 6px;
+    font-weight: 500;
+    font-size: 0.8rem;
+}
+
+.action-btn i {
+    font-size: 1.3rem;
+}
+
+/* Transactions */
+.transactions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 12px;
+}
+
+.transaction-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--aura-border-color);
+}
+
+.transaction-item:last-child {
+    border-bottom: none;
+}
+
+.transaction-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.transaction-icon {
+    font-size: 0.8rem;
+    flex-shrink: 0;
+}
+
+.transaction-icon.sent {
+    color: var(--danger-color);
+}
+
+.transaction-icon.received {
+    color: var(--success-color);
+}
+
+.transaction-icon.bill {
+    color: var(--warning-color);
+}
+
+.transaction-details p {
+    margin: 0;
+}
+
+.transaction-name {
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.transaction-date {
+    font-size: 0.75rem;
+    color: #999999;
+}
+
+.transaction-amount {
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+.transaction-amount.sent {
+    color: var(--danger-color);
+}
+
+.transaction-amount.received {
+    color: var(--success-color);
+}
+
+.transaction-amount.bill {
+    color: var(--warning-color);
+}
+
+.view-all-link {
+    color: var(--aura-primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+}
+
+/* Bills */
+.bills-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.bill-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background-color: #FAFAF8;
+    border-radius: 8px;
+    border-left: 3px solid var(--aura-secondary-color);
+}
+
+.bill-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.bill-icon {
+    color: var(--aura-secondary-color);
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.bill-details p {
+    margin: 0;
+}
+
+.bill-name {
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.bill-date {
+    font-size: 0.75rem;
+    color: #999999;
+}
+
+.bill-amount {
+    font-weight: 700;
+    color: var(--aura-primary-color);
+    font-size: 0.85rem;
+}
+
+.manage-bills-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--aura-primary-color);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+    font-size: 0.85rem;
+}
+
+/* Account Summary */
+.summary-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.summary-item {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--aura-border-color);
+}
+
+.summary-item:nth-child(3),
+.summary-item:nth-child(4) {
+    border-bottom: none;
+}
+
+.summary-label {
+    font-size: 0.75rem;
+    color: #999999;
+    margin-bottom: 3px;
+}
+
+.summary-value {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--aura-primary-color);
+}
+
+.status-active {
+    color: var(--success-color);
+    padding: 4px 12px;
+    background-color: rgba(39, 174, 96, 0.1);
+    border-radius: 20px;
+    display: inline-block;
+    width: fit-content;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .welcome-section {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+
+    .welcome-content h1 {
+        font-size: 1.4rem;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        min-height: 65px;
+    }
+
+    .navbar-logo {
+        height: 55px;
+    }
+
+    .bank-name-logo {
+        height: 65px;
+    }
+
+    .dashboard-container {
+        padding: 12px 12px;
+    }
+
+    main {
+        padding-top: 80px;
+        padding-bottom: 15px;
+    }
+
+    .welcome-section {
+        padding: 18px;
+        margin-bottom: 18px;
+    }
+
+    .welcome-content h1 {
+        font-size: 1.3rem;
+    }
+
+    .welcome-content p {
+        font-size: 0.85rem;
+    }
+
+    .dashboard-logo {
+        height: 55px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .balance-card {
+        grid-column: span 1;
+    }
+
+    .action-buttons {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .summary-info {
+        grid-template-columns: 1fr;
+    }
+
+    .account-details-mini {
+        grid-template-columns: 1fr;
+    }
+
+    .card-main,
+    .card-section {
+        padding: 15px;
+        border-radius: 10px;
+    }
+
+    .balance-header h2 {
+        font-size: 1rem;
+    }
+
+    .balance-amount .amount {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        min-height: 60px;
+        padding: 10px 15px;
+    }
+
+    .bank-branding {
+        gap: 10px;
+    }
+
+    .navbar-logo {
+        height: 50px;
+    }
+
+    .bank-name-logo {
+        height: 58px;
+    }
+
+    .welcome-section {
+        padding: 15px;
+    }
+
+    .welcome-content h1 {
+        font-size: 1.1rem;
+    }
+
+    .dashboard-logo {
+        height: 50px;
+    }
+
+    .action-buttons {
+        grid-template-columns: 1fr;
+    }
+
+    .action-btn {
+        padding: 15px;
+        flex-direction: row;
+        gap: 12px;
+    }
+
+    .action-btn span {
+        text-align: left;
+    }
+
+    .balance-amount .amount {
+        font-size: 2rem;
+    }
+
+    .card-main,
+    .card-section {
+        padding: 15px;
+    }
+}
