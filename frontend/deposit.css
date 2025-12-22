@@ -1,0 +1,655 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --aura-primary-color: #006A71;
+    --aura-secondary-color: #48A6A7;
+    --aura-background-color: #F2EFE7;
+    --aura-text-color: #1E1E1E;
+    --card-bg: #FFFFFF;
+    --border-color: #E3DCD2;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+html { background: var(--aura-background-color); overflow-x: hidden; }
+html::before { display: none !important; }
+html::after { display: none !important; }
+
+body {
+    background: var(--aura-background-color);
+    color: var(--aura-text-color);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+body::before { display: none !important; }
+body::after { display: none !important; }
+
+main {
+    padding: 80px 0 0 0;
+    min-height: 100vh;
+}
+
+.deposit-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 0 2%;
+}
+
+.deposit-header {
+    background: linear-gradient(135deg, var(--aura-primary-color), var(--aura-secondary-color));
+    color: #fff;
+    padding: 28px;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+}
+
+.deposit-header h1 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.8rem;
+    margin-bottom: 6px;
+}
+
+.deposit-header p {
+    opacity: 0.9;
+}
+
+.deposit-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+}
+
+.deposit-methods {
+    display: none;
+}
+
+/* Bank Selection Section */
+.bank-selection-section,
+.other-bank-selection-section {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: var(--shadow);
+}
+
+.bank-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+.bank-option-card {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 14px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    gap: 12px;
+}
+
+.bank-option-card i {
+    font-size: 2.2rem;
+    color: var(--aura-primary-color);
+    transition: transform 0.3s ease;
+}
+
+.bank-option-card h3 {
+    font-size: 1.1rem;
+    color: var(--aura-text-color);
+    margin: 0;
+}
+
+.bank-option-card p {
+    font-size: 0.85rem;
+    color: #666;
+    margin: 0;
+    opacity: 0.8;
+}
+
+.bank-option-card:hover {
+    border-color: var(--aura-primary-color);
+    box-shadow: 0 2px 4px rgba(0, 106, 113, 0.03);
+    transform: translateY(0px);
+}
+
+.bank-option-card:hover i {
+    transform: scale(1.01);
+    color: var(--aura-secondary-color);
+}
+
+.bank-option-card.active,
+.bank-option-card.active:hover {
+    border-color: var(--aura-primary-color);
+    background: linear-gradient(135deg, rgba(0, 106, 113, 0.05), rgba(72, 166, 167, 0.05));
+    box-shadow: 0 0 0 3px rgba(0, 106, 113, 0.1);
+}
+
+.selection-description {
+    font-size: 0.95rem;
+    color: #666;
+    margin: 4px 0 12px 0;
+    opacity: 0.8;
+}
+
+/* Bank List Section */
+.bank-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.bank-list-item {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-weight: 500;
+    color: var(--aura-text-color);
+    gap: 12px;
+}
+
+.bank-list-item i {
+    font-size: 1.1rem;
+    color: var(--aura-primary-color);
+}
+
+.bank-list-item span {
+    flex: 1;
+}
+
+.bank-list-item::before {
+    display: none;
+}
+
+.bank-list-item .fa-chevron-right {
+    color: var(--aura-secondary-color);
+    opacity: 0.6;
+    font-size: 0.75rem;
+}
+
+.bank-list-item:hover {
+    background: transparent;
+    border-color: var(--aura-secondary-color);
+    box-shadow: none;
+    transform: translateX(0px);
+}
+
+.bank-list-item:hover i:last-child {
+    transform: translateX(0px);
+}
+
+.method-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 18px;
+    display: grid;
+    gap: 8px;
+    text-align: left;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.method-card i {
+    font-size: 1.4rem;
+    color: var(--aura-primary-color);
+}
+
+.method-card:hover,
+.method-card.active {
+    transform: translateY(0px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+    border-color: var(--aura-secondary-color);
+}
+
+.deposit-form-section {
+    grid-column: 1 / -1;
+}
+
+.form-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: var(--shadow);
+    display: grid;
+    gap: 18px;
+    animation: slideInUp 0.3s ease-out;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-card h2 {
+    font-size: 1.5rem;
+    color: var(--aura-text-color);
+    margin: 0;
+}
+
+.btn-scan-qr {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
+}
+
+.btn-scan-qr:hover {
+    background: linear-gradient(135deg, #45a049, #3d8b40);
+    transform: translateY(0px);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.08);
+}
+
+.btn-scan-qr i {
+    font-size: 1rem;
+}
+
+.sender-qr-info {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.05), rgba(76, 175, 80, 0.02));
+    border: 1px solid rgba(76, 175, 80, 0.2);
+    border-radius: 10px;
+    padding: 14px;
+    animation: slideInUp 0.3s ease-out;
+}
+
+.qr-info-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    color: #2e7d32;
+    font-weight: 600;
+}
+
+.qr-info-header i {
+    color: #4CAF50;
+}
+
+.qr-info-details {
+    display: grid;
+    gap: 10px;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    font-size: 0.9rem;
+}
+
+.info-item .label {
+    color: #666;
+    font-weight: 500;
+}
+
+.info-item .value {
+    color: var(--aura-primary-color);
+    font-weight: 700;
+}
+
+.back-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--aura-primary-color);
+    padding: 8px 14px;
+    border-radius: 10px;
+    width: fit-content;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.back-btn:hover {
+    background: rgba(0, 106, 113, 0.02);
+    border-color: var(--aura-primary-color);
+    color: var(--aura-primary-color);
+    transform: translateX(0px);
+}
+
+.deposit-form {
+    display: grid;
+    gap: 16px;
+}
+
+.form-group {
+    display: grid;
+    gap: 8px;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #333;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    font-size: 0.95rem;
+    background: #FBFAF7;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group textarea { resize: vertical; min-height: 120px; }
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--aura-secondary-color);
+    box-shadow: 0 0 0 3px rgba(72, 166, 167, 0.18);
+    background: #fff;
+}
+
+.amount-input {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.amount-input .currency {
+    font-weight: 700;
+    color: var(--aura-primary-color);
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, var(--aura-primary-color), var(--aura-secondary-color));
+    color: #fff;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.deposit-info-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+}
+
+.info-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 18px;
+    box-shadow: var(--shadow);
+}
+
+.info-card h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--aura-primary-color);
+    margin-bottom: 12px;
+    font-size: 1rem;
+}
+
+.limit-item,
+.history-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.limit-item:last-child,
+.history-item:last-child { border-bottom: none; }
+
+.limit-value { font-weight: 700; color: var(--aura-primary-color); }
+
+.history-amount { font-weight: 700; color: var(--aura-secondary-color); }
+
+.history-date { color: #777; font-size: 0.9rem; }
+
+.footer-content { padding: 30px 5%; background: var(--aura-primary-color); color: #fff; display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+.footer-column h3 { margin-bottom: 10px; }
+.footer-column ul { list-style: none; display: grid; gap: 6px; }
+.footer-column a { color: rgba(255,255,255,0.85); text-decoration: none; }
+.footer-bottom { text-align: center; padding: 12px 5%; background: #00454b; color: #dff4f4; font-size: 0.9rem; }
+
+@media (max-width: 960px) {
+    .deposit-content { grid-template-columns: 1fr; }
+    .deposit-methods { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+    .bank-options { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+    main { padding: 90px 5% 50px; }
+    .deposit-header h1 { font-size: 1.5rem; }
+    .deposit-header { padding: 20px; }
+    .form-card { padding: 16px; }
+    .bank-option-card { padding: 18px; }
+    .bank-option-card i { font-size: 1.8rem; }
+    .bank-list-item { padding: 12px 14px; }
+    .bank-list-item:hover { transform: translateX(0px); }
+    .deposit-info-section { grid-template-columns: 1fr; }
+}
+
+.submit-btn:hover {
+    background: linear-gradient(135deg, #005559, #3d9599);
+    transform: translateY(0px);
+    box-shadow: 0 4px 12px rgba(0, 106, 113, 0.08);
+}
+
+.deposit-limits {
+    margin-bottom: 0;
+}
+
+.deposit-history {
+    margin-bottom: 0;
+}
+
+/* ==================== QR Modal Styles for Deposit ==================== */
+.qr-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.qr-modal.active {
+    display: flex;
+    opacity: 1;
+}
+
+.qr-modal-content {
+    background: white;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+    animation: modalSlideInUp 0.4s ease-out;
+}
+
+.qr-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px;
+    border-bottom: 2px solid #f0f0f0;
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.05), rgba(76, 175, 80, 0.05));
+}
+
+.qr-modal-header h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+.qr-close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #666;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.qr-close-btn:hover {
+    color: #1a1a1a;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.qr-modal-body {
+    padding: 24px;
+}
+
+.qr-reader {
+    display: none;
+    width: 100%;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.qr-instructions {
+    text-align: center;
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.btn-scan-start,
+.btn-scan-stop {
+    width: 100%;
+    padding: 12px;
+    margin-top: 12px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #4caf50, #45a049);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.btn-scan-start:hover,
+.btn-scan-stop:hover {
+    box-shadow: 0 2px 6px rgba(76, 175, 80, 0.08);
+    transform: translateY(0px);
+}
+
+.sender-qr-info {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(76, 175, 80, 0.05));
+    border-left: 4px solid #4caf50;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.qr-info-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #4caf50;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.qr-info-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+.info-item .label {
+    color: #666;
+    font-weight: 500;
+}
+
+.info-item .value {
+    color: #1a1a1a;
+    font-weight: 600;
+}
+
+/* ==================== Modal Animation ==================== */
+@keyframes modalSlideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
