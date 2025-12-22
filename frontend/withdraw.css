@@ -1,0 +1,216 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --aura-primary-color: #006A71;
+    --aura-secondary-color: #48A6A7;
+    --aura-background-color: #F2EFE7;
+    --aura-text-color: #1E1E1E;
+    --card-bg: #FFFFFF;
+    --border-color: #E3DCD2;
+    --shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+html { background: var(--aura-background-color); overflow-x: hidden; }
+html::before { display: none !important; }
+html::after { display: none !important; }
+
+body { background: var(--aura-background-color); color: var(--aura-text-color); min-height: 100vh; overflow-x: hidden; }
+body::before { display: none !important; }
+body::after { display: none !important; }
+main { padding: 80px 0 0 0; min-height: 100vh; }
+
+.withdraw-container { width: 100%; display: flex; flex-direction: column; gap: 28px; padding: 0 2%; }
+
+.withdraw-header { background: linear-gradient(135deg, var(--aura-primary-color), var(--aura-secondary-color)); color: #fff; padding: 26px; border-radius: 16px; box-shadow: var(--shadow); }
+.withdraw-header h1 { display: flex; align-items: center; gap: 10px; font-size: 1.8rem; margin-bottom: 6px; }
+.withdraw-header p { opacity: 0.9; }
+
+.withdraw-content { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 22px; }
+
+.withdraw-form-section .form-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 22px; box-shadow: var(--shadow); display: grid; gap: 16px; }
+.withdraw-form h2 { color: var(--aura-primary-color); margin-bottom: 6px; }
+.withdraw-form { display: grid; gap: 14px; }
+
+.form-group { display: grid; gap: 8px; }
+.form-group label { font-weight: 600; color: #333; }
+.form-group input, .form-group select, .form-group textarea { padding: 12px 14px; border-radius: 12px; border: 1px solid var(--border-color); background: #FBFAF7; font-size: 0.95rem; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+.form-group textarea { resize: vertical; min-height: 110px; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--aura-secondary-color); box-shadow: 0 0 0 3px rgba(72,166,167,0.18); background: #fff; }
+
+.amount-input { display: flex; align-items: center; gap: 8px; }
+.amount-input .currency { font-weight: 700; color: var(--aura-primary-color); }
+
+.submit-btn { background: linear-gradient(135deg, var(--aura-primary-color), var(--aura-secondary-color)); color: #fff; border: none; padding: 14px; border-radius: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px; box-shadow: var(--shadow); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.submit-btn:hover { transform: translateY(0px); box-shadow: 0 4px 12px rgba(0, 106, 113, 0.08); }
+
+.withdraw-info-section { display: grid; gap: 16px; }
+.info-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px; padding: 18px; box-shadow: var(--shadow); }
+.info-card h3 { display: flex; align-items: center; gap: 10px; color: var(--aura-primary-color); margin-bottom: 12px; font-size: 1rem; }
+
+.balance-display { display: grid; gap: 10px; }
+.balance-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed var(--border-color); }
+.balance-item:last-child { border-bottom: none; }
+.balance-amount { font-weight: 700; color: var(--aura-secondary-color); }
+.balance-item.total .balance-amount { color: var(--aura-primary-color); }
+
+.limit-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed var(--border-color); }
+.limit-item:last-child { border-bottom: none; }
+.limit-value { font-weight: 700; color: var(--aura-primary-color); }
+.limit-info { margin-top: 10px; color: #666; font-size: 0.93rem; }
+
+.withdrawal-list { display: grid; gap: 12px; }
+.withdrawal-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed var(--border-color); }
+.withdrawal-item:last-child { border-bottom: none; }
+.withdrawal-amount { font-weight: 700; color: var(--aura-primary-color); }
+.withdrawal-date { color: #777; font-size: 0.9rem; }
+
+.footer-content { padding: 30px 5%; background: var(--aura-primary-color); color: #fff; display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+.footer-column h3 { margin-bottom: 10px; }
+.footer-column ul { list-style: none; display: grid; gap: 6px; }
+.footer-column a { color: rgba(255,255,255,0.85); text-decoration: none; }
+.footer-bottom { text-align: center; padding: 12px 5%; background: #00454b; color: #dff4f4; font-size: 0.9rem; }
+
+@media (max-width: 960px) {
+    .withdraw-content { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+    main { padding: 90px 5% 50px; }
+    .withdraw-header h1 { font-size: 1.5rem; }
+}
+
+/* ===== ANIMATIONS ===== */
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-25px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInUp {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(25px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+.withdraw-header { animation: fadeInDown 0.7s ease-out; }
+.withdraw-header h1 { animation: slideInUp 0.6s ease-out 0.1s both; }
+.withdraw-header p { animation: slideInUp 0.6s ease-out 0.2s both; }
+
+.withdraw-form-section {
+    animation: slideInUp 0.7s ease-out 0.3s both;
+}
+
+.form-card {
+    animation: scaleIn 0.6s ease-out 0.3s both;
+}
+
+.form-card h2 { animation: fadeInDown 0.6s ease-out; }
+
+.form-group {
+    animation: slideInUp 0.6s ease-out backwards;
+}
+
+.form-group:nth-child(1) { animation-delay: 0.4s; }
+.form-group:nth-child(2) { animation-delay: 0.45s; }
+.form-group:nth-child(3) { animation-delay: 0.5s; }
+.form-group:nth-child(4) { animation-delay: 0.55s; }
+.form-group:nth-child(5) { animation-delay: 0.6s; }
+.form-group:nth-child(6) { animation-delay: 0.65s; }
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    animation: float 0.4s ease;
+}
+
+.submit-btn {
+    animation: slideInUp 0.7s ease-out 0.75s both;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.submit-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.5s ease, height 0.5s ease;
+}
+
+.submit-btn:active::after {
+    width: 300px;
+    height: 300px;
+}
+
+.withdraw-info-section {
+    animation: slideInRight 0.7s ease-out 0.4s both;
+}
+
+.info-card {
+    animation: scaleIn 0.6s ease-out backwards;
+}
+
+.account-balance { animation-delay: 0.4s; }
+.withdrawal-limits { animation-delay: 0.5s; }
+.recent-withdrawals { animation-delay: 0.6s; }
+
+.info-card h3 {
+    animation: fadeInDown 0.6s ease-out;
+}
+
+.balance-item,
+.limit-item,
+.withdrawal-item {
+    animation: slideInUp 0.5s ease-out backwards;
+    transition: all 0.3s ease;
+}
+
+.balance-item:nth-child(1),
+.limit-item:nth-child(1),
+.withdrawal-item:nth-child(1) { animation-delay: 0.4s; }
+
+.balance-item:nth-child(2),
+.limit-item:nth-child(2),
+.withdrawal-item:nth-child(2) { animation-delay: 0.5s; }
+
+.balance-item:nth-child(3),
+.limit-item:nth-child(3),
+.withdrawal-item:nth-child(3) { animation-delay: 0.6s; }
+
+.balance-item:hover,
+.limit-item:hover,
+.withdrawal-item:hover {
+    padding-left: 0px;
+    background: transparent;
+}
+
+.balance-amount {
+    animation: pulse 2s ease-in-out infinite;
+}

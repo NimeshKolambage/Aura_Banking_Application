@@ -1,0 +1,8 @@
+C:\Users\2\Downloads\bankapop\Aura_Banking_Application\backend-springboot\src\main\java\com\aurabank\AuraBankingApplication.java
+C:\Users\2\Downloads\bankapop\Aura_Banking_Application\backend-springboot\src\main\java\com\aurabank\controllers\AuthController.java
+C:\Users\2\Downloads\bankapop\Aura_Banking_Application\backend-springboot\src\main\java\com\aurabank\dto\ApiResponse.java
+C:\Users\2\Downloads\bankapop\Aura_Banking_Application\backend-springboot\src\main\java\com\aurabank\dto\SignupRequest.java
+C:\Users\2\Downloads\bankapop\Aura_Banking_Application\backend-springboot\src\main\java\com\aurabank\models\User.java
+C:\Users\2\Downloads\bankapop\Aura_Banking_Application\backend-springboot\src\main\java\com\aurabank\repositories\UserRepository.java
+C:\Users\2\Downloads\bankapop\Aura_Banking_Application\backend-springboot\src\main\java\com\aurabank\services\impl\UserServiceImpl.java
+C:\Users\2\Downloads\bankapop\Aura_Banking_Application\backend-springboot\src\main\java\com\aurabank\services\UserService.java
