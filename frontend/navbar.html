@@ -1,32 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="navbar.css">
-    
-</head>
-<body>
-    
-    <header class="header">
-        <div class="logo-container">
-            <a href="#" class="logo"><img src="components/logo.png" alt="Aura Bank Logo"></a>
-            <a href="#" class="logoname"><img src="components/logoname.png" alt="Aura Bank Logo"></a>
+<section class="navbar">
+    <div class="navbar-content">
+        <div class="bank-branding">
+            <img src="components/logo.png" alt="Aura Bank Logo" class="navbar-logo">
+            <img src="components/logonamew.png" alt="Aura Bank" class="bank-name-logo">
         </div>
-        <nav class="navbar">
-            <ul class="nav_links">
-                <li><a href="#">About</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="login.html"><button class="login-btn"> Log in</button></a></li>
-            </ul>
-            <div class="three-line-menu">
+    </div>
+    <div class="navbar-actions">
+        <ul class="nav_links">
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="login.html"><button class="login-btn">Log in</button></a></li>
+        </ul>
+        <div class="three-line-menu">
             <div></div>
             <div></div>
             <div></div>
         </div>
-        </nav>
-    </header>
+    </div>
+</section>
 
 <script>
     const navLinks = document.querySelector('.nav_links');
@@ -39,10 +31,9 @@
         }
     }
 
-    
     if (menuToggle) {
         menuToggle.addEventListener('click', (e) => {
-            e.stopPropagation(); 
+            e.stopPropagation();
             if (window.innerWidth <= 768) {
                 const isActive = navLinks.classList.contains('nav-active');
                 if (isActive) {
@@ -55,7 +46,6 @@
         });
     }
 
-    
     document.querySelectorAll('.nav_links a, .login-btn').forEach(element => {
         element.addEventListener('click', () => {
             if (window.innerWidth <= 768) {
@@ -64,12 +54,9 @@
         });
     });
 
-   
     document.addEventListener('click', (e) => {
         if (window.innerWidth <= 768) {
-            
             if (navLinks.classList.contains('nav-active')) {
-               
                 if (!e.target.closest('.nav_links') && !e.target.closest('.three-line-menu')) {
                     closeMenu();
                 }
@@ -77,12 +64,9 @@
         }
     });
 
-    
     window.addEventListener('resize', () => {
         if (window.innerWidth > 768) {
             closeMenu();
         }
     });
 </script>
-</body>
-</html>

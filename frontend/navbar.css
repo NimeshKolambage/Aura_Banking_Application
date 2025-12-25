@@ -1,42 +1,64 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+:root {
+    --aura-primary-color: #006A71;
+    --aura-secondary-color: #48A6A7;
+    --aura-background-color: #F2EFE7;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
 
 body {
-    background-color: #ffffff;
+    background-color: var(--aura-background-color);
     margin: 0;
     padding: 0;
 }
 
-.header {
-    width: 100%;
-    height: 80px;
+/* Navbar - Exact match with dashboard */
+.navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 1%;
-    position: fixed;
-    top: 0;
-    z-index: 1000;
+    margin: 10px 15px 15px 15px;
+    padding: 12px 25px;
+    background: linear-gradient(135deg, var(--aura-primary-color) 0%, var(--aura-secondary-color) 100%);
+    border-radius: 10px;
+    color: #FFFFFF;
+    box-shadow: 0 2px 8px rgba(0, 106, 113, 0.15);
+    min-height: 70px;
 }
 
-.logo-container {
+.navbar-content {
     display: flex;
     align-items: center;
 }
 
-.logo img {
-    height: 70px;
-    margin-right: -35px;
-}
-
-.logoname img {
-    height: 170px;
-}
-
-
-.navbar {
+.bank-branding {
     display: flex;
     align-items: center;
+    gap: 15px;
+}
+
+.navbar-logo {
+    height: 65px;
+    transform: scale(1.5);
+}
+
+.bank-name-logo {
+    height: 75px;
+    padding-left: 10px;
+    transform: scale(2.0);
+}
+
+.navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .nav_links {
@@ -46,37 +68,38 @@ body {
     transition: transform 0.5s ease-in;
 }
 
-
 .nav_links li {
     margin-left: 30px;
 }
 
 .nav_links a {
     text-decoration: none;
-    color: #006A71;
+    color: #FFFFFF;
     font-weight: 500;
     transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .nav_links a:hover {
-    color: #48A6A7;
-    transform: scale(1.1);
+    color: #FFE066;
 }
 
 .login-btn {
-    background-color: #006A71;
-    color:#F2EFE7;
-    border: none;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-weight: 500;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #FFFFFF;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.85rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .login-btn:hover {
-    background-color: #008080;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
 }
+
 .three-line-menu {
     display: none;
     flex-direction: column;
@@ -88,32 +111,163 @@ body {
 
 .three-line-menu div {
     height: 3px;
-    background-color: black; 
+    background-color: #FFFFFF;
     border-radius: 2px;
     transition: all 0.3s ease;
 }
 
-
 main {
-    padding-top: 80px;
+    padding-top: 10px;
     min-height: calc(100vh - 80px);
+}
+
+/* Footer Styles */
+.footer {
+    background: linear-gradient(135deg, var(--aura-primary-color) 0%, #004a4f 100%);
+    color: #FFFFFF;
+    margin-top: 30px;
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 25px 30px;
+    align-items: start;
+}
+
+.footer-section h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #FFE066;
+}
+
+.footer-brand {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.footer-logo {
+    height: 120px;
+    width: auto;
+    object-fit: contain;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 8px;
+}
+
+.footer-section ul li a {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 0.9rem;
+    opacity: 0.85;
+}
+
+.footer-section ul li a:hover {
+    opacity: 1;
+    color: #FFE066;
+}
+
+.footer-contact li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    opacity: 0.85;
+}
+
+.footer-contact li i {
+    width: 16px;
+    color: var(--aura-secondary-color);
+}
+
+.footer-bottom {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px 25px;
+}
+
+.footer-bottom-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.footer-bottom-content p {
+    margin: 0;
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+.footer-links {
+    display: flex;
+    gap: 20px;
+}
+
+.footer-links a {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+.footer-links a:hover {
+    opacity: 1;
+    color: #FFE066;
+}
+
+.footer-security {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+.footer-security i {
+    color: var(--aura-secondary-color);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 992px) {
+    .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media screen and (max-width: 768px) {
     .header {
-        padding: 0 5%;
-        height: 70px;
+        padding: 10px 15px;
+        min-height: 65px;
     }
 
-    .logo-container {
-        margin-left: 0;
+    .navbar-logo {
+        height: 40px;
     }
-    
+
+    .bank-name-logo {
+        height: 35px;
+    }
+
     .nav_links {
         position: fixed;
         right: 0;
         top: 0;
-        background-color: #ffffff; 
+        background: linear-gradient(135deg, var(--aura-primary-color) 0%, var(--aura-secondary-color) 100%);
         flex-direction: column;
         align-items: center;
         width: 70%;
@@ -121,52 +275,71 @@ main {
         height: 100vh;
         transform: translateX(100%);
         padding-top: 100px;
-        box-shadow: -4px 0 6px rgba(0,0,0,0.2);
+        box-shadow: -4px 0 6px rgba(0, 0, 0, 0.2);
         z-index: 999;
     }
 
     .nav_links li {
         margin: 20px 0;
     }
-    
+
     .nav_links a {
-        color: #006A71; 
+        color: #FFFFFF;
         font-size: 1.2rem;
     }
 
     .nav_links.nav-active {
         transform: translateX(0);
     }
-    
+
     .three-line-menu {
         display: flex;
         z-index: 1001;
     }
 }
 
+@media screen and (max-width: 576px) {
+    .footer-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .footer-brand {
+        justify-content: center;
+    }
+
+    .footer-contact li {
+        justify-content: center;
+    }
+
+    .footer-bottom-content {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
 @media screen and (max-width: 480px) {
     .header {
-        padding: 0 4%; 
+        padding: 8px 12px;
     }
-    
-    .logo img {
-        height: 60px;
+
+    .navbar-logo {
+        height: 35px;
     }
-    
-    .logoname img {
-        height: 130px;
-    }
-    .logo img {
-        margin-right: -25px; 
+
+    .bank-name-logo {
+        height: 30px;
     }
 }
 
 .three-line-menu.active div:nth-child(1) {
     transform: translateY(8px) rotate(45deg);
 }
+
 .three-line-menu.active div:nth-child(2) {
     opacity: 0;
 }
+
 .three-line-menu.active div:nth-child(3) {
     transform: translateY(-8px) rotate(-45deg);
 }

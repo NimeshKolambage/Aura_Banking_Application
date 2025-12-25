@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill Payment - Aura Bank</title>
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="billpayment.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <section class="navbar">
+        <div class="navbar-content">
+            <div class="bank-branding">
+                <a href="dashboard.html"><img src="components/logo.png" alt="Aura Bank Logo" class="navbar-logo"></a>
+                <a href="dashboard.html"><img src="components/logonamew.png" alt="Aura Bank" class="bank-name-logo"></a>
+            </div>
+        </div>
+        <div class="navbar-actions">
+            <a href="login.html" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </a>
+        </div>
+    </section>
+
+    <main>
+        <div class="bill-container">
+            <div class="bill-header">
+                <div>
+                    <h1><i class="fas fa-file-invoice-dollar"></i> Pay Your Bills</h1>
+                    <p>Manage and schedule your bill payments in one place</p>
+                </div>
+                <div class="bill-actions">
+                    <button class="add-biller-btn"><i class="fas fa-plus"></i> Add Biller</button>
+                    <button class="history-btn"><i class="fas fa-list"></i> Payment History</button>
+                </div>
+            </div>
+
+            <div class="bill-grid">
+                <section class="card form-card">
+                    <div class="card-header">
+                        <h2>Payment Details</h2>
+                        <span class="badge">Scheduled Supported</span>
+                    </div>
+
+                    <form class="bill-form">
+                        <div class="form-group">
+                            <label for="biller">Select Biller</label>
+                            <select id="biller" required>
+                                <option value="">Choose biller</option>
+                                <option value="electric">Electric Company</option>
+                                <option value="water">Water Utility</option>
+                                <option value="internet">Internet Provider</option>
+                                <option value="rent">Apartment Rent</option>
+                                <option value="credit">Credit Card</option>
+                            </select>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="from-account">Pay From</label>
+                                <select id="from-account" required>
+                                    <option value="">Select account</option>
+                                    <option value="savings">Savings - ****1234 ($12,450.50)</option>
+                                    <option value="checking">Checking - ****5678 ($5,200.00)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="amount">Amount</label>
+                                <div class="amount-input">
+                                    <span class="currency">$</span>
+                                    <input type="number" id="amount" placeholder="0.00" step="0.01" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="due-date">Due Date</label>
+                                <input type="date" id="due-date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="schedule">Payment Type</label>
+                                <select id="schedule">
+                                    <option value="one-time">One-time</option>
+                                    <option value="weekly">Weekly</option>
+                                    <option value="monthly">Monthly</option>
+                                    <option value="quarterly">Quarterly</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="note">Note (optional)</label>
+                            <textarea id="note" rows="3" placeholder="Add a short note"></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-check"></i> Confirm Payment
+                        </button>
+                    </form>
+                </section>
+
+                <section class="card side-card">
+                    <h3>Upcoming Bills</h3>
+                    <div class="bill-list">
+                        <div class="bill-item">
+                            <div class="bill-info">
+                                <i class="fas fa-lightbulb bill-icon"></i>
+                                <div>
+                                    <p class="name">Electricity</p>
+                                    <p class="meta">Due Dec 20 • Auto-pay on</p>
+                                </div>
+                            </div>
+                            <span class="amount">$145.50</span>
+                        </div>
+                        <div class="bill-item">
+                            <div class="bill-info">
+                                <i class="fas fa-water bill-icon"></i>
+                                <div>
+                                    <p class="name">Water</p>
+                                    <p class="meta">Due Dec 25 • Manual</p>
+                                </div>
+                            </div>
+                            <span class="amount">$45.00</span>
+                        </div>
+                        <div class="bill-item">
+                            <div class="bill-info">
+                                <i class="fas fa-wifi bill-icon"></i>
+                                <div>
+                                    <p class="name">Internet</p>
+                                    <p class="meta">Due Dec 28 • Auto-pay on</p>
+                                </div>
+                            </div>
+                            <span class="amount">$79.99</span>
+                        </div>
+                    </div>
+
+                    <h3>Saved Billers</h3>
+                    <div class="biller-tags">
+                        <span class="tag">Power Utility</span>
+                        <span class="tag">City Water</span>
+                        <span class="tag">FiberNet</span>
+                        <span class="tag">Apartment Rent</span>
+                        <span class="tag">Credit Card</span>
+                    </div>
+
+                    <h3>Payment Limits</h3>
+                    <div class="limits">
+                        <div class="limit-row"><span>Per payment</span><span>$5,000</span></div>
+                        <div class="limit-row"><span>Daily</span><span>$15,000</span></div>
+                        <div class="limit-row"><span>Monthly</span><span>$60,000</span></div>
+                        <p class="note">Need higher limits? Contact support to request a temporary increase.</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <div class="footer-brand">
+                    <img src="components/logo.png" alt="Aura Bank" class="footer-logo">
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="#">Personal Banking</a></li>
+                    <li><a href="#">Business Banking</a></li>
+                    <li><a href="#">Loans</a></li>
+                    <li><a href="#">Investments</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <ul class="footer-contact">
+                    <li><i class="fas fa-phone"></i> 1-800-AURA-BANK</li>
+                    <li><i class="fas fa-envelope"></i> support@aurabank.com</li>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Finance Street, NY</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <p>&copy; 2025 Aura Bank. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Security</a>
+                </div>
+                <div class="footer-security">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>FDIC Insured | Equal Housing Lender</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const navLinks = document.querySelector('.nav_links');
+        const menuToggle = document.querySelector('.three-line-menu');
+        const closeMenu = () => { navLinks.classList.remove('nav-active'); menuToggle.classList.remove('active'); }
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (window.innerWidth <= 768) {
+                navLinks.classList.toggle('nav-active');
+                menuToggle.classList.toggle('active');
+            }
+        });
+        document.querySelectorAll('.nav_links a, .login-btn').forEach(el => el.addEventListener('click', () => {
+            if (window.innerWidth <= 768) closeMenu();
+        }));
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768 && navLinks.classList.contains('nav-active') && !e.target.closest('.nav_links') && !e.target.closest('.three-line-menu')) {
+                closeMenu();
+            }
+        });
+        window.addEventListener('resize', () => { if (window.innerWidth > 768) closeMenu(); });
+    </script>
+</body>
+
+</html>

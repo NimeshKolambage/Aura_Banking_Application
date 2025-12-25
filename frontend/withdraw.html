@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdraw - Aura Bank</title>
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="withdraw.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <section class="navbar">
+        <div class="navbar-content">
+            <div class="bank-branding">
+                <a href="dashboard.html"><img src="components/logo.png" alt="Aura Bank Logo" class="navbar-logo"></a>
+                <a href="dashboard.html"><img src="components/logonamew.png" alt="Aura Bank" class="bank-name-logo"></a>
+            </div>
+        </div>
+        <div class="navbar-actions">
+            <a href="login.html" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </a>
+        </div>
+    </section>
+
+    <main>
+        <div class="withdraw-container">
+            <div class="withdraw-header">
+                <h1><i class="fas fa-money-bill-wave"></i> Withdraw Funds</h1>
+                <p>Withdraw money from your account</p>
+            </div>
+
+            <div class="withdraw-content">
+                <div class="withdraw-form-section">
+                    <div class="form-card">
+                        <h2>Withdrawal Details</h2>
+                        <form class="withdraw-form">
+                            <div class="form-group">
+                                <label for="from-account">Withdraw From Account</label>
+                                <select id="from-account" required>
+                                    <option value="">Select Account</option>
+                                    <option value="savings">Savings Account - ****1234 (Available: $12,450.50)</option>
+                                    <option value="checking">Checking Account - ****5678 (Available: $5,200.00)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="withdraw-method">Withdrawal Method</label>
+                                <select id="withdraw-method" required>
+                                    <option value="">Select Method</option>
+                                    <option value="atm">ATM Withdrawal</option>
+                                    <option value="bank-check">Bank Check</option>
+                                    <option value="wire-transfer">Wire Transfer</option>
+                                    <option value="debit-card">Debit Card Withdrawal</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="amount">Amount</label>
+                                <div class="amount-input">
+                                    <span class="currency">$</span>
+                                    <input type="number" id="amount" placeholder="0.00" step="0.01" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="withdrawal-date">Desired Withdrawal Date</label>
+                                <input type="date" id="withdrawal-date" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="purpose">Purpose (Optional)</label>
+                                <select id="purpose">
+                                    <option value="">Select Purpose</option>
+                                    <option value="personal">Personal Expenses</option>
+                                    <option value="business">Business</option>
+                                    <option value="emergency">Emergency</option>
+                                    <option value="savings">Savings</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="notes">Additional Notes (Optional)</label>
+                                <textarea id="notes" placeholder="Add any special instructions" rows="3"></textarea>
+                            </div>
+
+                            <button type="submit" class="submit-btn">
+                                <i class="fas fa-arrow-down"></i> Process Withdrawal
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="withdraw-info-section">
+                    <div class="info-card account-balance">
+                        <h3>Account Balance</h3>
+                        <div class="balance-display">
+                            <div class="balance-item">
+                                <span class="balance-label">Savings Account</span>
+                                <span class="balance-amount">$12,450.50</span>
+                            </div>
+                            <div class="balance-item">
+                                <span class="balance-label">Checking Account</span>
+                                <span class="balance-amount">$5,200.00</span>
+                            </div>
+                            <div class="balance-item total">
+                                <span class="balance-label">Total Available</span>
+                                <span class="balance-amount">$17,650.50</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-card withdrawal-limits">
+                        <h3><i class="fas fa-shield-alt"></i> Withdrawal Limits</h3>
+                        <div class="limit-item">
+                            <span>Daily ATM Limit</span>
+                            <span class="limit-value">$500</span>
+                        </div>
+                        <div class="limit-item">
+                            <span>Daily Withdrawal Limit</span>
+                            <span class="limit-value">$5,000</span>
+                        </div>
+                        <div class="limit-item">
+                            <span>Monthly Limit</span>
+                            <span class="limit-value">$25,000</span>
+                        </div>
+                        <div class="limit-info">
+                            <p>Wire transfers may have different limits. Contact us for more information.</p>
+                        </div>
+                    </div>
+
+                    <div class="info-card recent-withdrawals">
+                        <h3>Recent Withdrawals</h3>
+                        <div class="withdrawal-list">
+                            <div class="withdrawal-item">
+                                <div class="withdrawal-info">
+                                    <p class="withdrawal-type">ATM Withdrawal</p>
+                                    <p class="withdrawal-date">Dec 15, 2024</p>
+                                </div>
+                                <p class="withdrawal-amount">-$300.00</p>
+                            </div>
+
+                            <div class="withdrawal-item">
+                                <div class="withdrawal-info">
+                                    <p class="withdrawal-type">Bank Check</p>
+                                    <p class="withdrawal-date">Dec 10, 2024</p>
+                                </div>
+                                <p class="withdrawal-amount">-$1,200.00</p>
+                            </div>
+
+                            <div class="withdrawal-item">
+                                <div class="withdrawal-info">
+                                    <p class="withdrawal-type">ATM Withdrawal</p>
+                                    <p class="withdrawal-date">Dec 5, 2024</p>
+                                </div>
+                                <p class="withdrawal-amount">-$200.00</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <div class="footer-brand">
+                    <img src="components/logo.png" alt="Aura Bank" class="footer-logo">
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="#">Personal Banking</a></li>
+                    <li><a href="#">Business Banking</a></li>
+                    <li><a href="#">Loans</a></li>
+                    <li><a href="#">Investments</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <ul class="footer-contact">
+                    <li><i class="fas fa-phone"></i> 1-800-AURA-BANK</li>
+                    <li><i class="fas fa-envelope"></i> support@aurabank.com</li>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Finance Street, NY</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <p>&copy; 2025 Aura Bank. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Security</a>
+                </div>
+                <div class="footer-security">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>FDIC Insured | Equal Housing Lender</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const navLinks = document.querySelector('.nav_links');
+        const menuToggle = document.querySelector('.three-line-menu');
+
+        const closeMenu = () => {
+            navLinks.classList.remove('nav-active');
+            menuToggle.classList.remove('active');
+        }
+
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (window.innerWidth <= 768) {
+                navLinks.classList.toggle('nav-active');
+                menuToggle.classList.toggle('active');
+            }
+        });
+
+        document.querySelectorAll('.nav_links a').forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) closeMenu();
+        });
+
+        // Form submission
+        document.querySelector('.withdraw-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const amount = document.getElementById('amount').value;
+            alert(`Withdrawal request for $${amount} submitted successfully!`);
+        });
+
+        // Account selection validation
+        document.getElementById('from-account').addEventListener('change', function () {
+            const selectedText = this.options[this.selectedIndex].text;
+            console.log('Selected: ' + selectedText);
+        });
+    </script>
+</body>
+
+</html>
