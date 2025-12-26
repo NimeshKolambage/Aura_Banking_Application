@@ -11,26 +11,24 @@
 </head>
 
 <body>
-    <div id="navbar"></div>
+    <!-- Navbar -->
+    <section class="navbar">
+        <div class="navbar-content">
+            <div class="bank-branding">
+                <a href="dashboard.html"><img src="components/logo.png" alt="Aura Bank Logo" class="navbar-logo"></a>
+                <a href="dashboard.html"><img src="components/logonamew.png" alt="Aura Bank" class="bank-name-logo"></a>
+            </div>
+        </div>
+        <div class="navbar-actions">
+            <a href="login.html" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </a>
+        </div>
+    </section>
 
     <main>
         <div class="dashboard-container">
-            <!-- Navbar -->
-            <section class="navbar">
-                <div class="navbar-content">
-                    <div class="bank-branding">
-                        <img src="components/logo.png" alt="Aura Bank Logo" class="navbar-logo">
-                        <img src="components/logonamew.png" alt="Aura Bank" class="bank-name-logo">
-                    </div>
-                </div>
-                <div class="navbar-actions">
-                    <button class="logout-btn">
-                        <i class="fas fa-sign-out-alt"></i>
-                        Logout
-                    </button>
-                </div>
-            </section>
-
             <!-- Welcome Message -->
             <div class="welcome-message">
                 <p>Welcome back, <span id="user-name">John Doe</span>!</p>
@@ -45,7 +43,7 @@
                         <i class="fas fa-wallet"></i>
                     </div>
                     <div class="balance-amount">
-                        <span class="currency">$</span>
+                        <span class="currency">Rs.</span>
                         <span class="amount" id="balance">12,450</span>
                         <span class="currency">.50</span>
                     </div>
@@ -203,6 +201,57 @@
             </div>
         </div>
     </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <div class="footer-brand">
+                    <img src="components/logo.png" alt="Aura Bank" class="footer-logo">
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="#">Personal Banking</a></li>
+                    <li><a href="#">Business Banking</a></li>
+                    <li><a href="#">Loans</a></li>
+                    <li><a href="#">Investments</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <ul class="footer-contact">
+                    <li><i class="fas fa-phone"></i> 1-800-AURA-BANK</li>
+                    <li><i class="fas fa-envelope"></i> support@aurabank.com</li>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Finance Street, NY</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <p>&copy; 2025 Aura Bank. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Security</a>
+                </div>
+                <div class="footer-security">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>FDIC Insured | Equal Housing Lender</span>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <!-- Include navbar script if you have one -->
     <script src="navbar.js"></script>

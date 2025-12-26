@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment History - Aura Banking</title>
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="paymenthistory.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-university"></i>
+                <span>Aura Bank</span>
+            </div>
+
+            <div class="menu-icon" id="menuIcon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item">
+                    <a href="dashboard.html" class="nav-link">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a href="billpayment.html" class="nav-link">Bill Payment</a>
+                </li>
+                <li class="nav-item">
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a href="login.html" class="nav-link nav-link-logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Header Section -->
+        <div class="page-header">
+            <div class="header-content">
+                <h1>Payment History</h1>
+                <p>View all your bill payment transactions</p>
+            </div>
+            <div class="header-icon">
+                <i class="fas fa-history"></i>
+            </div>
+        </div>
+
+        <!-- Filters Section -->
+        <div class="filters-section">
+            <div class="filter-group">
+                <label for="filterBiller">
+                    <i class="fas fa-building"></i>
+                    Biller
+                </label>
+                <select id="filterBiller">
+                    <option value="">All Billers</option>
+                    <option value="electricity">Electricity Company</option>
+                    <option value="water">City Water</option>
+                    <option value="internet">FiberNet Internet</option>
+                    <option value="rent">Apartment Rent</option>
+                    <option value="credit_card">Credit Card</option>
+                    <option value="insurance">Home Insurance</option>
+                    <option value="phone">Mobile Phone</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="filterStatus">
+                    <i class="fas fa-filter"></i>
+                    Status
+                </label>
+                <select id="filterStatus">
+                    <option value="">All Statuses</option>
+                    <option value="completed">Completed</option>
+                    <option value="pending">Pending</option>
+                    <option value="failed">Failed</option>
+                    <option value="scheduled">Scheduled</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="filterMonth">
+                    <i class="fas fa-calendar"></i>
+                    Month
+                </label>
+                <select id="filterMonth">
+                    <option value="">All Time</option>
+                    <option value="current">This Month</option>
+                    <option value="last">Last Month</option>
+                    <option value="3months">Last 3 Months</option>
+                    <option value="6months">Last 6 Months</option>
+                    <option value="year">This Year</option>
+                </select>
+            </div>
+
+            <button class="btn-search" id="searchBtn">
+                <i class="fas fa-search"></i>
+                Search
+            </button>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="summary-section">
+            <div class="summary-card">
+                <div class="summary-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="summary-content">
+                    <p class="summary-label">Completed Payments</p>
+                    <h3 class="summary-value">42</h3>
+                </div>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-icon pending">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="summary-content">
+                    <p class="summary-label">Pending Payments</p>
+                    <h3 class="summary-value">3</h3>
+                </div>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-icon">
+                    <i class="fas fa-dollar-sign"></i>
+                </div>
+                <div class="summary-content">
+                    <p class="summary-label">Total Paid (This Year)</p>
+                    <h3 class="summary-value">$8,450.25</h3>
+                </div>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-icon warning">
+                    <i class="fas fa-exclamation-circle"></i>
+                </div>
+                <div class="summary-content">
+                    <p class="summary-label">Failed Payments</p>
+                    <h3 class="summary-value">1</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment History Table -->
+        <div class="history-container">
+            <div class="table-header">
+                <h2>Transaction Details</h2>
+                <div class="table-controls">
+                    <input type="text" class="search-box" id="searchBox" placeholder="Search by biller name...">
+                    <button class="btn-export">
+                        <i class="fas fa-download"></i>
+                        Export
+                    </button>
+                </div>
+            </div>
+
+            <!-- Desktop Table View -->
+            <div class="table-wrapper desktop-view">
+                <table class="payment-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Biller Name</th>
+                            <th>Amount</th>
+                            <th>Payment Method</th>
+                            <th>Status</th>
+                            <th>Reference ID</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Row 1 -->
+                        <tr class="payment-row completed" data-status="completed">
+                            <td data-label="Date">
+                                <span class="date-badge">Dec 15, 2024</span>
+                            </td>
+                            <td data-label="Biller">
+                                <div class="biller-info">
+                                    <i class="fas fa-lightbulb"></i>
+                                    <span>Electricity Company</span>
+                                </div>
+                            </td>
+                            <td data-label="Amount">
+                                <span class="amount">$145.50</span>
+                            </td>
+                            <td data-label="Method">
+                                <span class="method-badge">Bank Transfer</span>
+                            </td>
+                            <td data-label="Status">
+                                <span class="status-badge completed">
+                                    <i class="fas fa-check-circle"></i>
+                                    Completed
+                                </span>
+                            </td>
+                            <td data-label="Reference">REF-2024-001</td>
+                            <td data-label="Action">
+                                <button class="btn-action" title="View Details">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Row 2 -->
+                        <tr class="payment-row completed" data-status="completed">
+                            <td data-label="Date">
+                                <span class="date-badge">Dec 10, 2024</span>
+                            </td>
+                            <td data-label="Biller">
+                                <div class="biller-info">
+                                    <i class="fas fa-droplet"></i>
+                                    <span>City Water Company</span>
+                                </div>
+                            </td>
+                            <td data-label="Amount">
+                                <span class="amount">$45.00</span>
+                            </td>
+                            <td data-label="Method">
+                                <span class="method-badge">ACH Transfer</span>
+                            </td>
+                            <td data-label="Status">
+                                <span class="status-badge completed">
+                                    <i class="fas fa-check-circle"></i>
+                                    Completed
+                                </span>
+                            </td>
+                            <td data-label="Reference">REF-2024-002</td>
+                            <td data-label="Action">
+                                <button class="btn-action" title="View Details">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Row 3 -->
+                        <tr class="payment-row pending" data-status="pending">
+                            <td data-label="Date">
+                                <span class="date-badge">Dec 20, 2024</span>
+                            </td>
+                            <td data-label="Biller">
+                                <div class="biller-info">
+                                    <i class="fas fa-wifi"></i>
+                                    <span>FiberNet Internet</span>
+                                </div>
+                            </td>
+                            <td data-label="Amount">
+                                <span class="amount">$79.99</span>
+                            </td>
+                            <td data-label="Method">
+                                <span class="method-badge">Bank Transfer</span>
+                            </td>
+                            <td data-label="Status">
+                                <span class="status-badge pending">
+                                    <i class="fas fa-clock"></i>
+                                    Pending
+                                </span>
+                            </td>
+                            <td data-label="Reference">REF-2024-003</td>
+                            <td data-label="Action">
+                                <button class="btn-action" title="View Details">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Row 4 -->
+                        <tr class="payment-row completed" data-status="completed">
+                            <td data-label="Date">
+                                <span class="date-badge">Dec 1, 2024</span>
+                            </td>
+                            <td data-label="Biller">
+                                <div class="biller-info">
+                                    <i class="fas fa-home"></i>
+                                    <span>Apartment Rent</span>
+                                </div>
+                            </td>
+                            <td data-label="Amount">
+                                <span class="amount">$1,200.00</span>
+                            </td>
+                            <td data-label="Method">
+                                <span class="method-badge">Bank Transfer</span>
+                            </td>
+                            <td data-label="Status">
+                                <span class="status-badge completed">
+                                    <i class="fas fa-check-circle"></i>
+                                    Completed
+                                </span>
+                            </td>
+                            <td data-label="Reference">REF-2024-004</td>
+                            <td data-label="Action">
+                                <button class="btn-action" title="View Details">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Row 5 -->
+                        <tr class="payment-row failed" data-status="failed">
+                            <td data-label="Date">
+                                <span class="date-badge">Nov 28, 2024</span>
+                            </td>
+                            <td data-label="Biller">
+                                <div class="biller-info">
+                                    <i class="fas fa-credit-card"></i>
+                                    <span>Credit Card</span>
+                                </div>
+                            </td>
+                            <td data-label="Amount">
+                                <span class="amount">$350.00</span>
+                            </td>
+                            <td data-label="Method">
+                                <span class="method-badge">Bank Transfer</span>
+                            </td>
+                            <td data-label="Status">
+                                <span class="status-badge failed">
+                                    <i class="fas fa-times-circle"></i>
+                                    Failed
+                                </span>
+                            </td>
+                            <td data-label="Reference">REF-2024-005</td>
+                            <td data-label="Action">
+                                <button class="btn-action" title="View Details">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Row 6 -->
+                        <tr class="payment-row completed" data-status="completed">
+                            <td data-label="Date">
+                                <span class="date-badge">Nov 15, 2024</span>
+                            </td>
+                            <td data-label="Biller">
+                                <div class="biller-info">
+                                    <i class="fas fa-umbrella"></i>
+                                    <span>Home Insurance</span>
+                                </div>
+                            </td>
+                            <td data-label="Amount">
+                                <span class="amount">$280.00</span>
+                            </td>
+                            <td data-label="Method">
+                                <span class="method-badge">ACH Transfer</span>
+                            </td>
+                            <td data-label="Status">
+                                <span class="status-badge completed">
+                                    <i class="fas fa-check-circle"></i>
+                                    Completed
+                                </span>
+                            </td>
+                            <td data-label="Reference">REF-2024-006</td>
+                            <td data-label="Action">
+                                <button class="btn-action" title="View Details">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Row 7 -->
+                        <tr class="payment-row scheduled" data-status="scheduled">
+                            <td data-label="Date">
+                                <span class="date-badge">Jan 5, 2025</span>
+                            </td>
+                            <td data-label="Biller">
+                                <div class="biller-info">
+                                    <i class="fas fa-phone"></i>
+                                    <span>Mobile Phone Service</span>
+                                </div>
+                            </td>
+                            <td data-label="Amount">
+                                <span class="amount">$65.00</span>
+                            </td>
+                            <td data-label="Method">
+                                <span class="method-badge">Bank Transfer</span>
+                            </td>
+                            <td data-label="Status">
+                                <span class="status-badge scheduled">
+                                    <i class="fas fa-calendar-check"></i>
+                                    Scheduled
+                                </span>
+                            </td>
+                            <td data-label="Reference">REF-2025-001</td>
+                            <td data-label="Action">
+                                <button class="btn-action" title="View Details">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Row 8 -->
+                        <tr class="payment-row completed" data-status="completed">
+                            <td data-label="Date">
+                                <span class="date-badge">Nov 5, 2024</span>
+                            </td>
+                            <td data-label="Biller">
+                                <div class="biller-info">
+                                    <i class="fas fa-lightbulb"></i>
+                                    <span>Electricity Company</span>
+                                </div>
+                            </td>
+                            <td data-label="Amount">
+                                <span class="amount">$165.75</span>
+                            </td>
+                            <td data-label="Method">
+                                <span class="method-badge">Bank Transfer</span>
+                            </td>
+                            <td data-label="Status">
+                                <span class="status-badge completed">
+                                    <i class="fas fa-check-circle"></i>
+                                    Completed
+                                </span>
+                            </td>
+                            <td data-label="Reference">REF-2024-007</td>
+                            <td data-label="Action">
+                                <button class="btn-action" title="View Details">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <button class="pagination-btn" id="prevBtn">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="pagination-numbers">
+                <button class="pagination-number active" data-page="1">1</button>
+                <button class="pagination-number" data-page="2">2</button>
+                <button class="pagination-number" data-page="3">3</button>
+                <button class="pagination-number" data-page="4">4</button>
+            </div>
+            <button class="pagination-btn" id="nextBtn">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        const menuIcon = document.getElementById('menuIcon');
+        const navMenu = document.getElementById('navMenu');
+
+        menuIcon.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            menuIcon.classList.toggle('active');
+        });
+
+        // Close menu when a link is clicked
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                menuIcon.classList.remove('active');
+            });
+        });
+
+        // Filter functionality
+        const searchBtn = document.getElementById('searchBtn');
+        const filterBiller = document.getElementById('filterBiller');
+        const filterStatus = document.getElementById('filterStatus');
+        const filterMonth = document.getElementById('filterMonth');
+        const searchBox = document.getElementById('searchBox');
+
+        searchBtn.addEventListener('click', () => {
+            filterPayments();
+        });
+
+        filterBiller.addEventListener('change', filterPayments);
+        filterStatus.addEventListener('change', filterPayments);
+        filterMonth.addEventListener('change', filterPayments);
+        searchBox.addEventListener('input', filterPayments);
+
+        function filterPayments() {
+            const billerFilter = filterBiller.value;
+            const statusFilter = filterStatus.value;
+            const searchText = searchBox.value.toLowerCase();
+
+            const rows = document.querySelectorAll('.payment-row');
+            rows.forEach(row => {
+                let show = true;
+
+                // Status filter
+                if (statusFilter && !row.classList.contains(statusFilter)) {
+                    show = false;
+                }
+
+                // Search filter
+                if (searchText) {
+                    const billerName = row.querySelector('.biller-info span').textContent.toLowerCase();
+                    if (!billerName.includes(searchText)) {
+                        show = false;
+                    }
+                }
+
+                row.style.display = show ? '' : 'none';
+            });
+        }
+
+        // Pagination
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const pageButtons = document.querySelectorAll('.pagination-number');
+
+        pageButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                pageButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        prevBtn.addEventListener('click', () => {
+            const active = document.querySelector('.pagination-number.active');
+            const prevPage = parseInt(active.dataset.page) - 1;
+            if (prevPage > 0) {
+                document.querySelector(`[data-page="${prevPage}"]`).click();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            const active = document.querySelector('.pagination-number.active');
+            const nextPage = parseInt(active.dataset.page) + 1;
+            const lastPage = pageButtons.length;
+            if (nextPage <= lastPage) {
+                document.querySelector(`[data-page="${nextPage}"]`).click();
+            }
+        });
+
+        // Export functionality
+        document.querySelector('.btn-export').addEventListener('click', () => {
+            alert('Payment history exported as CSV!');
+        });
+
+        // View details
+        document.querySelectorAll('.btn-action').forEach(btn => {
+            btn.addEventListener('click', () => {
+                alert('Payment details modal would open here');
+            });
+        });
+    </script>
+</body>
+</html>
