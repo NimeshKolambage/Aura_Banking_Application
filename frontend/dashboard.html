@@ -20,10 +20,10 @@
             </div>
         </div>
         <div class="navbar-actions">
-            <a href="login.html" class="logout-btn">
+            <button id="logoutBtn" class="logout-btn" title="Logout from your account">
                 <i class="fas fa-sign-out-alt"></i>
                 Logout
-            </a>
+            </button>
         </div>
     </section>
 
@@ -255,6 +255,95 @@
 
     <!-- Include navbar script if you have one -->
     <script src="navbar.js"></script>
-</body>
+
+    <script type="module">
+        import { requireAuth, logoutUser, getCurrentUserInfo } from '../backend/authGuard.js';
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/+esm';
+
+        const SUPABASE_URL = 'https://zndmjjeirwbmsptgrwhb.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_edTDcROSO8DdrMfO6WsGAg_Uo9-J1OY';
+        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // Initialize - Check if user is authenticated
+        async function initializeDashboard() {
+            // Require authentication to access this page
+            const isAuthenticated = await requireAuth();
+            if (!isAuthenticated) return;
+
+            // Display user information
+            const userInfo = await getCurrentUserInfo();
+            if (userInfo) {
+                document.getElementById('user-name').textContent = userInfo.fullName || userInfo.email;
+                document.getElementById('account-holder').textContent = userInfo.fullName || userInfo.email;
+                document.getElementById('full-account-holder').textContent = userInfo.fullName || userInfo.email;
+                console.log('User logged in:', userInfo.email);
+            }
+        }
+
+        // Setup logout button
+        document.getElementById('logoutBtn').addEventListener('click', async function (e) {
+            e.preventDefault();
+
+            const logoutBtn = this;
+            const originalHTML = logoutBtn.innerHTML;
+
+            // Show loading state
+            logoutBtn.disabled = true;
+            logoutBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging out...';
+
+            try {
+                // Call logout function from authGuard
+                const result = await logoutUser();
+
+                if (result) {
+                    console.log('Logout successful');
+                    // logoutUser automatically redirects to login.html
+                } else {
+                    // Reset button on error
+                    logoutBtn.disabled = false;
+                    logoutBtn.innerHTML = originalHTML;
+                    alert('Error logging out. Please try again.');
+                }
+            } catch (error) {
+                console.error('Logout error:', error);
+                logoutBtn.disabled = false;
+                logoutBtn.innerHTML = originalHTML;
+                alert('An unexpected error occurred: ' + error.message);
+            }
+        });
+
+        // Add session timeout listener
+        let inactivityTimeout;
+        const INACTIVITY_TIME = 30 * 60 * 1000; // 30 minutes in milliseconds
+
+        function resetInactivityTimeout() {
+            clearTimeout(inactivityTimeout);
+            inactivityTimeout = setTimeout(() => {
+                console.warn('Session expired due to inactivity');
+                alert('Your session has expired due to inactivity. Please log in again.');
+                logoutUser();
+            }, INACTIVITY_TIME);
+        }
+
+        // Reset timeout on user activity
+        document.addEventListener('click', resetInactivityTimeout);
+        document.addEventListener('keypress', resetInactivityTimeout);
+        document.addEventListener('scroll', resetInactivityTimeout);
+        document.addEventListener('mousemove', resetInactivityTimeout);
+
+        // Initial setup
+        resetInactivityTimeout();
+
+        // Setup auth state listener to detect logout from other tabs
+        supabase.auth.onAuthStateChange((event, session) => {
+            if (event === 'SIGNED_OUT') {
+                console.log('User signed out');
+                window.location.href = 'login.html';
+            }
+        });
+
+        // Init on page load
+        initializeDashboard();
+    </script>
 
 </html>

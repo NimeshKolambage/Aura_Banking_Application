@@ -65,9 +65,21 @@
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/+esm"></script>
+
+    <script type="module">
+        // Import Supabase
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/+esm';
+
+        // Initialize Supabase
+        const SUPABASE_URL = 'https://zndmjjeirwbmsptgrwhb.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_edTDcROSO8DdrMfO6WsGAg_Uo9-J1OY';
+        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // Initialize AOS
         AOS.init();
 
+        // Password toggle functionality
         document.getElementById('togglePassword').addEventListener('click', function () {
             const passwordInput = document.getElementById('password');
             const toggleIcon = this.querySelector('i');
@@ -87,40 +99,85 @@
             }
         });
 
-        document.querySelector('form').addEventListener('submit', function (e) {
+        // Form submission - Login with Supabase
+        document.querySelector('form').addEventListener('submit', async function (e) {
             e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
 
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const signInButton = document.querySelector('.sign-in-button');
+            const originalText = signInButton.textContent;
+
+            // Validation
             if (!email || !password) {
-                console.error('Validation Error: Please fill in all fields');
                 alert('Please fill in all fields');
                 return;
             }
 
-            // Simulate checking if account exists
-            const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
-            const userExists = registeredUsers.some(user => user.email === email);
-
-            if (!userExists) {
-                alert('Account not found. Please sign up first.');
-                window.location.href = 'signup.html';
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address');
                 return;
             }
 
-            console.log('Login attempt with:', { email, password });
+            // Password validation
+            if (password.length < 6) {
+                alert('Password must be at least 6 characters long');
+                return;
+            }
 
-            const signInButton = document.querySelector('.sign-in-button');
-            const originalText = signInButton.textContent;
-            signInButton.textContent = "Processing...";
+            // Disable button and show loading state
+            signInButton.disabled = true;
+            signInButton.textContent = "Signing in...";
 
-            setTimeout(() => {
+            try {
+                // Sign in with Supabase
+                const { data, error } = await supabase.auth.signInWithPassword({
+                    email: email,
+                    password: password,
+                });
+
+                if (error) {
+                    console.error('Login Error:', error.message);
+                    alert('Login failed: ' + error.message);
+                    signInButton.disabled = false;
+                    signInButton.textContent = originalText;
+                    return;
+                }
+
+                if (data.user) {
+                    console.log('Login successful:', data.user);
+
+                    // Store user info in sessionStorage for access across pages
+                    sessionStorage.setItem('user_id', data.user.id);
+                    sessionStorage.setItem('user_email', data.user.email);
+                    sessionStorage.setItem('access_token', data.session.access_token);
+
+                    // Redirect to dashboard
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 1000);
+                }
+            } catch (error) {
+                console.error('Unexpected error:', error);
+                alert('An unexpected error occurred: ' + error.message);
+                signInButton.disabled = false;
                 signInButton.textContent = originalText;
-                // In a real application, you'd check the password here.
-                alert('Login successful (simulated)!');
-                // window.location.href = 'dashboard.html';
-            }, 1500);
+            }
         });
+
+        // Check if user is already logged in
+        async function checkAuthStatus() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) {
+                // User is already logged in, redirect to dashboard
+                window.location.href = 'dashboard.html';
+            }
+        }
+
+        // Check auth status on page load
+        checkAuthStatus();
     </script>
 </body>
 
