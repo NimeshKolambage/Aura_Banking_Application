@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification - Aura Bank</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .verification-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .verification-icon {
+            width: 80px;
+            height: 80px;
+            background: #e3f2fd;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 40px;
+            color: #667eea;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .email-display {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .verification-steps {
+            text-align: left;
+            margin: 30px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .verification-steps ol {
+            margin-left: 20px;
+            color: #555;
+            line-height: 2;
+        }
+
+        .verification-steps li {
+            margin-bottom: 10px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-resend {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-resend:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-resend:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-back {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .btn-back:hover {
+            background: #d0d0d0;
+            transform: translateY(-2px);
+        }
+
+        .resend-timer {
+            color: #666;
+            font-size: 13px;
+            margin-top: 15px;
+        }
+
+        .resend-timer.active {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .status-message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .status-message.success {
+            display: block;
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-message.error {
+            display: block;
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+            display: none;
+        }
+
+        .spinner.show {
+            display: block;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .back-link {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .back-link:hover {
+            color: #764ba2;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="verification-container">
+        <a href="login.html" class="back-link">
+            <i class="fa-solid fa-arrow-left"></i> Back to Login
+        </a>
+
+        <div class="spinner" id="spinner"></div>
+
+        <div class="verification-icon">
+            <i class="fa-solid fa-envelope-circle-check"></i>
+        </div>
+
+        <h1>Verify Your Email</h1>
+        <p class="subtitle">We've sent a verification link to your email address. Please check your inbox and click the
+            link to confirm your email.</p>
+
+        <div class="email-display" id="emailDisplay">
+            Loading...
+        </div>
+
+        <div class="status-message" id="statusMessage"></div>
+
+        <div class="verification-steps">
+            <ol>
+                <li>Check your email inbox</li>
+                <li>Click the verification link</li>
+                <li>Your email will be confirmed</li>
+                <li>Return here to login to your account</li>
+            </ol>
+        </div>
+
+        <div class="resend-timer">
+            <p>Didn't receive the email?</p>
+            <button type="button" class="btn-resend" id="resendBtn">Resend Verification Email</button>
+            <p class="timer-text" id="timerText" style="display: none; margin-top: 10px;">
+                Resend available in <span id="timer">60</span>s
+            </p>
+        </div>
+
+        <div class="button-group" style="margin-top: 20px;">
+            <button type="button" class="btn-back" onclick="window.location.href='login.html'">Back to Login</button>
+            <button type="button" class="btn-resend" id="checkVerificationBtn" style="flex: 1;">Check Verification
+                Status</button>
+        </div>
+    </div>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/+esm';
+
+        const SUPABASE_URL = 'https://zndmjjeirwbmsptgrwhb.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_edTDcROSO8DdrMfO6WsGAg_Uo9-J1OY';
+        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        let resendCooldown = 0;
+        const emailDisplay = document.getElementById('emailDisplay');
+        const resendBtn = document.getElementById('resendBtn');
+        const checkBtn = document.getElementById('checkVerificationBtn');
+        const statusMessage = document.getElementById('statusMessage');
+        const timerText = document.getElementById('timerText');
+        const spinner = document.getElementById('spinner');
+
+        // Initialize
+        await initializeVerification();
+
+        async function initializeVerification() {
+            try {
+                const { data: { session } } = await supabase.auth.getSession();
+
+                if (session && session.user) {
+                    emailDisplay.textContent = session.user.email;
+
+                    if (session.user.email_confirmed_at) {
+                        showStatus('Email already verified! Redirecting to login...', 'success');
+                        setTimeout(() => {
+                            window.location.href = 'login.html';
+                        }, 2000);
+                    }
+                } else {
+                    // Redirect to signup if not authenticated
+                    window.location.href = 'signup.html';
+                }
+            } catch (error) {
+                console.error('Initialization error:', error);
+                showStatus('Error loading verification page', 'error');
+            }
+        }
+
+        // Resend verification email
+        resendBtn.addEventListener('click', async function () {
+            if (resendCooldown > 0) return;
+
+            spinner.classList.add('show');
+            resendBtn.disabled = true;
+
+            try {
+                const { data: { user } } = await supabase.auth.getUser();
+
+                if (user) {
+                    const { error } = await supabase.auth.resend({
+                        type: 'signup',
+                        email: user.email,
+                    });
+
+                    if (error) {
+                        showStatus('Failed to resend email: ' + error.message, 'error');
+                    } else {
+                        showStatus('Verification email resent! Check your inbox.', 'success');
+                        startCooldown();
+                    }
+                }
+            } catch (error) {
+                showStatus('Error: ' + error.message, 'error');
+            } finally {
+                spinner.classList.remove('show');
+            }
+        });
+
+        // Check verification status
+        checkBtn.addEventListener('click', async function () {
+            spinner.classList.add('show');
+            checkBtn.disabled = true;
+
+            try {
+                // Refresh session to get latest auth state
+                const { data: { session }, error } = await supabase.auth.refreshSession();
+
+                if (error) {
+                    showStatus('Error checking status: ' + error.message, 'error');
+                } else if (session && session.user.email_confirmed_at) {
+                    showStatus('Email verified successfully! Redirecting to login...', 'success');
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 2000);
+                } else {
+                    showStatus('Email not yet verified. Please check your inbox for the verification link.', 'error');
+                }
+            } catch (error) {
+                showStatus('Error: ' + error.message, 'error');
+            } finally {
+                spinner.classList.remove('show');
+                checkBtn.disabled = false;
+            }
+        });
+
+        function showStatus(message, type) {
+            statusMessage.textContent = message;
+            statusMessage.className = `status-message ${type}`;
+        }
+
+        function startCooldown() {
+            resendCooldown = 60;
+            resendBtn.disabled = true;
+            timerText.style.display = 'block';
+
+            const timer = setInterval(() => {
+                resendCooldown--;
+                document.getElementById('timer').textContent = resendCooldown;
+
+                if (resendCooldown <= 0) {
+                    clearInterval(timer);
+                    resendBtn.disabled = false;
+                    timerText.style.display = 'none';
+                }
+            }, 1000);
+        }
+
+        // Check every 5 seconds if email is verified
+        setInterval(async () => {
+            try {
+                const { data: { session } } = await supabase.auth.getSession();
+                if (session && session.user && session.user.email_confirmed_at) {
+                    showStatus('Email verified! Redirecting...', 'success');
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 1500);
+                }
+            } catch (error) {
+                console.error('Auto-check error:', error);
+            }
+        }, 5000);
+    </script>
+</body>
+
+</html>
