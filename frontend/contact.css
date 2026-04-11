@@ -1,10 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 :root {
-    --aura-primary-color: #006A71;
-    --aura-secondary-color: #48A6A7;
-    --aura-background-color: #F2EFE7;
+    --aura-primary-color: #006A71; 
+    --aura-secondary-color: #48A6A7; 
+    --aura-background-color: #F2EFE7; 
     --aura-text-color: #000000;
+    --aura-light-text: #666666;
+    --aura-card-color: #FFFFFF;
+    --aura-radius: 10px;
+    --aura-shadow: 0 4px 15px rgba(0, 106, 113, 0.1);
+    --aura-transition: all 0.3s ease;
 }
 
 * {
@@ -15,93 +20,60 @@
 }
 
 body {
-    background-color: var(--aura-background-color);
+    margin: 0;
+    padding: 0;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--aura-background-color);
 }
 
 main {
-    padding-top: 100px;
-    padding-bottom: 40px;
+    padding: 3px 5px;
+    flex: 1;
 }
 
-.contact-container {
+.main-content-container {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0 5%;
+    width: 100%;
 }
 
 /* Hero Section */
-.contact-hero {
+.hero-section {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    gap: 60px;
-    margin-bottom: 80px;
-    min-height: 400px;
+    text-align: center;
+    padding: 80px 20px;
+    background: linear-gradient(135deg, var(--aura-primary-color) 0%, var(--aura-secondary-color) 100%);
+    border-radius: var(--aura-radius);
+    margin: 20px 5%;
+    color: white;
 }
 
-.hero-content {
-    flex: 1;
-    max-width: 500px;
-}
-
-.hero-content h1 {
-    font-size: 3rem;
+.hero-text h1 {
+    font-size: 2.5rem;
     font-weight: 800;
-    color: var(--aura-primary-color);
-    margin-bottom: 20px;
-    line-height: 1.2;
+    line-height: 1.1;
+    margin-bottom: 15px;
+    color: white;
 }
 
-.hero-content p {
+.hero-text h2 {
     font-size: 1.2rem;
-    color: #666;
-    line-height: 1.6;
-}
-
-/* Credit Card Animation */
-.card-animation-container {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    perspective: 1500px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 600px;
 }
 
 .credit-card-image {
-    width: 450px;
-    max-width: 90%;
-    height: auto;
-    border-radius: 20px;
-    box-shadow: 
-        0 25px 50px rgba(0, 0, 0, 0.3),
-        0 10px 20px rgba(0, 106, 113, 0.2);
-    transform-style: preserve-3d;
-    animation: cardFloat3D 8s ease-in-out infinite;
-    transition: all 0.4s ease;
-    cursor: pointer;
-}
-
-.credit-card-image:hover {
-    transform: scale(1.08) rotateY(8deg) rotateX(-5deg);
-    box-shadow: 
-        0 35px 70px rgba(0, 0, 0, 0.4),
-        0 15px 30px rgba(0, 106, 113, 0.3);
+    display: none;
 }
 
 @keyframes cardFloat3D {
-    0%, 100% {
-        transform: translateY(0px) rotateY(-2deg) rotateX(2deg);
-    }
-    25% {
-        transform: translateY(-20px) rotateY(-5deg) rotateX(3deg);
-    }
-    50% {
-        transform: translateY(-8px) rotateY(2deg) rotateX(-2deg);
-    }
-    75% {
-        transform: translateY(-20px) rotateY(5deg) rotateX(3deg);
-    }
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
 }
 
 .credit-card-contact {
@@ -113,378 +85,224 @@ main {
     display: flex;
 }
 
-@keyframes cardRotate {
-    0%, 100% {
-        transform: rotateY(0deg) translateY(0px);
-    }
-    25% {
-        transform: rotateY(-15deg) translateY(-20px);
-    }
-    50% {
-        transform: rotateY(0deg) translateY(0px);
-    }
-    75% {
-        transform: rotateY(15deg) translateY(-20px);
-    }
+/* Section Title */
+.section-title {
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--aura-primary-color);
 }
 
-.card-side {
-    position: relative;
-    width: 250px;
-    height: 315px;
-    border-radius: 15px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
+.section-subtitle {
+    text-align: center;
+    font-size: 1rem;
+    color: var(--aura-light-text);
+    margin-bottom: 50px;
 }
 
-.card-left {
-    background: linear-gradient(135deg, #E0E0E0, #C0C0C0);
-    border-radius: 15px 0 0 15px;
-    z-index: 1;
-    position: relative;
+/* Contact Info Section */
+.contact-info-section {
+    padding: 80px 5%;
+    background: white;
+    margin: 40px 5%;
+    border-radius: var(--aura-radius);
+    box-shadow: var(--aura-shadow);
 }
 
-.card-left::after {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 100px;
-    background: linear-gradient(to right, transparent, #C0C0C0);
-    transform: skewX(-15deg);
-    transform-origin: bottom right;
+.contact-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.card-right {
-    background: linear-gradient(135deg, #C41E3A, #8B0000);
-    border-radius: 0 15px 15px 0;
-    z-index: 2;
-    position: relative;
-    margin-left: -30px;
+.contact-card {
+    background: var(--aura-background-color);
+    padding: 35px 25px;
+    border-radius: var(--aura-radius);
+    text-align: center;
+    transition: var(--aura-transition);
+    border: 1px solid rgba(0, 106, 113, 0.1);
 }
 
-.card-right::before {
-    content: '';
-    position: absolute;
-    left: -30px;
-    top: 0;
-    bottom: 0;
-    width: 60px;
-    background: linear-gradient(to left, #C41E3A, transparent);
-    transform: skewX(-15deg);
-    transform-origin: bottom left;
+.contact-card:hover {
+    background: white;
+    transform: translateY(-10px);
+    box-shadow: var(--aura-shadow);
+    border-color: var(--aura-secondary-color);
 }
 
-.card-content-left,
-.card-content-right {
-    padding: 25px;
-    color: white;
-    height: 100%;
+.contact-icon {
+    font-size: 2.5rem;
+    color: var(--aura-primary-color);
+    margin-bottom: 20px;
+}
+
+.contact-card h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--aura-text-color);
+}
+
+.contact-detail {
+    color: var(--aura-text-color);
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.contact-hours {
+    color: var(--aura-light-text);
+    font-size: 0.9rem;
+}
+
+/* Contact Form Section */
+.contact-form-section {
+    padding: 80px 5%;
+    background: var(--aura-background-color);
+}
+
+.form-wrapper {
+    background: white;
+    padding: 50px;
+    border-radius: var(--aura-radius);
+    box-shadow: var(--aura-shadow);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.contact-form {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-}
-
-.card-text {
-    font-size: 16px;
-    color: #999;
-    font-weight: 400;
-}
-
-.chip-container {
-    display: flex;
-    align-items: flex-end;
-    gap: 15px;
-}
-
-.chip-contact {
-    width: 50px;
-    height: 40px;
-    background: linear-gradient(135deg, #D4D4D4, #A0A0A0);
-    border-radius: 8px;
-    position: relative;
-    border: 2px solid #666;
-}
-
-.chip-contact::before {
-    content: '';
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    right: 8px;
-    bottom: 8px;
-    border: 1.5px solid #888;
-    border-radius: 4px;
-}
-
-.chip-number {
-    font-size: 14px;
-    color: #666;
-    font-weight: 600;
-    margin-bottom: 5px;
-}
-
-.card-number-left,
-.card-number-right {
-    font-size: 28px;
-    font-weight: 500;
-    letter-spacing: 3px;
-}
-
-.card-number-left {
-    color: #666;
-}
-
-.card-holder-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-}
-
-.validity {
-    display: flex;
-    gap: 10px;
-    align-items: flex-end;
-}
-
-.label-small {
-    font-size: 8px;
-    color: #999;
-    line-height: 1.2;
-    text-transform: uppercase;
-}
-
-.date {
-    font-size: 14px;
-    color: #666;
-    font-weight: 600;
-}
-
-.cardholder-name {
-    font-size: 16px;
-    color: #666;
-    font-weight: 600;
-    letter-spacing: 1px;
-}
-
-/* Right Card Content */
-.bank-logo {
-    display: flex;
-    justify-content: flex-end;
-}
-
-.logo-w {
-    width: 50px;
-    height: 30px;
-    background: linear-gradient(135deg, #FF4444, #FF6666, #FF8844);
-    clip-path: polygon(0 0, 33% 0, 50% 100%, 0 100%, 16% 0, 33% 100%, 50% 0, 66% 100%, 83% 0, 100% 100%, 66% 0, 100% 0, 100% 100%, 50% 100%);
-}
-
-.contactless {
-    margin-top: 30px;
-    font-size: 35px;
-    color: white;
-    transform: rotate(90deg);
-    opacity: 0.9;
-}
-
-.card-validity-right {
-    margin-top: 20px;
-}
-
-.month-year-label {
-    font-size: 9px;
-    opacity: 0.8;
-    margin-bottom: 5px;
-}
-
-.expiry-right {
-    font-size: 18px;
-    font-weight: 600;
-}
-
-.mastercard-logo {
-    position: relative;
-    margin-top: 20px;
-}
-
-.circle {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    position: absolute;
-    bottom: 20px;
-}
-
-.circle-red {
-    background: #FF5F5F;
-    left: 0;
-}
-
-.circle-orange {
-    background: #FFB344;
-    left: 25px;
-    opacity: 0.9;
-}
-
-.mastercard-text {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    font-size: 13px;
-    font-weight: 600;
-}
-
-/* Contact Content Section */
-.contact-content {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 60px;
-}
-
-.contact-info h2,
-.contact-form-section h2 {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--aura-primary-color);
-    margin-bottom: 10px;
-}
-
-.info-subtitle,
-.form-subtitle {
-    color: #666;
-    font-size: 1rem;
-    margin-bottom: 40px;
-}
-
-/* Info Cards */
-.info-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 25px;
-    margin-bottom: 60px;
-}
-
-.info-card {
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 5px 20px rgba(0, 106, 113, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.info-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 40px rgba(0, 106, 113, 0.2);
-}
-
-.info-icon {
-    width: 70px;
-    height: 70px;
-    background: linear-gradient(135deg, var(--aura-primary-color), var(--aura-secondary-color));
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 20px;
-    font-size: 28px;
-    color: white;
-}
-
-.info-card h3 {
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--aura-text-color);
-    margin-bottom: 10px;
-}
-
-.info-card p {
-    color: #666;
-    font-size: 1rem;
-    margin-bottom: 5px;
-}
-
-.info-detail {
-    font-size: 0.9rem !important;
-    color: #999 !important;
-}
-
-/* Contact Form */
-.contact-form {
-    background: white;
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0, 106, 113, 0.1);
+    gap: 20px;
 }
 
 .form-row {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 25px;
-    margin-bottom: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 10px;
 }
 
 .form-group label {
-    font-weight: 500;
-    color: var(--aura-text-color);
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--aura-primary-color);
     font-size: 0.95rem;
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
-    padding: 14px 18px;
-    border: 2px solid #e0e0e0;
-    border-radius: 10px;
-    font-size: 1rem;
+    padding: 12px 15px;
+    border: 2px solid var(--aura-background-color);
+    border-radius: var(--aura-radius);
     font-family: 'Poppins', sans-serif;
-    transition: all 0.3s;
-    background: #fafafa;
+    font-size: 0.95rem;
+    transition: var(--aura-transition);
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: var(--aura-secondary-color);
-    background: white;
+    border-color: var(--aura-primary-color);
+    box-shadow: 0 0 0 3px rgba(72, 166, 167, 0.1);
 }
 
 .form-group textarea {
     resize: vertical;
-    min-height: 150px;
+    font-family: 'Poppins', sans-serif;
 }
 
 .submit-btn {
-    width: 100%;
-    padding: 16px;
-    background: var(--aura-primary-color);
+    background: linear-gradient(135deg, var(--aura-primary-color) 0%, var(--aura-secondary-color) 100%);
     color: white;
+    padding: 14px 30px;
     border: none;
-    border-radius: 10px;
-    font-size: 1.1rem;
+    border-radius: var(--aura-radius);
     font-weight: 600;
+    font-size: 1rem;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: var(--aura-transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     margin-top: 10px;
 }
 
 .submit-btn:hover {
-    background: var(--aura-secondary-color);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(0, 106, 113, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 106, 113, 0.3);
 }
 
-.submit-btn i {
-    margin-right: 10px;
+.submit-btn:active {
+    transform: translateY(-1px);
+}
+
+/* FAQ Section */
+.faq-section {
+    padding: 80px 5%;
+    background: white;
+    margin: 40px 5%;
+    border-radius: var(--aura-radius);
+    box-shadow: var(--aura-shadow);
+}
+
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.faq-card {
+    background: var(--aura-background-color);
+    padding: 30px;
+    border-radius: var(--aura-radius);
+    transition: var(--aura-transition);
+    border-left: 4px solid var(--aura-primary-color);
+}
+
+.faq-card:hover {
+    background: white;
+    transform: translateX(10px);
+    box-shadow: var(--aura-shadow);
+}
+
+.faq-question {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 15px;
+    align-items: flex-start;
+}
+
+.faq-question i {
+    color: var(--aura-primary-color);
+    font-size: 1.2rem;
+    margin-top: 3px;
+    flex-shrink: 0;
+}
+
+.faq-question h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--aura-text-color);
+    margin: 0;
+}
+
+.faq-card p {
+    color: var(--aura-light-text);
+    font-size: 0.95rem;
+    line-height: 1.6;
 }
 
 /* Footer */
@@ -492,10 +310,10 @@ footer {
     background: var(--aura-primary-color);
     color: white;
     padding: 40px 5% 20px;
-    margin-top: 80px;
+    margin-top: auto;
 }
 
-.footer-content {
+.footer-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 40px;
@@ -503,14 +321,14 @@ footer {
     margin: 0 auto;
 }
 
-.footer-column h3 {
-    font-size: 1.2rem;
+.footer-section h4 {
+    font-size: 1.1rem;
     margin-bottom: 20px;
     position: relative;
     padding-bottom: 10px;
 }
 
-.footer-column h3::after {
+.footer-section h4::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -520,23 +338,38 @@ footer {
     background: var(--aura-secondary-color);
 }
 
-.footer-column ul {
+.footer-section ul {
     list-style: none;
 }
 
-.footer-column ul li {
+.footer-section ul li {
     margin-bottom: 10px;
 }
 
-.footer-column a {
+.footer-section a {
     color: rgba(255, 255, 255, 0.8);
     text-decoration: none;
-    transition: all 0.3s;
+    transition: var(--aura-transition);
 }
 
-.footer-column a:hover {
+.footer-section a:hover {
     color: white;
     padding-left: 5px;
+}
+
+.footer-logo {
+    height: 50px;
+}
+
+.footer-contact {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+}
+
+.footer-contact li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .footer-bottom {
@@ -548,74 +381,110 @@ footer {
     color: rgba(255, 255, 255, 0.7);
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
-    .contact-hero {
-        flex-direction: column;
-        text-align: center;
-        gap: 40px;
-    }
-
-    .hero-content {
-        max-width: 100%;
-    }
-
-    .credit-card-image {
-        width: 400px;
-    }
+.footer-bottom-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
 }
 
+.footer-links {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: var(--aura-transition);
+}
+
+.footer-links a:hover {
+    color: white;
+}
+
+.footer-security {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-    main {
-        padding-top: 90px;
+    .hero-section {
+        padding: 50px 15px;
     }
 
-    .hero-content h1 {
-        font-size: 2.2rem;
+    .hero-text h1 {
+        font-size: 1.8rem;
     }
 
-    .hero-content p {
+    .hero-text h2 {
         font-size: 1rem;
     }
 
-    .credit-card-image {
-        width: 350px;
+    .section-title {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+
+    .contact-info-section,
+    .faq-section {
+        margin: 30px 3%;
+        padding: 40px 20px;
+    }
+
+    .contact-form-section {
+        padding: 40px 3%;
+    }
+
+    .form-wrapper {
+        padding: 30px 20px;
+    }
+
+    .contact-cards-grid {
+        gap: 20px;
+    }
+
+    .footer-bottom-content {
+        gap: 10px;
+    }
+
+    .footer-links {
+        gap: 15px;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-text h1 {
+        font-size: 1.5rem;
+    }
+
+    .hero-text h2 {
+        font-size: 0.9rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .contact-card,
+    .faq-card {
+        padding: 20px 15px;
+    }
+
+    .form-wrapper {
+        padding: 20px 15px;
     }
 
     .form-row {
         grid-template-columns: 1fr;
-        gap: 20px;
     }
 
-    .contact-form {
-        padding: 30px 20px;
-    }
-
-    .info-cards {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-@media (max-width: 580px) {
-    .hero-content h1 {
-        font-size: 1.8rem;
-    }
-
-    .credit-card-image {
-        width: 300px;
-    }
-
-    .info-cards {
-        grid-template-columns: 1fr;
-    }
-
-    .contact-form {
-        padding: 25px 15px;
-    }
-}
-
-@media (max-width: 400px) {
-    .credit-card-image {
-        width: 280px;
+    main {
+        padding: 0;
     }
 }
