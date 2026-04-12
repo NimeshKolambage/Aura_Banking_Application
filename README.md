@@ -55,7 +55,7 @@ Aura_Banking_Application/
     ├── components/
     ├── navbar.html & navbar.css
     ├── login.html & login.js & login.css
-    ├── mainui.html & mainui.css
+    ├── index.html & index.css
     ├── dashboard.html & dashboard.css
     ├── deposit.html & deposit.css
     ├── withdraw.html & withdraw.css
@@ -70,7 +70,7 @@ Aura_Banking_Application/
     ├── resetpassword.html
     ├── email-verification.html
     ├── qr-transaction-scanner.js
-    └── mainui.html & mainui.css
+    └── index.html & index.css
 ```
 
 ## 📄 Pages Overview
@@ -106,7 +106,7 @@ Aura_Banking_Application/
    ```
 
 2. **Set up the frontend**
-   - Open `frontend/mainui.html` in your web browser
+   - Open `frontend/index.html` in your web browser
    - Or serve the frontend directory using a local server:
      ```bash
      # Using Python
@@ -150,7 +150,7 @@ Aura_Banking_Application/
 
 ### Accessing the Application
 
-1. **Landing Page**: Start at `mainui.html` to see the main interface
+1. **Landing Page**: Start at `index.html` to see the main interface
 2. **Navigation**: Use the navbar to navigate between different sections
 3. **Login**: Click "Get Started" to access login/signup page
 4. **Dashboard**: After login, access your account dashboard
