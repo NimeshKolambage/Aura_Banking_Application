@@ -67,94 +67,93 @@ main {
     max-width: 600px;
 }
 
-/* About Section */
-.about-section {
-    padding: 60px 5%;
-    background: white;
-    margin: 40px 5%;
-    border-radius: var(--aura-radius);
-    box-shadow: var(--aura-shadow);
-}
-
-.about-content {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.about-text h2 {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 30px;
-    color: var(--aura-primary-color);
-}
-
-.about-text p {
-    font-size: 1.05rem;
-    line-height: 1.8;
-    color: var(--aura-light-text);
-    margin-bottom: 20px;
-    text-align: justify;
-}
-
-/* Mission & Vision Section */
-.mission-vision-section {
-    padding: 80px 5%;
-    background: var(--aura-background-color);
-}
-
-.mission-vision-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.mission-card {
-    background: white;
-    padding: 40px 30px;
-    border-radius: var(--aura-radius);
-    text-align: center;
-    box-shadow: var(--aura-shadow);
-    transition: var(--aura-transition);
-    border-top: 4px solid var(--aura-primary-color);
-}
-
-.mission-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 25px rgba(0, 106, 113, 0.2);
-}
-
-.card-icon {
-    font-size: 2.5rem;
-    color: var(--aura-primary-color);
-    margin-bottom: 20px;
-}
-
-.mission-card h3 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 15px;
-    color: var(--aura-text-color);
-}
-
-.mission-card p {
-    color: var(--aura-light-text);
-    font-size: 0.95rem;
-    line-height: 1.6;
-}
-
 /* Section Title */
 .section-title {
     text-align: center;
     font-size: 2.2rem;
     font-weight: 700;
-    margin-bottom: 60px;
+    margin-bottom: 20px;
     color: var(--aura-primary-color);
 }
 
-/* Why Choose Aura Section */
-.why-section {
+.section-subtitle {
+    text-align: center;
+    font-size: 1rem;
+    color: var(--aura-light-text);
+    margin-bottom: 50px;
+}
+
+/* Services Overview Section */
+.services-overview-section {
+    padding: 80px 5%;
+    background: var(--aura-background-color);
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.service-card {
+    background: white;
+    padding: 35px 30px;
+    border-radius: var(--aura-radius);
+    box-shadow: var(--aura-shadow);
+    transition: var(--aura-transition);
+    border-top: 4px solid var(--aura-secondary-color);
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 106, 113, 0.2);
+    border-top-color: var(--aura-primary-color);
+}
+
+.service-icon {
+    font-size: 2.5rem;
+    color: var(--aura-primary-color);
+    margin-bottom: 20px;
+}
+
+.service-card h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--aura-text-color);
+}
+
+.service-card p {
+    color: var(--aura-light-text);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.features-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.features-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: var(--aura-light-text);
+}
+
+.features-list i {
+    color: var(--aura-secondary-color);
+    font-size: 0.8rem;
+}
+
+/* Premium Features Section */
+.premium-features-section {
     padding: 80px 5%;
     background: white;
     margin: 40px 5%;
@@ -162,97 +161,155 @@ main {
     box-shadow: var(--aura-shadow);
 }
 
-.why-grid {
+.features-highlight-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 30px;
     max-width: 1200px;
     margin: 0 auto;
 }
 
-.why-card {
+.highlight-card {
     background: var(--aura-background-color);
-    padding: 35px;
+    padding: 35px 25px;
     border-radius: var(--aura-radius);
     text-align: center;
     transition: var(--aura-transition);
-    border: 1px solid rgba(0, 106, 113, 0.1);
 }
 
-.why-card:hover {
+.highlight-card:hover {
     background: white;
-    transform: translateY(-10px);
+    transform: scale(1.03);
     box-shadow: var(--aura-shadow);
-    border-color: var(--aura-secondary-color);
 }
 
-.why-icon {
+.highlight-icon {
     font-size: 2.5rem;
     color: var(--aura-primary-color);
     margin-bottom: 20px;
 }
 
-.why-card h3 {
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 15px;
+.highlight-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 12px;
     color: var(--aura-text-color);
 }
 
-.why-card p {
+.highlight-card p {
     color: var(--aura-light-text);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     line-height: 1.6;
 }
 
-/* Team Section */
-.team-section {
+/* Comparison Section */
+.comparison-section {
     padding: 80px 5%;
     background: var(--aura-background-color);
-    text-align: center;
 }
 
-.team-intro {
-    font-size: 1.1rem;
-    color: var(--aura-light-text);
-    margin-bottom: 50px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.team-stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 30px;
+.comparison-table-wrapper {
+    background: white;
+    border-radius: var(--aura-radius);
+    overflow: hidden;
+    box-shadow: var(--aura-shadow);
     max-width: 1000px;
     margin: 0 auto;
 }
 
-.stat-card {
-    background: white;
-    padding: 40px 30px;
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.comparison-table thead {
+    background: linear-gradient(135deg, var(--aura-primary-color) 0%, var(--aura-secondary-color) 100%);
+    color: white;
+}
+
+.comparison-table thead th {
+    padding: 20px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.comparison-table tbody td {
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--aura-background-color);
+    color: var(--aura-light-text);
+    font-size: 0.95rem;
+}
+
+.comparison-table tbody tr:hover {
+    background-color: var(--aura-background-color);
+}
+
+.comparison-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* CTA Section */
+.cta-section {
+    padding: 80px 5%;
+    background: linear-gradient(135deg, var(--aura-primary-color) 0%, var(--aura-secondary-color) 100%);
+    margin: 40px 5%;
     border-radius: var(--aura-radius);
-    box-shadow: var(--aura-shadow);
-    transition: var(--aura-transition);
+    text-align: center;
+    color: white;
 }
 
-.stat-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 25px rgba(0, 106, 113, 0.2);
-}
-
-.stat-card h3 {
+.cta-section h2 {
     font-size: 2.5rem;
     font-weight: 800;
-    color: var(--aura-primary-color);
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
-.stat-card p {
+.cta-section p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    opacity: 0.95;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.cta-btn {
+    padding: 14px 30px;
+    border: none;
+    border-radius: var(--aura-radius);
+    font-weight: 600;
     font-size: 1rem;
-    color: var(--aura-light-text);
-    font-weight: 500;
+    cursor: pointer;
+    transition: var(--aura-transition);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.primary-btn {
+    background: white;
+    color: var(--aura-primary-color);
+}
+
+.primary-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.secondary-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 2px solid white;
+}
+
+.secondary-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-3px);
 }
 
 /* Footer */
@@ -377,22 +434,43 @@ footer {
 
     .section-title {
         font-size: 1.8rem;
-        margin-bottom: 40px;
+        margin-bottom: 15px;
     }
 
-    .about-section,
-    .why-section {
-        margin: 30px 3%;
-        padding: 40px 20px;
-    }
-
-    .mission-vision-section,
-    .team-section {
+    .services-overview-section,
+    .premium-features-section {
         padding: 50px 3%;
     }
 
-    .stat-card h3 {
-        font-size: 2rem;
+    .services-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+
+    .service-card {
+        padding: 25px 20px;
+    }
+
+    .cta-section {
+        margin: 30px 3%;
+        padding: 50px 3%;
+    }
+
+    .cta-section h2 {
+        font-size: 1.8rem;
+    }
+
+    .cta-section p {
+        font-size: 1rem;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+    }
+
+    .cta-btn {
+        width: 100%;
+        justify-content: center;
     }
 
     .footer-bottom-content {
@@ -418,14 +496,23 @@ footer {
         font-size: 1.5rem;
     }
 
-    .mission-card,
-    .why-card,
-    .stat-card {
-        padding: 25px 15px;
+    .service-card,
+    .highlight-card {
+        padding: 20px 15px;
     }
 
-    .stat-card h3 {
-        font-size: 1.8rem;
+    .comparison-table thead th,
+    .comparison-table tbody td {
+        padding: 12px 10px;
+        font-size: 0.85rem;
+    }
+
+    .cta-section {
+        padding: 40px 15px;
+    }
+
+    .cta-section h2 {
+        font-size: 1.5rem;
     }
 
     main {

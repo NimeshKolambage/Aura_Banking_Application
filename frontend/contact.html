@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,72 +9,64 @@
     <link rel="stylesheet" href="contact.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
 
     <div id="navbar"></div>
 
     <main>
-        <div class="contact-container">
-            
-            <section class="contact-hero">
-                <div class="hero-content">
+        <div class="main-content-container">
+
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="hero-text">
                     <h1>Get In Touch With Us</h1>
-                    <p>Have questions? We're here to help you with your financial journey.</p>
-                </div>
-                
-                <div class="card-animation-container">
-                    <img src="components/auracard.png" alt="Aura Bank Card" class="credit-card-image">
+                    <h2>We're here to help with any questions about your banking experience.</h2>
                 </div>
             </section>
 
-            <section class="contact-content">
-                <div class="contact-info">
-                    <h2>Contact Information</h2>
-                    <p class="info-subtitle">Reach out to us through any of these channels</p>
-                    
-                    <div class="info-cards">
-                        <div class="info-card">
-                            <div class="info-icon">
-                                <i class="fas fa-phone-alt"></i>
-                            </div>
-                            <h3>Phone</h3>
-                            <p>+1 (555) 123-4567</p>
-                            <p class="info-detail">Mon-Fri: 9AM - 6PM</p>
+            <!-- Contact Info Section -->
+            <section class="contact-info-section">
+                <h2 class="section-title">Contact Information</h2>
+                <p class="section-subtitle">Reach out to us through any of these channels</p>
+                
+                <div class="contact-cards-grid">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
                         </div>
-                        
-                        <div class="info-card">
-                            <div class="info-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <h3>Email</h3>
-                            <p>support@aura.com</p>
-                            <p class="info-detail">We'll respond within 24hrs</p>
-                        </div>
-                        
-                        <div class="info-card">
-                            <div class="info-icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <h3>Office</h3>
-                            <p>123 Finance Street</p>
-                            <p class="info-detail">New York, NY 10001</p>
-                        </div>
-                        
-                        <div class="info-card">
-                            <div class="info-icon">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                            <h3>Support Hours</h3>
-                            <p>24/7 Live Chat</p>
-                            <p class="info-detail">Always here for you</p>
-                        </div>
+                        <h3>Phone Support</h3>
+                        <p class="contact-detail">1-800-AURA-BANK</p>
+                        <p class="contact-hours">Mon-Fri: 9AM - 6PM EST</p>
                     </div>
-                </div>
 
-                <div class="contact-form-section">
-                    <h2>Send Us A Message</h2>
-                    <p class="form-subtitle">Fill out the form below and we'll get back to you shortly</p>
-                    
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3>Email</h3>
+                        <p class="contact-detail">support@aurabank.com</p>
+                        <p class="contact-hours">Response within 24 hours</p>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3>Head Office</h3>
+                        <p class="contact-detail">123 Finance Street</p>
+                        <p class="contact-hours">New York, NY 10001</p>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Contact Form Section -->
+            <section class="contact-form-section">
+                <h2 class="section-title">Send Us A Message</h2>
+                <p class="section-subtitle">Fill out the form below and we'll get back to you shortly</p>
+                
+                <div class="form-wrapper">
                     <form class="contact-form">
                         <div class="form-row">
                             <div class="form-group">
@@ -83,14 +76,14 @@
                             
                             <div class="form-group">
                                 <label for="email">Email Address</label>
-                                <input type="email" id="email" placeholder="john.doe@example.com" required>
+                                <input type="email" id="email" placeholder="john@example.com" required>
                             </div>
                         </div>
-                        
+
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="phone">Phone Number</label>
-                                <input type="tel" id="phone" placeholder="+1 (555) 000-0000">
+                                <input type="tel" id="phone" placeholder="+1 (555) 123-4567">
                             </div>
                             
                             <div class="form-group">
@@ -99,68 +92,110 @@
                                     <option value="">Select a subject</option>
                                     <option value="general">General Inquiry</option>
                                     <option value="support">Technical Support</option>
-                                    <option value="account">Account Issues</option>
+                                    <option value="account">Account Issue</option>
                                     <option value="feedback">Feedback</option>
+                                    <option value="complaint">Complaint</option>
                                     <option value="other">Other</option>
                                 </select>
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="message">Message</label>
-                            <textarea id="message" rows="6" placeholder="Tell us how we can help you..." required></textarea>
+                            <textarea id="message" placeholder="Tell us how we can help you..." rows="6" required></textarea>
                         </div>
-                        
+
                         <button type="submit" class="submit-btn">
                             <i class="fas fa-paper-plane"></i> Send Message
                         </button>
                     </form>
                 </div>
             </section>
+
+            <!-- FAQ Section -->
+            <section class="faq-section">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                
+                <div class="faq-grid">
+                    <div class="faq-card">
+                        <div class="faq-question">
+                            <i class="fas fa-question-circle"></i>
+                            <h3>How do I open an account?</h3>
+                        </div>
+                        <p>Opening an account is simple! Click "Get Started" and follow our quick registration process. You'll need an email address and valid ID.</p>
+                    </div>
+
+                    <div class="faq-card">
+                        <div class="faq-question">
+                            <i class="fas fa-question-circle"></i>
+                            <h3>Is my money secure?</h3>
+                        </div>
+                        <p>Yes! All accounts are FDIC insured up to $250,000 and protected with bank-level encryption and multi-factor authentication.</p>
+                    </div>
+
+                    <div class="faq-card">
+                        <div class="faq-question">
+                            <i class="fas fa-question-circle"></i>
+                            <h3>Are there any fees?</h3>
+                        </div>
+                        <p>No! Aura charges zero monthly fees, zero overdraft fees, and zero account maintenance fees. We believe in transparent banking.</p>
+                    </div>
+
+        
+                </div>
+            </section>
+
         </div>
     </main>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-column">
-                <h3>Products</h3>
-                <ul>
-                    <li><a href="#">Personal Banking</a></li>
-                    <li><a href="#">Business Accounts</a></li>
-                    <li><a href="#">Investment</a></li>
-                    <li><a href="#">Loans</a></li>
-                </ul>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <div class="footer-brand">
+                    <img src="components/logo.png" alt="Aura Bank" class="footer-logo">
+                </div>
             </div>
-            <div class="footer-column">
-                <h3>About Us</h3>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
                 <ul>
                     <li><a href="#">About Us</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
                     <li><a href="#">Careers</a></li>
-                    <li><a href="#">Press</a></li>
-                    <li><a href="#">Blog</a></li>
                 </ul>
             </div>
-            <div class="footer-column">
-                <h3>Support</h3>
+            <div class="footer-section">
+                <h4>Services</h4>
                 <ul>
-                    <li><a href="#">Help Center</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">Security</a></li>
-                    <li><a href="#">Status</a></li>
+                    <li><a href="#">Personal Banking</a></li>
+                    <li><a href="#">Business Banking</a></li>
+                    <li><a href="#">Loans</a></li>
+                    <li><a href="#">Investments</a></li>
                 </ul>
             </div>
-            <div class="footer-column">
-                <h3>Connect</h3>
-                <ul>
-                    <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
-                    <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
-                    <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
-                    <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <ul class="footer-contact">
+                    <li><i class="fas fa-phone"></i> 1-800-AURA-BANK</li>
+                    <li><i class="fas fa-envelope"></i> support@aurabank.com</li>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Finance Street, NY</li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2023 Aura Financial. All rights reserved.</p>
+            <div class="footer-bottom-content">
+                <p>&copy; 2025 Aura Bank. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Security</a>
+                </div>
+                <div class="footer-security">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>FDIC Insured | Equal Housing Lender</span>
+                </div>
+            </div>
         </div>
     </footer>
 
@@ -169,7 +204,7 @@
             .then(res => res.text())
             .then(data => {
                 document.getElementById("navbar").innerHTML = data;
-                
+
                 const navLinks = document.querySelector('.nav_links');
                 const menuToggle = document.querySelector('.three-line-menu');
 
@@ -186,7 +221,7 @@
                 }
 
                 menuToggle.addEventListener('click', (e) => {
-                    e.stopPropagation(); 
+                    e.stopPropagation();
                     if (window.innerWidth <= 768) {
                         const isActive = navLinks.classList.contains('nav-active');
                         if (isActive) {
@@ -225,4 +260,5 @@
             .catch(err => console.error("Navbar load error:", err));
     </script>
 </body>
+
 </html>
