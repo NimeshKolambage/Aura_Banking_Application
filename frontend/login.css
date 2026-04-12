@@ -2,13 +2,16 @@
     --primary-color: #1d8b7e;
     --secondary-color: #146e64;
     --glass-bg: rgba(255, 255, 255, 0.45);
-     --aura-primary-color: #006A71; 
-    --aura-secondary-color: #48A6A7; 
-    --aura-background-color: #F2EFE7; 
-    --aura-text-color: #000000; 
+    --aura-primary-color: #006A71;
+    --aura-secondary-color: #48A6A7;
+    --aura-background-color: #F2EFE7;
+    --aura-text-color: #000000;
 }
 
-* { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
 
 body {
     background: url('components/mesh-gradient-bg.svg') no-repeat center center fixed;
@@ -30,13 +33,13 @@ body {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     position: relative;
     overflow: hidden;
     width: 950px;
     max-width: 100%;
     min-height: 650px;
-    border: 1px solid rgba(0,0,0,0.06);
+    border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .form-container {
@@ -46,14 +49,46 @@ body {
     transition: all 0.6s ease-in-out;
 }
 
-.sign-in-container { left: 0; width: 50%; z-index: 2; }
-.sign-up-container { left: 0; width: 50%; opacity: 0; z-index: 1; }
+.sign-in-container {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+
+.sign-up-container {
+    left: 0;
+    width: 50%;
+    opacity: 0;
+    z-index: 1;
+}
 
 /* Animation Logic */
-.main-container.right-panel-active .sign-in-container { transform: translateX(100%); opacity: 0; }
-.main-container.right-panel-active .sign-up-container { transform: translateX(100%); opacity: 1; z-index: 5; animation: show 0.6s; }
+.main-container.right-panel-active .sign-in-container {
+    transform: translateX(100%);
+    opacity: 0;
+}
 
-@keyframes show { 0%, 49.99% { opacity: 0; z-index: 1; } 50%, 100% { opacity: 1; z-index: 5; } }
+.main-container.right-panel-active .sign-up-container {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+    animation: show 0.6s;
+}
+
+@keyframes show {
+
+    0%,
+    49.99% {
+        opacity: 0;
+        z-index: 1;
+    }
+
+    50%,
+    100% {
+        opacity: 1;
+        z-index: 5;
+    }
+}
 
 form {
     background: transparent;
@@ -66,9 +101,25 @@ form {
     text-align: center;
 }
 
-h2 { margin: 0 0 15px; font-weight: 700; color: #333; font-size: 28px; }
-h1 { margin: 0; font-weight: 700; color: white; font-size: 28px; }
-.subtitle { font-size: 15px; color: #666; margin-bottom: 25px; }
+h2 {
+    margin: 0 0 15px;
+    font-weight: 700;
+    color: #333;
+    font-size: 28px;
+}
+
+h1 {
+    margin: 0;
+    font-weight: 700;
+    color: white;
+    font-size: 28px;
+}
+
+.subtitle {
+    font-size: 15px;
+    color: #666;
+    margin-bottom: 25px;
+}
 
 .input-group {
     background: #ffffff;
@@ -88,7 +139,9 @@ h1 { margin: 0; font-weight: 700; color: white; font-size: 28px; }
     background: #ffebee;
 }
 
-.input-group.error i { color: #e74c3c; }
+.input-group.error i {
+    color: #e74c3c;
+}
 
 .input-group input {
     background: transparent;
@@ -103,7 +156,11 @@ h1 { margin: 0; font-weight: 700; color: white; font-size: 28px; }
     background: transparent;
 }
 
-.input-group i { color: #888; font-size: 17px; transition: color 0.3s ease; }
+.input-group i {
+    color: #888;
+    font-size: 17px;
+    transition: color 0.3s ease;
+}
 
 .error-message {
     display: none;
@@ -114,7 +171,7 @@ h1 { margin: 0; font-weight: 700; color: white; font-size: 28px; }
     margin-left: 2px;
 }
 
-.input-group.error ~ .error-message {
+.input-group.error~.error-message {
     display: block;
 }
 
@@ -154,7 +211,9 @@ h1 { margin: 0; font-weight: 700; color: white; font-size: 28px; }
     box-shadow: 0 6px 20px rgba(29, 139, 126, 0.4);
 }
 
-.action-btn:active { transform: scale(0.98); }
+.action-btn:active {
+    transform: scale(0.98);
+}
 
 /* Sliding Overlay */
 .overlay-container {
@@ -168,10 +227,12 @@ h1 { margin: 0; font-weight: 700; color: white; font-size: 28px; }
     z-index: 100;
 }
 
-.main-container.right-panel-active .overlay-container { transform: translateX(-100%); }
+.main-container.right-panel-active .overlay-container {
+    transform: translateX(-100%);
+}
 
 .overlay {
-   background: linear-gradient(135deg, var(--aura-primary-color) 0%, var(--aura-secondary-color) 100%);
+    background: linear-gradient(135deg, var(--aura-primary-color) 0%, var(--aura-secondary-color) 100%);
     border-radius: 10px;
     position: relative;
     left: -100%;
@@ -181,7 +242,9 @@ h1 { margin: 0; font-weight: 700; color: white; font-size: 28px; }
     transition: transform 0.6s ease-in-out;
 }
 
-.main-container.right-panel-active .overlay { transform: translateX(50%); }
+.main-container.right-panel-active .overlay {
+    transform: translateX(50%);
+}
 
 .overlay-panel {
     position: absolute;
@@ -198,10 +261,22 @@ h1 { margin: 0; font-weight: 700; color: white; font-size: 28px; }
     transition: transform 0.6s ease-in-out;
 }
 
-.overlay-left { transform: translateX(-20%); }
-.main-container.right-panel-active .overlay-left { transform: translateX(0); }
-.overlay-right { right: 0; transform: translateX(0); }
-.main-container.right-panel-active .overlay-right { transform: translateX(20%); }
+.overlay-left {
+    transform: translateX(-20%);
+}
+
+.main-container.right-panel-active .overlay-left {
+    transform: translateX(0);
+}
+
+.overlay-right {
+    right: 0;
+    transform: translateX(0);
+}
+
+.main-container.right-panel-active .overlay-right {
+    transform: translateX(20%);
+}
 
 .ghost-btn {
     background-color: transparent;
@@ -243,7 +318,7 @@ h1 { margin: 0; font-weight: 700; color: white; font-size: 28px; }
 }
 
 .back-nav i {
-    
+
     color: white;
     width: 40px;
     height: 40px;
@@ -262,7 +337,7 @@ h1 { margin: 0; font-weight: 700; color: white; font-size: 28px; }
 }
 
 .back-nav .logo-img {
-    
+
     height: 205px;
     max-width: 180px;
     object-fit: contain;
@@ -274,7 +349,11 @@ h1 { margin: 0; font-weight: 700; color: white; font-size: 28px; }
     opacity: 1;
 }
 
-.logo-placeholder { font-size: 70px; margin-bottom: -90px; opacity: 0.8; }
+.logo-placeholder {
+    font-size: 70px;
+    margin-bottom: -90px;
+    opacity: 0.8;
+}
 
 
 .logo-placeholder .logo-img {
@@ -292,8 +371,15 @@ h1 { margin: 0; font-weight: 700; color: white; font-size: 28px; }
 }
 
 @keyframes logoFloat {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
 .brand-content {
@@ -322,7 +408,10 @@ h1 { margin: 0; font-weight: 700; color: white; font-size: 28px; }
     font-weight: 400;
 }
 
-.social-login { display: none; }
+.social-login {
+    display: none;
+}
+
 .social-btn {
     display: none;
     transition: all 0.3s ease;

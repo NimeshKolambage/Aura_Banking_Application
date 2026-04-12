@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aura Bank</title>
     <link rel="stylesheet" href="login.css">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
     <div class="bg-animate">
         <div class="circle"></div>
@@ -15,56 +16,47 @@
     </div>
 
     <div class="main-container" id="main-container">
-        
+
         <div class="form-container sign-up-container">
-            <form action="#">
+            <form id="signupForm">
                 <h2>Create Account</h2>
                 <p class="subtitle">Join Aura Bank today</p>
                 <div class="input-group">
                     <i class="fas fa-user"></i>
-                    <input type="text" placeholder="Full Name" />
+                    <input type="text" id="signup-name" placeholder="Full Name" />
                 </div>
                 <div class="error-message"></div>
                 <div class="input-group">
                     <i class="fas fa-envelope"></i>
-                    <input type="email" placeholder="Email" />
+                    <input type="email" id="signup-email" placeholder="Email" />
                 </div>
                 <div class="error-message"></div>
                 <div class="input-group">
                     <i class="fas fa-lock"></i>
-                    <input type="password" placeholder="Password" />
+                    <input type="password" id="signup-password" placeholder="Password" />
                 </div>
                 <div class="error-message"></div>
                 <button type="submit" class="action-btn">Sign Up</button>
-                <div class="social-login">
-                    <button type="button" class="social-btn"><i class="fab fa-google"></i> Google</button>
-                    <button type="button" class="social-btn"><i class="fab fa-facebook-f"></i> Facebook</button>
-                </div>
             </form>
         </div>
 
         <div class="form-container sign-in-container">
-            <form action="#">
+            <form id="signinForm">
                 <h2>SIGN IN</h2>
                 <p class="subtitle">Sign in with email address</p>
                 <div class="input-group">
                     <i class="fas fa-envelope"></i>
-                    <input type="email" placeholder="yourname@gmail.com" />
+                    <input type="email" id="signin-email" placeholder="yourname@gmail.com" />
                 </div>
                 <div class="error-message"></div>
                 <div class="input-group">
                     <i class="fas fa-lock"></i>
-                    <input type="password" placeholder="Password" />
+                    <input type="password" id="signin-password" placeholder="Password" />
                     <i class="far fa-eye toggle-eye"></i>
                 </div>
                 <div class="error-message"></div>
                 <a href="forgotpassword.html" class="forgot">Forgot password?</a>
                 <button type="submit" class="action-btn">Sign in</button>
-
-                <div class="social-login">
-                    <button type="button" class="social-btn"><i class="fab fa-google"></i> Google</button>
-                    <button type="button" class="social-btn"><i class="fab fa-facebook-f"></i> Facebook</button>
-                </div>
                 <p class="footer-note">By signing in you agree to our Terms and Conditions</p>
             </form>
         </div>
@@ -72,29 +64,332 @@
         <div class="overlay-container">
             <div class="overlay">
                 <div class="overlay-panel overlay-left">
-                    <div class="back-nav" id="backNav"><i class="fas fa-chevron-left"></i><img src="components/logonamew.png" alt="Logo" class="logo-img"> </div>
+                    <div class="back-nav" id="backNav"><i class="fas fa-chevron-left"></i><img
+                            src="components/logonamew.png" alt="Logo" class="logo-img"> </div>
                     <div class="brand-content">
-                         <div class="logo-placeholder">
-                        <img src="components/logo.png" alt="Logo" class="logo-img"></div>
+                        <div class="logo-placeholder">
+                            <img src="components/logo.png" alt="Logo" class="logo-img">
+                        </div>
                         <h1>Welcome Back!</h1>
-                        <p>To keep connected with us please login with your personal information</p>
+                        <p>To keep connected with us please login with your personal info</p>
                         <button class="ghost-btn" id="signIn">Sign In</button>
                     </div>
                 </div>
                 <div class="overlay-panel overlay-right">
-                    <div class="back-nav" id="backNav2"><i class="fas fa-chevron-left"></i><img src="components/logonamew.png" alt="Logo" class="logo-img"> </div>
+                    <div class="back-nav" id="backNav2"><i class="fas fa-chevron-left"></i><img
+                            src="components/logonamew.png" alt="Logo" class="logo-img"> </div>
                     <div class="brand-content">
                         <div class="logo-placeholder">
-                           <img src="components/logo.png" alt="Logo" class="logo-img">  </div>
+                            <img src="components/logo.png" alt="Logo" class="logo-img">
+                        </div>
                         <h1>Hello, Customer!</h1>
                         <p>Start your journey with us</p>
-                        <button class="ghost-btn" id="signUp">Sign Up</button>
+                        <button type="button" class="ghost-btn" id="signUp">Sign Up</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="login.js"></script>
+    <!-- Supabase Auth with ES6 Module Import (Proper Working Method) -->
+    <script type="module">
+        // Import Supabase directly from CDN (This works perfectly!)
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/+esm';
+
+        // Initialize Supabase
+        const SUPABASE_URL = 'https://zndmjjeirwbmsptgrwhb.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_edTDcROSO8DdrMfO6WsGAg_Uo9-J1OY';
+        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        console.log('✓ Supabase initialized successfully');
+        console.log('✓ Auth module ready');
+
+        // ============================================
+        // FORM TOGGLE
+        // ============================================
+        const signUpButton = document.getElementById('signUp');
+        const signInButton = document.getElementById('signIn');
+        const container = document.getElementById('main-container');
+
+        console.log('Toggle buttons found:', { signUpButton: !!signUpButton, signInButton: !!signInButton, container: !!container });
+
+        if (signUpButton) {
+            signUpButton.onclick = function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Sign Up button clicked');
+                if (container) {
+                    container.classList.add("right-panel-active");
+                    console.log('Added right-panel-active class');
+                }
+            };
+            console.log('✓ Sign Up button listener attached');
+        }
+
+        if (signInButton) {
+            signInButton.onclick = function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Sign In button clicked');
+                if (container) {
+                    container.classList.remove("right-panel-active");
+                    console.log('Removed right-panel-active class');
+                }
+            };
+            console.log('✓ Sign In button listener attached');
+        }
+
+        // ============================================
+        // NAVIGATION BUTTONS
+        // ============================================
+        const backNavBtn = document.getElementById('backNav');
+        const backNavBtn2 = document.getElementById('backNav2');
+
+        if (backNavBtn) {
+            backNavBtn.onclick = function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Back nav button 1 clicked');
+                window.location.href = 'mainui.html';
+            };
+            console.log('✓ Back nav button 1 listener attached');
+        }
+
+        if (backNavBtn2) {
+            backNavBtn2.onclick = function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Back nav button 2 clicked');
+                window.location.href = 'mainui.html';
+            };
+            console.log('✓ Back nav button 2 listener attached');
+        }
+
+        // ============================================
+        // PASSWORD TOGGLE
+        // ============================================
+        document.querySelectorAll('.toggle-eye').forEach(button => {
+            button.onclick = function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Password toggle clicked');
+
+                const inputGroup = this.closest('.input-group');
+                const passwordInput = inputGroup ? inputGroup.querySelector('input[type="password"], input[type="text"]') : null;
+
+                if (passwordInput) {
+                    const isPassword = passwordInput.type === 'password';
+                    passwordInput.type = isPassword ? 'text' : 'password';
+                    this.classList.toggle('fa-eye');
+                    this.classList.toggle('fa-eye-slash');
+                    console.log('Password visibility toggled:', isPassword ? 'now visible' : 'now hidden');
+                }
+            };
+        });
+        console.log('✓ Password toggle listeners attached');
+
+        // ============================================
+        // HELPER FUNCTIONS
+        // ============================================
+        function clearErrors(form) {
+            form.querySelectorAll('.error-message').forEach(msg => msg.textContent = '');
+            form.querySelectorAll('.input-group').forEach(group => group.classList.remove('error'));
+        }
+
+        function showError(input, message) {
+            const inputGroup = input.closest('.input-group');
+            const errorMessage = inputGroup ? inputGroup.nextElementSibling : null;
+
+            if (inputGroup) inputGroup.classList.add('error');
+            if (errorMessage && errorMessage.classList.contains('error-message')) {
+                errorMessage.textContent = message;
+            }
+        }
+
+        // ============================================
+        // SIGN UP FORM
+        // ============================================
+        const signupForm = document.getElementById('signupForm');
+        if (signupForm) {
+            signupForm.onsubmit = async function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Sign up form submitted');
+
+                clearErrors(signupForm);
+
+                const fullName = document.getElementById('signup-name').value.trim();
+                const email = document.getElementById('signup-email').value.trim();
+                const password = document.getElementById('signup-password').value;
+                const submitBtn = signupForm.querySelector('.action-btn');
+                const originalText = submitBtn.textContent;
+
+                console.log('Sign up form data:', { fullName, email, passwordLength: password.length });
+
+                // Validate
+                if (!fullName) {
+                    showError(document.getElementById('signup-name'), 'Full name is required');
+                    return;
+                }
+                if (!email) {
+                    showError(document.getElementById('signup-email'), 'Email is required');
+                    return;
+                }
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    showError(document.getElementById('signup-email'), 'Invalid email format');
+                    return;
+                }
+                if (!password) {
+                    showError(document.getElementById('signup-password'), 'Password is required');
+                    return;
+                }
+                if (password.length < 6) {
+                    showError(document.getElementById('signup-password'), 'Password must be at least 6 characters');
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                submitBtn.textContent = "Creating Account...";
+
+                try {
+                    const { data, error } = await supabase.auth.signUp({
+                        email: email,
+                        password: password,
+                        options: {
+                            data: { full_name: fullName }
+                        }
+                    });
+
+                    if (error) {
+                        showError(document.getElementById('signup-email'), error.message);
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = originalText;
+                        return;
+                    }
+
+                    if (data && data.user) {
+                        alert('✓ Account created successfully!\n\nPlease check your email to confirm your account before logging in.');
+                        signupForm.reset();
+                        clearErrors(signupForm);
+                        if (container) container.classList.remove("right-panel-active");
+                    }
+                } catch (error) {
+                    alert('An error occurred during signup: ' + error.message);
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                }
+            };
+        }
+
+        // ============================================
+        // SIGN IN FORM - WITH SUPABASE AUTHENTICATION
+        // ============================================
+        const signinForm = document.getElementById('signinForm');
+        if (signinForm) {
+            signinForm.onsubmit = async function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Sign in form submitted');
+
+                clearErrors(signinForm);
+
+                const email = document.getElementById('signin-email').value.trim();
+                const password = document.getElementById('signin-password').value;
+                const submitBtn = signinForm.querySelector('.action-btn');
+                const originalText = submitBtn.textContent;
+
+                console.log('Form data:', { email, passwordLength: password.length });
+
+                // Validate
+                if (!email) {
+                    showError(document.getElementById('signin-email'), 'Email is required');
+                    return;
+                }
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    showError(document.getElementById('signin-email'), 'Invalid email format');
+                    return;
+                }
+                if (!password) {
+                    showError(document.getElementById('signin-password'), 'Password is required');
+                    return;
+                }
+                if (password.length < 6) {
+                    showError(document.getElementById('signin-password'), 'Password must be at least 6 characters');
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                submitBtn.textContent = "Signing in...";
+
+                try {
+                    // Sign in with Supabase
+                    const { data, error } = await supabase.auth.signInWithPassword({
+                        email: email.toLowerCase(),
+                        password: password
+                    });
+
+                    if (error) {
+                        console.error('Login error:', error.message);
+                        const friendlyError = error.message.includes('Invalid login credentials')
+                            ? 'Email or password is incorrect'
+                            : error.message;
+                        showError(document.getElementById('signin-email'), friendlyError);
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = originalText;
+                        return;
+                    }
+
+                    if (data && data.user && data.session) {
+                        console.log('✓ Login successful:', data.user.email);
+
+                        // Store user info in sessionStorage for access across pages
+                        sessionStorage.setItem('user_id', data.user.id);
+                        sessionStorage.setItem('user_email', data.user.email);
+                        sessionStorage.setItem('user_full_name', data.user.user_metadata?.full_name || 'User');
+                        sessionStorage.setItem('access_token', data.session.access_token);
+                        sessionStorage.setItem('refresh_token', data.session.refresh_token);
+
+                        // Redirect to dashboard
+                        alert('Login successful! Redirecting to dashboard...');
+                        setTimeout(() => {
+                            window.location.href = 'dashboard.html';
+                        }, 500);
+                    }
+                } catch (error) {
+                    console.error('Unexpected error:', error);
+                    alert('An error occurred: ' + error.message);
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                }
+            };
+        }
+
+        // ============================================
+        // CHECK AUTH STATUS ON PAGE LOAD
+        // ============================================
+        async function checkAuthStatus() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) {
+                window.location.href = 'dashboard.html';
+            }
+        }
+
+        checkAuthStatus();
+
+        // ============================================
+        // CLEAR ERRORS ON FOCUS
+        // ============================================
+        document.querySelectorAll('input[type="text"], input[type="email"], input[type="password"]').forEach(input => {
+            input.onfocus = function () {
+                const inputGroup = this.closest('.input-group');
+                if (inputGroup) inputGroup.classList.remove('error');
+            };
+        });
+
+        console.log('✓ Authentication page fully loaded and ready');
+    </script>
 </body>
+
 </html>
