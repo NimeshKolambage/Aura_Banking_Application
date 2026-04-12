@@ -4,71 +4,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In - Aura Bank</title>
+    <title>Aura Bank</title>
     <link rel="stylesheet" href="login.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
-    <div class="split-screen-container">
-        <div class="design-panel">
-            <a href="mainui.html" class="back-link">
-                <i class="fa-solid fa-angle-left" style="color: #ffffff;"></i>
-            </a>
-            <a href="mainui.html" class="back-link-logo">
-                <img data-aos="fade-down-right" src="components/loginlogoname.png" class="logoname"
-                    alt="Aura Bank Logo">
-            </a>
+    <div class="bg-animate">
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
 
-            <div class="logo-container">
-                <a href="#" class="logo">
-                    <img src="components/logo.png" alt="Aura Bank Logo">
-                </a>
-            </div>
+    <div class="main-container" id="main-container">
+
+        <div class="form-container sign-up-container">
+            <form id="signupForm">
+                <h2>Create Account</h2>
+                <p class="subtitle">Join Aura Bank today</p>
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="signup-name" placeholder="Full Name" />
+                </div>
+                <div class="error-message"></div>
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="signup-email" placeholder="Email" />
+                </div>
+                <div class="error-message"></div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="signup-password" placeholder="Password" />
+                </div>
+                <div class="error-message"></div>
+                <button type="submit" class="action-btn">Sign Up</button>
+            </form>
         </div>
-        <div class="form-panel">
-            <div class="form-wrapper">
+
+        <div class="form-container sign-in-container">
+            <form id="signinForm">
                 <h2>SIGN IN</h2>
                 <p class="subtitle">Sign in with email address</p>
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="signin-email" placeholder="yourname@gmail.com" />
+                </div>
+                <div class="error-message"></div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="signin-password" placeholder="Password" />
+                    <i class="far fa-eye toggle-eye"></i>
+                </div>
+                <div class="error-message"></div>
+                <a href="forgotpassword.html" class="forgot">Forgot password?</a>
+                <button type="submit" class="action-btn">Sign in</button>
+                <p class="footer-note">By signing in you agree to our Terms and Conditions</p>
+            </form>
+        </div>
 
-                <form action="#" method="POST">
-                    <div class="input-group">
-                        <span class="icon"><i class="fa-solid fa-envelope fa-xs"></i></span>
-                        <input type="email" id="email" name="email" placeholder="yourname@gmail.com" required>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <div class="back-nav" id="backNav"><i class="fas fa-chevron-left"></i><img
+                            src="components/logonamew.png" alt="Logo" class="logo-img"> </div>
+                    <div class="brand-content">
+                        <div class="logo-placeholder">
+                            <img src="components/logo.png" alt="Logo" class="logo-img">
+                        </div>
+                        <h1>Welcome Back!</h1>
+                        <p>To keep connected with us please login with your personal info</p>
+                        <button type="button" class="ghost-btn" id="signIn">Sign In</button>
                     </div>
-
-                    <div class="input-group">
-                        <span class="icon"><i class="fa-solid fa-lock fa-xs"></i></span>
-                        <input type="password" id="password" name="password" placeholder="Password" required>
-                        <button type="button" class="password-toggle" id="togglePassword">
-                            <i class="fa-solid fa-eye-slash fa-sm"></i>
-                        </button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <div class="back-nav" id="backNav2"><i class="fas fa-chevron-left"></i><img
+                            src="components/logonamew.png" alt="Logo" class="logo-img"> </div>
+                    <div class="brand-content">
+                        <div class="logo-placeholder">
+                            <img src="components/logo.png" alt="Logo" class="logo-img">
+                        </div>
+                        <h1>Hello, Customer!</h1>
+                        <p>Start your journey with us</p>
+                        <button type="button" class="ghost-btn" id="signUp">Sign Up</button>
                     </div>
-
-                    <div class="forgot-password">
-                        <a href="signup.html#forgot">Forgot password?</a>
-                    </div>
-
-                    <button type="submit" class="sign-in-button">Sign in</button>
-                </form>
-
-                <p class="terms-link">
-                    By signing in you agree to our <a href="#">Terms and Conditions</a>
-                </p>
-
-                <p class="signup-link">
-                    Don't have an account? <a href="signup.html">Sign up</a>
-                </p>
+                </div>
             </div>
         </div>
     </div>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/+esm"></script>
-
+    <!-- Supabase Auth with ES6 Module Import (Proper Working Method) -->
     <script type="module">
-        // Import Supabase
+        // Import Supabase directly from CDN (This works perfectly!)
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/+esm';
 
         // Initialize Supabase
@@ -76,108 +101,294 @@
         const SUPABASE_ANON_KEY = 'sb_publishable_edTDcROSO8DdrMfO6WsGAg_Uo9-J1OY';
         const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        // Initialize AOS
-        AOS.init();
+        console.log('✓ Supabase initialized successfully');
+        console.log('✓ Auth module ready');
 
-        // Password toggle functionality
-        document.getElementById('togglePassword').addEventListener('click', function () {
-            const passwordInput = document.getElementById('password');
-            const toggleIcon = this.querySelector('i');
+        // ============================================
+        // FORM TOGGLE
+        // ============================================
+        const signUpButton = document.getElementById('signUp');
+        const signInButton = document.getElementById('signIn');
+        const container = document.getElementById('main-container');
 
-            passwordInput.classList.add('password-field');
+        console.log('Toggle buttons found:', { signUpButton: !!signUpButton, signInButton: !!signInButton, container: !!container });
 
-            const isPassword = passwordInput.getAttribute('type') === 'password';
-            const newType = isPassword ? 'text' : 'password';
-            passwordInput.setAttribute('type', newType);
+        if (signUpButton) {
+            signUpButton.onclick = function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Sign Up button clicked');
+                if (container) {
+                    container.classList.add("right-panel-active");
+                    console.log('Added right-panel-active class');
+                }
+            };
+            console.log('✓ Sign Up button listener attached');
+        }
 
-            if (isPassword) {
-                toggleIcon.classList.remove('fa-eye-slash');
-                toggleIcon.classList.add('fa-eye');
-            } else {
-                toggleIcon.classList.remove('fa-eye');
-                toggleIcon.classList.add('fa-eye-slash');
-            }
+        if (signInButton) {
+            signInButton.onclick = function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Sign In button clicked');
+                if (container) {
+                    container.classList.remove("right-panel-active");
+                    console.log('Removed right-panel-active class');
+                }
+            };
+            console.log('✓ Sign In button listener attached');
+        }
+
+        // ============================================
+        // NAVIGATION BUTTONS
+        // ============================================
+        const backNavBtn = document.getElementById('backNav');
+        const backNavBtn2 = document.getElementById('backNav2');
+
+        if (backNavBtn) {
+            backNavBtn.onclick = function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Back nav button 1 clicked');
+                window.location.href = 'index.html';
+            };
+            console.log('✓ Back nav button 1 listener attached');
+        }
+
+        if (backNavBtn2) {
+            backNavBtn2.onclick = function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Back nav button 2 clicked');
+                window.location.href = 'index.html';
+            };
+            console.log('✓ Back nav button 2 listener attached');
+        }
+
+        // ============================================
+        // PASSWORD TOGGLE
+        // ============================================
+        document.querySelectorAll('.toggle-eye').forEach(button => {
+            button.onclick = function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Password toggle clicked');
+
+                const inputGroup = this.closest('.input-group');
+                const passwordInput = inputGroup ? inputGroup.querySelector('input[type="password"], input[type="text"]') : null;
+
+                if (passwordInput) {
+                    const isPassword = passwordInput.type === 'password';
+                    passwordInput.type = isPassword ? 'text' : 'password';
+                    this.classList.toggle('fa-eye');
+                    this.classList.toggle('fa-eye-slash');
+                    console.log('Password visibility toggled:', isPassword ? 'now visible' : 'now hidden');
+                }
+            };
         });
+        console.log('✓ Password toggle listeners attached');
 
-        // Form submission - Login with Supabase
-        document.querySelector('form').addEventListener('submit', async function (e) {
-            e.preventDefault();
+        // ============================================
+        // HELPER FUNCTIONS
+        // ============================================
+        function clearErrors(form) {
+            form.querySelectorAll('.error-message').forEach(msg => msg.textContent = '');
+            form.querySelectorAll('.input-group').forEach(group => group.classList.remove('error'));
+        }
 
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value;
-            const signInButton = document.querySelector('.sign-in-button');
-            const originalText = signInButton.textContent;
+        function showError(input, message) {
+            const inputGroup = input.closest('.input-group');
+            const errorMessage = inputGroup ? inputGroup.nextElementSibling : null;
 
-            // Validation
-            if (!email || !password) {
-                alert('Please fill in all fields');
-                return;
+            if (inputGroup) inputGroup.classList.add('error');
+            if (errorMessage && errorMessage.classList.contains('error-message')) {
+                errorMessage.textContent = message;
             }
+        }
 
-            // Email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                alert('Please enter a valid email address');
-                return;
-            }
+        // ============================================
+        // SIGN UP FORM
+        // ============================================
+        const signupForm = document.getElementById('signupForm');
+        if (signupForm) {
+            signupForm.onsubmit = async function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Sign up form submitted');
 
-            // Password validation
-            if (password.length < 6) {
-                alert('Password must be at least 6 characters long');
-                return;
-            }
+                clearErrors(signupForm);
 
-            // Disable button and show loading state
-            signInButton.disabled = true;
-            signInButton.textContent = "Signing in...";
+                const fullName = document.getElementById('signup-name').value.trim();
+                const email = document.getElementById('signup-email').value.trim();
+                const password = document.getElementById('signup-password').value;
+                const submitBtn = signupForm.querySelector('.action-btn');
+                const originalText = submitBtn.textContent;
 
-            try {
-                // Sign in with Supabase
-                const { data, error } = await supabase.auth.signInWithPassword({
-                    email: email,
-                    password: password,
-                });
+                console.log('Sign up form data:', { fullName, email, passwordLength: password.length });
 
-                if (error) {
-                    console.error('Login Error:', error.message);
-                    alert('Login failed: ' + error.message);
-                    signInButton.disabled = false;
-                    signInButton.textContent = originalText;
+                // Validate
+                if (!fullName) {
+                    showError(document.getElementById('signup-name'), 'Full name is required');
+                    return;
+                }
+                if (!email) {
+                    showError(document.getElementById('signup-email'), 'Email is required');
+                    return;
+                }
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    showError(document.getElementById('signup-email'), 'Invalid email format');
+                    return;
+                }
+                if (!password) {
+                    showError(document.getElementById('signup-password'), 'Password is required');
+                    return;
+                }
+                if (password.length < 6) {
+                    showError(document.getElementById('signup-password'), 'Password must be at least 6 characters');
                     return;
                 }
 
-                if (data.user) {
-                    console.log('Login successful:', data.user);
+                submitBtn.disabled = true;
+                submitBtn.textContent = "Creating Account...";
 
-                    // Store user info in sessionStorage for access across pages
-                    sessionStorage.setItem('user_id', data.user.id);
-                    sessionStorage.setItem('user_email', data.user.email);
-                    sessionStorage.setItem('access_token', data.session.access_token);
+                try {
+                    const { data, error } = await supabase.auth.signUp({
+                        email: email,
+                        password: password,
+                        options: {
+                            data: { full_name: fullName }
+                        }
+                    });
 
-                    // Redirect to dashboard
-                    setTimeout(() => {
-                        window.location.href = 'dashboard.html';
-                    }, 1000);
+                    if (error) {
+                        showError(document.getElementById('signup-email'), error.message);
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = originalText;
+                        return;
+                    }
+
+                    if (data && data.user) {
+                        alert('✓ Account created successfully!\n\nPlease check your email to confirm your account before logging in.');
+                        signupForm.reset();
+                        clearErrors(signupForm);
+                        if (container) container.classList.remove("right-panel-active");
+                    }
+                } catch (error) {
+                    alert('An error occurred during signup: ' + error.message);
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
                 }
-            } catch (error) {
-                console.error('Unexpected error:', error);
-                alert('An unexpected error occurred: ' + error.message);
-                signInButton.disabled = false;
-                signInButton.textContent = originalText;
-            }
-        });
+            };
+        }
 
-        // Check if user is already logged in
+        // ============================================
+        // SIGN IN FORM - WITH SUPABASE AUTHENTICATION
+        // ============================================
+        const signinForm = document.getElementById('signinForm');
+        if (signinForm) {
+            signinForm.onsubmit = async function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Sign in form submitted');
+
+                clearErrors(signinForm);
+
+                const email = document.getElementById('signin-email').value.trim();
+                const password = document.getElementById('signin-password').value;
+                const submitBtn = signinForm.querySelector('.action-btn');
+                const originalText = submitBtn.textContent;
+
+                console.log('Form data:', { email, passwordLength: password.length });
+
+                // Validate
+                if (!email) {
+                    showError(document.getElementById('signin-email'), 'Email is required');
+                    return;
+                }
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    showError(document.getElementById('signin-email'), 'Invalid email format');
+                    return;
+                }
+                if (!password) {
+                    showError(document.getElementById('signin-password'), 'Password is required');
+                    return;
+                }
+                if (password.length < 6) {
+                    showError(document.getElementById('signin-password'), 'Password must be at least 6 characters');
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                submitBtn.textContent = "Signing in...";
+
+                try {
+                    // Sign in with Supabase
+                    const { data, error } = await supabase.auth.signInWithPassword({
+                        email: email.toLowerCase(),
+                        password: password
+                    });
+
+                    if (error) {
+                        console.error('Login error:', error.message);
+                        const friendlyError = error.message.includes('Invalid login credentials')
+                            ? 'Email or password is incorrect'
+                            : error.message;
+                        showError(document.getElementById('signin-email'), friendlyError);
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = originalText;
+                        return;
+                    }
+
+                    if (data && data.user && data.session) {
+                        console.log('✓ Login successful:', data.user.email);
+
+                        // Store user info in sessionStorage for access across pages
+                        sessionStorage.setItem('user_id', data.user.id);
+                        sessionStorage.setItem('user_email', data.user.email);
+                        sessionStorage.setItem('user_full_name', data.user.user_metadata?.full_name || 'User');
+                        sessionStorage.setItem('access_token', data.session.access_token);
+                        sessionStorage.setItem('refresh_token', data.session.refresh_token);
+
+                        // Redirect to dashboard
+                        alert('Login successful! Redirecting to dashboard...');
+                        setTimeout(() => {
+                            window.location.href = 'dashboard.html';
+                        }, 500);
+                    }
+                } catch (error) {
+                    console.error('Unexpected error:', error);
+                    alert('An error occurred: ' + error.message);
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                }
+            };
+        }
+
+        // ============================================
+        // CHECK AUTH STATUS ON PAGE LOAD
+        // ============================================
         async function checkAuthStatus() {
             const { data: { session } } = await supabase.auth.getSession();
             if (session) {
-                // User is already logged in, redirect to dashboard
                 window.location.href = 'dashboard.html';
             }
         }
 
-        // Check auth status on page load
         checkAuthStatus();
+
+        // ============================================
+        // CLEAR ERRORS ON FOCUS
+        // ============================================
+        document.querySelectorAll('input[type="text"], input[type="email"], input[type="password"]').forEach(input => {
+            input.onfocus = function () {
+                const inputGroup = this.closest('.input-group');
+                if (inputGroup) inputGroup.classList.remove('error');
+            };
+        });
+
+        console.log('✓ Authentication page fully loaded and ready');
     </script>
 </body>
 
