@@ -1,0 +1,290 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+    --aura-primary-color: #006A71; 
+    --aura-secondary-color: #48A6A7; 
+    --aura-background-color: #F2EFE7; 
+    --aura-text-color: #000000; 
+}
+* {
+    
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+body {
+    
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--aura-background-color);
+    
+}
+
+main {
+    padding: 3px 5px;
+}
+
+
+.hero-section {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    text-align: center; 
+    padding: 80px 0; 
+    height: 80vh; 
+}
+
+.hero-text {
+    max-width: 600px; 
+    margin-bottom: 40px; 
+}
+
+.hero-text h1 {
+    font-size: 2.5rem; 
+    font-weight: 800; 
+    line-height: 1.1;
+    margin-bottom: 15px;
+    color: var(--aura-text-color);
+}
+
+.hero-text h2 {
+    font-size: 1.1rem; 
+    font-weight: 400; 
+    color: var(--aura-text-color);
+    margin-bottom: 30px;
+}
+
+
+.cta-buttons {
+    display: flex;
+    justify-content: center; 
+    gap: 15px;
+    flex-wrap: wrap; 
+}
+
+.get-started-button,
+.learn-more-button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 35px; 
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.get-started-button {
+    
+    background-color: var(--aura-primary-color);
+    color: var(--aura-background-color);
+}
+
+.get-started-button:hover {
+    background-color: #48A6A7;
+}
+
+.learn-more-button {
+  
+    background: none;
+    color: var(--aura-text-color);
+    border: 1px solid var(--aura-secondary-color);
+}
+
+.learn-more-button:hover {
+    background-color: var(--aura-secondary-color);
+}
+
+
+.features-section {
+        padding: 80px 0;
+        background: var(--aura-card-color);
+        border-radius: var(--aura-radius);
+        margin-top: 40px;
+        box-shadow: var(--aura-shadow);
+    }
+
+    .section-title {
+        text-align: center;
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 60px;
+        color: var(--aura-primary-color);
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        padding: 0 5%;
+    }
+
+    .feature-card {
+        background: white;
+        border-radius: var(--aura-radius);
+        padding: 30px;
+        text-align: center;
+        transition: var(--aura-transition);
+        border: 1px solid rgba(0, 106, 113, 0.1);
+    }
+
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--aura-shadow);
+    }
+
+    .feature-icon {
+        font-size: 2.5rem;
+        color: var(--aura-primary-color);
+        margin-bottom: 20px;
+    }
+
+    .feature-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: var(--aura-text-color);
+    }
+
+    .feature-description {
+        color: var(--aura-light-text);
+        font-size: 0.95rem;
+    }
+
+
+    footer {
+            background: var(--aura-primary-color);
+            color: white;
+            padding: 40px 5% 20px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--aura-secondary-color);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--aura-transition);
+        }
+
+        .footer-column a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+          
+       .robot-3d {
+           display: none;
+           width: 80%;
+           max-width: 500px;
+           height: 400px; 
+           position: relative; 
+           right: auto;
+           top: auto;
+           margin-left: auto; 
+       }
+       
+       
+       @media (max-width: 767px) {
+           .robot-3d {
+               display: none !important;
+           }
+           
+           .hero-section {
+               min-height: 50vh;
+               justify-content: center;
+           }
+       }
+       
+       
+       spline-viewer::part(watermark) {
+           display: none !important;
+       }
+       
+       @media (min-width: 768px) {
+        .hero-section {
+               display: flex;
+               flex-direction: row;
+               align-items: center;
+               justify-content: space-between;
+               text-align: left;
+               gap: 40px;
+               padding: 80px 5%;
+               min-height: 70vh;
+           }
+           
+           .hero-text {
+               flex: 1;
+               max-width: 500px;
+               margin-bottom: 0;
+           }
+           
+           .cta-buttons {
+               justify-content: flex-start;
+           }
+           
+           .robot-3d {
+               display: block; 
+               flex: 0 0 auto;
+               width: 50%; 
+               max-width: 700px; 
+               height: 600px; 
+           }
+       }
+       
+       spline-viewer {
+           position: relative;
+           overflow: hidden;
+       }
+       
+       spline-viewer::after {
+           content: '';
+           position: absolute;
+           bottom: 20px;
+           right: 0;
+           width: 40%;
+           height: 40px;
+           background:white;
+           z-index: 1000;
+       }
