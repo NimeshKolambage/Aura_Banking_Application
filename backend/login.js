@@ -1,662 +1,329 @@
-// Aura Bank Authentication System
-// Combines both authentication logic and UI management
-// This file handles all login/signup functionality
-
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/+esm';
-
+// Aura Bank Login - Fixed Version
 const SUPABASE_URL = 'https://zndmjjeirwbmsptgrwhb.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_edTDcROSO8DdrMfO6WsGAg_Uo9-J1OY';
 
 let supabase = null;
 
-try {
-    supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    console.log('✓ Supabase client initialized successfully');
-} catch (error) {
-    console.error('✗ Failed to initialize Supabase:', error);
+console.log('========== LOGIN.JS LOADED ==========');
+
+async function initSupabaseAsync() {
+    return new Promise((resolve) => {
+        let attempts = 0;
+        const maxAttempts = 50;
+
+        const checkAndInit = () => {
+            attempts++;
+            let supClient = null;
+
+            try {
+                if (typeof window !== 'undefined' && window.supabase) {
+                    supClient = window.supabase;
+                } else if (typeof window !== 'undefined' && window['supabase']) {
+                    supClient = window['supabase'];
+                }
+            } catch (e) {
+                console.log('Error checking for supabase:', e.message);
+            }
+
+            if (supClient && typeof supClient.createClient === 'function') {
+                try {
+                    supabase = supClient.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                    console.log('✓ Supabase initialized successfully');
+                    resolve(true);
+                } catch (error) {
+                    console.error('✗ Failed to create Supabase client:', error.message);
+                    resolve(false);
+                }
+            } else if (attempts < maxAttempts) {
+                setTimeout(checkAndInit, 100);
+            } else {
+                console.error('✗ Supabase library failed to load after 5 seconds');
+                resolve(false);
+            }
+        };
+
+        checkAndInit();
+    });
+}
+
+initSupabaseAsync().then(success => {
+    if (!success) console.warn('⚠ Supabase initialization failed');
+});
+
+// ============================================
+// FORM TOGGLE
+// ============================================
+const signUpButton = document.getElementById('signUp');
+const signInButton = document.getElementById('signIn');
+const container = document.getElementById('main-container');
+
+if (signUpButton) signUpButton.onclick = () => container?.classList.add('right-panel-active');
+if (signInButton) signInButton.onclick = () => container?.classList.remove('right-panel-active');
+
+// ============================================
+// NAVIGATION BUTTONS
+// ============================================
+const backNavBtn = document.getElementById('backNav');
+const backNavBtn2 = document.getElementById('backNav2');
+if (backNavBtn) backNavBtn.onclick = () => window.location.href = 'index.html';
+if (backNavBtn2) backNavBtn2.onclick = () => window.location.href = 'index.html';
+
+// ============================================
+// PASSWORD TOGGLE
+// ============================================
+document.querySelectorAll('.toggle-eye').forEach(button => {
+    button.onclick = function () {
+        const inputGroup = this.closest('.input-group');
+        const passwordInput = inputGroup?.querySelector('input[type="password"], input[type="text"]');
+        if (passwordInput) {
+            passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        }
+    };
+});
+
+// ============================================
+// HELPER FUNCTIONS
+// ============================================
+function clearErrors(form) {
+    form.querySelectorAll('.error-message').forEach(msg => msg.textContent = '');
+    form.querySelectorAll('.input-group').forEach(group => group.classList.remove('error'));
+}
+
+function showError(input, message) {
+    const inputGroup = input?.closest('.input-group');
+    const errorMessage = inputGroup?.nextElementSibling;
+    if (inputGroup) inputGroup.classList.add('error');
+    if (errorMessage?.classList.contains('error-message')) {
+        errorMessage.textContent = message;
+    }
+}
+
+async function ensureSupabaseReady(timeout = 5000) {
+    const startTime = Date.now();
+    while (Date.now() - startTime < timeout) {
+        if (supabase) return true;
+        await new Promise(resolve => setTimeout(resolve, 100));
+    }
+    return false;
 }
 
 // ============================================
-// SUPABASE AUTHENTICATION FUNCTIONS
+// SIGN UP FORM — FIXED
 // ============================================
+const signupForm = document.getElementById('signupForm');
+if (signupForm) {
+    signupForm.onsubmit = async function (e) {
+        e.preventDefault();
+        clearErrors(signupForm);
 
-/**
- * Login Handler
- * @param {string} email - User email
- * @param {string} password - User password
- * @returns {Object} - Login response with user data or error
- */
-export async function handleLogin(email, password) {
-    try {
-        // Validate input
-        if (!email || !password) {
-            return {
-                success: false,
-                message: 'Email and password are required',
-                code: 'VALIDATION_ERROR'
-            };
+        const fullName    = document.getElementById('signup-name')?.value.trim();
+        const email       = document.getElementById('signup-email')?.value.trim();
+        const phone       = document.getElementById('signup-phone')?.value.trim();
+        const password    = document.getElementById('signup-password')?.value;
+        const confirmPass = document.getElementById('signup-confirm-password')?.value;
+        const submitBtn   = signupForm.querySelector('.action-btn');
+        const originalText = submitBtn.textContent;
+
+        // --- Validation ---
+        if (!fullName || fullName.length < 2) {
+            showError(document.getElementById('signup-name'), 'Full name must be at least 2 characters');
+            return;
         }
-
-        // Validate email format
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            return {
-                success: false,
-                message: 'Invalid email format',
-                code: 'INVALID_EMAIL'
-            };
+        if (!email || !emailRegex.test(email)) {
+            showError(document.getElementById('signup-email'), 'Please enter a valid email address');
+            return;
+        }
+        if (!phone || phone.replace(/\D/g, '').length < 9) {
+            showError(document.getElementById('signup-phone'), 'Please enter a valid phone number');
+            return;
+        }
+        if (!password || password.length < 8) {
+            showError(document.getElementById('signup-password'), 'Password must be at least 8 characters');
+            return;
+        }
+        if (password !== confirmPass) {
+            showError(document.getElementById('signup-confirm-password'), 'Passwords do not match');
+            return;
         }
 
-        // Validate password strength
-        if (password.length < 6) {
-            return {
-                success: false,
-                message: 'Password must be at least 6 characters long',
-                code: 'WEAK_PASSWORD'
-            };
-        }
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Creating Account...';
 
-        // Attempt sign in
+        try {
+            const isReady = await ensureSupabaseReady(5000);
+            if (!isReady || !supabase) {
+                alert('System is still loading. Please try again.');
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+                return;
+            }
+
+            // FIX 1: Add emailRedirectTo so confirmation email has correct link
+            const { data, error } = await supabase.auth.signUp({
+                email: email.toLowerCase(),
+                password: password,
+                options: {
+                    emailRedirectTo: `${window.location.origin}/login.html`,
+                    data: {
+                        full_name: fullName,
+                        phone_number: phone,
+                        account_type: 'bank_holder'
+                    }
+                }
+            });
+
+            if (error) {
+                console.error('Signup error:', error.message);
+                // FIX 2: User already exists — don't expose it, give friendly message
+                if (error.message.toLowerCase().includes('already registered') ||
+                    error.message.toLowerCase().includes('already exists')) {
+                    showError(document.getElementById('signup-email'), 'This email is already registered. Please sign in.');
+                } else {
+                    showError(document.getElementById('signup-email'), error.message);
+                }
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+                return;
+            }
+
+            if (data?.user) {
+                console.log('✓ Signup successful, user id:', data.user.id);
+                // FIX 3: No client-side DB inserts here.
+                // The database trigger (handle_new_auth_user) automatically creates
+                // the profile + bank account when auth.users gets a new row.
+                // Trying to insert from client side fails because there's no session
+                // yet (email not confirmed = no RLS permission).
+
+                signupForm.reset();
+                clearErrors(signupForm);
+                container?.classList.remove('right-panel-active');
+
+                // Show proper success message
+                alert(
+                    '✓ Account created!\n\n' +
+                    'A confirmation email has been sent to: ' + email + '\n\n' +
+                    'Please check your inbox (and spam folder) and click the link to activate your account before signing in.'
+                );
+            } else {
+                alert('Signup failed. Please try again.');
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            }
+        } catch (error) {
+            console.error('Unexpected signup error:', error);
+            alert('An error occurred during signup: ' + error.message);
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+        }
+    };
+}
+
+// ============================================
+// SIGN IN FORM
+// ============================================
+function formatAuthError(errorMessage) {
+    if (!errorMessage) return 'An unknown error occurred';
+    const errorMap = {
+        'Invalid login credentials': 'Email or password is incorrect',
+        'Email not confirmed': 'Please confirm your email before logging in. Check your inbox.',
+        'User not found': 'Email or password is incorrect',
+        'Invalid password': 'Email or password is incorrect',
+    };
+    for (const [key, value] of Object.entries(errorMap)) {
+        if (errorMessage.includes(key)) return value;
+    }
+    return errorMessage;
+}
+
+async function handleSignIn(email, password) {
+    try {
+        if (!email || !password) return { success: false, message: 'Email and password are required' };
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) return { success: false, message: 'Invalid email format' };
+
+        if (password.length < 6) return { success: false, message: 'Password must be at least 6 characters' };
+
+        const isReady = await ensureSupabaseReady(5000);
+        if (!isReady || !supabase) return { success: false, message: 'Authentication system loading. Please try again.' };
+
         const { data, error } = await supabase.auth.signInWithPassword({
             email: email.toLowerCase(),
             password: password,
         });
 
         if (error) {
-            console.error('Supabase Login Error:', error);
-            return {
-                success: false,
-                message: error.message,
-                code: 'AUTH_ERROR'
-            };
+            return { success: false, message: formatAuthError(error.message) };
         }
 
-        // Check if email is confirmed
         if (data.user && !data.user.email_confirmed_at) {
+            return { success: false, message: 'Please confirm your email before logging in. Check your inbox.' };
+        }
+
+        if (data.user && data.session) {
             return {
-                success: false,
-                message: 'Please confirm your email before logging in',
-                code: 'EMAIL_NOT_CONFIRMED'
+                success: true,
+                message: 'Login successful',
+                user: {
+                    id: data.user.id,
+                    email: data.user.email,
+                    fullName: data.user.user_metadata?.full_name || 'User',
+                },
+                session: data.session
             };
         }
 
-        return {
-            success: true,
-            message: 'Login successful',
-            user: {
-                id: data.user.id,
-                email: data.user.email,
-                user_metadata: data.user.user_metadata,
-            },
-            session: data.session
-        };
+        return { success: false, message: 'Login failed. Please try again.' };
 
     } catch (error) {
         console.error('Unexpected Login Error:', error);
-        return {
-            success: false,
-            message: 'An unexpected error occurred during login',
-            code: 'UNEXPECTED_ERROR',
-            error: error.message
-        };
+        return { success: false, message: 'An unexpected error occurred: ' + error.message };
     }
 }
 
-/**
- * Sign Up Handler
- * @param {string} email - User email
- * @param {string} password - User password
- * @param {string} fullName - User full name
- * @returns {Object} - Sign up response
- */
-export async function handleSignUp(email, password, fullName) {
-    try {
-        // Validate input
-        if (!email || !password || !fullName) {
-            return {
-                success: false,
-                message: 'Email, password, and full name are required',
-                code: 'VALIDATION_ERROR'
-            };
+const signinForm = document.getElementById('signinForm');
+if (signinForm) {
+    signinForm.onsubmit = async function (e) {
+        e.preventDefault();
+        clearErrors(signinForm);
+
+        const email    = document.getElementById('signin-email').value.trim();
+        const password = document.getElementById('signin-password').value;
+        const submitBtn = signinForm.querySelector('.action-btn');
+        const originalText = submitBtn.textContent;
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Signing in...';
+
+        const result = await handleSignIn(email, password);
+
+        if (result.success) {
+            console.log('✓ Login successful:', result.user.email);
+            sessionStorage.setItem('user_id', result.user.id);
+            sessionStorage.setItem('user_email', result.user.email);
+            sessionStorage.setItem('user_full_name', result.user.fullName);
+            sessionStorage.setItem('access_token', result.session.access_token);
+            sessionStorage.setItem('refresh_token', result.session.refresh_token);
+
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 300);
+        } else {
+            showError(document.getElementById('signin-email'), result.message);
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
         }
-
-        // Validate email format
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            return {
-                success: false,
-                message: 'Invalid email format',
-                code: 'INVALID_EMAIL'
-            };
-        }
-
-        // Validate password strength
-        if (password.length < 6) {
-            return {
-                success: false,
-                message: 'Password must be at least 6 characters long',
-                code: 'WEAK_PASSWORD'
-            };
-        }
-
-        // Sign up user
-        const { data, error } = await supabase.auth.signUp({
-            email: email.toLowerCase(),
-            password: password,
-            options: {
-                data: {
-                    full_name: fullName,
-                    account_type: 'bank_holder',
-                    created_at: new Date().toISOString(),
-                }
-            }
-        });
-
-        if (error) {
-            console.error('Supabase Sign Up Error:', error);
-            return {
-                success: false,
-                message: error.message,
-                code: 'SIGNUP_ERROR'
-            };
-        }
-
-        return {
-            success: true,
-            message: 'Sign up successful. Please check your email to confirm your account.',
-            user: data.user
-        };
-
-    } catch (error) {
-        console.error('Unexpected Sign Up Error:', error);
-        return {
-            success: false,
-            message: 'An unexpected error occurred during sign up',
-            code: 'UNEXPECTED_ERROR',
-            error: error.message
-        };
-    }
+    };
 }
 
-/**
- * Logout Handler
- * @returns {Object} - Logout response
- */
-export async function handleLogout() {
-    try {
-        const { error } = await supabase.auth.signOut();
-
-        if (error) {
-            console.error('Supabase Logout Error:', error);
-            return {
-                success: false,
-                message: error.message,
-                code: 'LOGOUT_ERROR'
-            };
-        }
-
-        return {
-            success: true,
-            message: 'Logout successful'
-        };
-
-    } catch (error) {
-        console.error('Unexpected Logout Error:', error);
-        return {
-            success: false,
-            message: 'An unexpected error occurred during logout',
-            code: 'UNEXPECTED_ERROR'
-        };
-    }
-}
-
-/**
- * Get Current User
- * @returns {Object} - Current user data
- */
-export async function getCurrentUser() {
-    try {
-        const { data: { user }, error } = await supabase.auth.getUser();
-
-        if (error) {
-            console.error('Error fetching current user:', error);
-            return {
-                success: false,
-                message: error.message,
-                user: null
-            };
-        }
-
-        return {
-            success: true,
-            user: user
-        };
-
-    } catch (error) {
-        console.error('Unexpected error:', error);
-        return {
-            success: false,
-            message: error.message,
-            user: null
-        };
-    }
-}
-
-/**
- * Reset Password Handler
- * @param {string} email - User email
- * @returns {Object} - Reset password response
- */
-export async function handlePasswordReset(email) {
-    try {
-        if (!email) {
-            return {
-                success: false,
-                message: 'Email is required',
-                code: 'VALIDATION_ERROR'
-            };
-        }
-
-        // Get the reset redirect URL (configure based on your app)
-        const resetRedirect = `${window.location.origin}/frontend/resetpassword.html`;
-
-        const { data, error } = await supabase.auth.resetPasswordForEmail(email.toLowerCase(), {
-            redirectTo: resetRedirect,
-        });
-
-        if (error) {
-            console.error('Reset Password Error:', error);
-            return {
-                success: false,
-                message: error.message,
-                code: 'RESET_ERROR'
-            };
-        }
-
-        return {
-            success: true,
-            message: 'Password reset email has been sent. Please check your email.'
-        };
-
-    } catch (error) {
-        console.error('Unexpected Reset Password Error:', error);
-        return {
-            success: false,
-            message: 'An unexpected error occurred',
-            code: 'UNEXPECTED_ERROR'
-        };
-    }
-}
-
-/**
- * Update Password Handler
- * @param {string} newPassword - New password
- * @returns {Object} - Update password response
- */
-export async function handleUpdatePassword(newPassword) {
-    try {
-        if (!newPassword || newPassword.length < 6) {
-            return {
-                success: false,
-                message: 'Password must be at least 6 characters long',
-                code: 'WEAK_PASSWORD'
-            };
-        }
-
-        const { data, error } = await supabase.auth.updateUser({
-            password: newPassword
-        });
-
-        if (error) {
-            console.error('Update Password Error:', error);
-            return {
-                success: false,
-                message: error.message,
-                code: 'UPDATE_ERROR'
-            };
-        }
-
-        return {
-            success: true,
-            message: 'Password updated successfully'
-        };
-
-    } catch (error) {
-        console.error('Unexpected Update Password Error:', error);
-        return {
-            success: false,
-            message: 'An unexpected error occurred',
-            code: 'UNEXPECTED_ERROR'
-        };
-    }
-}
-
-/**
- * Get Session
- * @returns {Object} - Current session
- */
-export async function getSessionData() {
-    try {
-        const { data: { session }, error } = await supabase.auth.getSession();
-
-        if (error) {
-            console.error('Error fetching session:', error);
-            return {
-                success: false,
-                message: error.message,
-                session: null
-            };
-        }
-
-        return {
-            success: true,
-            session: session
-        };
-
-    } catch (error) {
-        console.error('Unexpected error:', error);
-        return {
-            success: false,
-            message: error.message,
-            session: null
-        };
-    }
-}
-
-/**
- * Setup Auth State Change Listener
- * @param {Function} callback - Callback function
- * @returns {Object} - Subscription object to unsubscribe
- */
-export function setupAuthListener(callback) {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-        callback(event, session);
-    });
-
-    return subscription;
-}
-
-// ============================================
-// UI/DOM HELPER FUNCTIONS
-// ============================================
-
-/**
- * Clear error messages from a form
- * @param {HTMLFormElement} form - The form element
- */
-export function clearErrors(form) {
-    const errorMessages = form.querySelectorAll('.error-message');
-    const inputGroups = form.querySelectorAll('.input-group');
-
-    errorMessages.forEach(msg => msg.textContent = '');
-    inputGroups.forEach(group => group.classList.remove('error'));
-}
-
-/**
- * Show error message on specific input
- * @param {HTMLInputElement} input - The input element
- * @param {string} message - Error message to display
- */
-export function showError(input, message) {
-    const inputGroup = input.closest('.input-group');
-    const errorMessage = inputGroup.nextElementSibling;
-
-    if (inputGroup) inputGroup.classList.add('error');
-    if (errorMessage && errorMessage.classList.contains('error-message')) {
-        errorMessage.textContent = message;
-    }
-}
-
-/**
- * Initialize login page UI
- * This function sets up all event listeners for the login page
- */
-export function initializeLoginUI() {
-    console.log('📌 Initializing login UI...');
-
-    // Form toggle functionality
-    const signUpButton = document.getElementById('signUp');
-    const signInButton = document.getElementById('signIn');
-    const container = document.getElementById('main-container');
-
-    console.log('Elements found:', { signUpButton, signInButton, container });
-
-    if (signUpButton && signInButton && container) {
-        console.log('✓ Adding form toggle listeners');
-        signUpButton.addEventListener('click', () => {
-            console.log('Sign up button clicked');
-            container.classList.add("right-panel-active");
-        });
-
-        signInButton.addEventListener('click', () => {
-            console.log('Sign in button clicked');
-            container.classList.remove("right-panel-active");
-        });
-    } else {
-        console.warn('⚠ Form toggle buttons not found');
-    }
-
-    // Navigate to index.html when back-nav is clicked
-    const backNavBtn = document.getElementById('backNav');
-    if (backNavBtn) {
-        backNavBtn.addEventListener('click', function () {
-            window.location.href = 'index.html';
-        });
-    }
-
-    const backNavBtn2 = document.getElementById('backNav2');
-    if (backNavBtn2) {
-        backNavBtn2.addEventListener('click', function () {
-            window.location.href = 'index.html';
-        });
-    }
-
-    // Password visibility toggle
-    const togglePasswordButtons = document.querySelectorAll('.toggle-eye');
-    togglePasswordButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            const inputGroup = this.closest('.input-group');
-            const passwordInput = inputGroup.querySelector('input[type="password"], input[type="text"]');
-
-            if (passwordInput) {
-                const isPasswordVisible = passwordInput.type === 'text';
-                passwordInput.type = isPasswordVisible ? 'password' : 'text';
-
-                // Toggle eye icon
-                this.classList.toggle('fa-eye');
-                this.classList.toggle('fa-eye-slash');
-            }
-        });
-    });
-
-    // Setup form submissions
-    setupSignUpForm();
-    setupSignInForm();
-
-    // Clear error on input focus
-    const inputs = document.querySelectorAll('input[type="text"], input[type="email"], input[type="password"]');
-    inputs.forEach(input => {
-        input.addEventListener('focus', function () {
-            const inputGroup = this.closest('.input-group');
-            if (inputGroup) {
-                inputGroup.classList.remove('error');
-            }
-        });
-    });
-
-    // Check if user is already logged in
-    checkAuthStatus();
-
-    console.log('✓ Login UI initialization complete');
-}
-
-/**
- * Setup sign up form submission
- */
-function setupSignUpForm() {
-    const signupForm = document.getElementById('signupForm');
-    const container = document.getElementById('main-container');
-
-    if (signupForm) {
-        console.log('✓ Sign up form found, adding listener');
-        signupForm.addEventListener('submit', async function (e) {
-            e.preventDefault();
-            console.log('📝 Sign up form submitted');
-
-            clearErrors(signupForm);
-
-            const fullName = document.getElementById('signup-name').value.trim();
-            const email = document.getElementById('signup-email').value.trim();
-            const password = document.getElementById('signup-password').value;
-            const submitBtn = signupForm.querySelector('.action-btn');
-            const originalText = submitBtn.textContent;
-
-            // Client-side validation
-            if (!fullName) {
-                showError(document.getElementById('signup-name'), 'Full name is required');
-                return;
-            }
-
-            if (!email) {
-                showError(document.getElementById('signup-email'), 'Email is required');
-                return;
-            }
-
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                showError(document.getElementById('signup-email'), 'Please enter a valid email address');
-                return;
-            }
-
-            if (!password) {
-                showError(document.getElementById('signup-password'), 'Password is required');
-                return;
-            }
-
-            if (password.length < 6) {
-                showError(document.getElementById('signup-password'), 'Password must be at least 6 characters');
-                return;
-            }
-
-            // Disable button and show loading state
-            submitBtn.disabled = true;
-            submitBtn.textContent = "Creating Account...";
-
-            try {
-                // Call authentication function
-                const response = await handleSignUp(email, password, fullName);
-
-                if (response.success) {
-                    alert('Account created successfully! Please check your email to confirm your account.');
-
-                    // Clear form
-                    signupForm.reset();
-
-                    // Switch to sign in form
-                    container.classList.remove("right-panel-active");
-                } else {
-                    showError(document.getElementById('signup-email'), response.message);
-                }
-            } catch (error) {
-                console.error('Signup error:', error);
-                alert('An unexpected error occurred: ' + error.message);
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalText;
-            }
-        });
-    }
-}
-
-/**
- * Setup sign in form submission
- */
-function setupSignInForm() {
-    const signinForm = document.getElementById('signinForm');
-
-    if (signinForm) {
-        console.log('✓ Sign in form found, adding listener');
-        signinForm.addEventListener('submit', async function (e) {
-            e.preventDefault();
-            console.log('📝 Sign in form submitted');
-
-            clearErrors(signinForm);
-
-            const email = document.getElementById('signin-email').value.trim();
-            const password = document.getElementById('signin-password').value;
-            const submitBtn = signinForm.querySelector('.action-btn');
-            const originalText = submitBtn.textContent;
-
-            // Client-side validation
-            if (!email) {
-                showError(document.getElementById('signin-email'), 'Email is required');
-                return;
-            }
-
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                showError(document.getElementById('signin-email'), 'Please enter a valid email address');
-                return;
-            }
-
-            if (!password) {
-                showError(document.getElementById('signin-password'), 'Password is required');
-                return;
-            }
-
-            if (password.length < 6) {
-                showError(document.getElementById('signin-password'), 'Password must be at least 6 characters');
-                return;
-            }
-
-            // Disable button and show loading state
-            submitBtn.disabled = true;
-            submitBtn.textContent = "Signing in...";
-
-            try {
-                // Call authentication function
-                const response = await handleLogin(email, password);
-
-                if (response.success) {
-                    console.log('Login successful:', response.user);
-
-                    // Store user info in sessionStorage
-                    sessionStorage.setItem('user_id', response.user.id);
-                    sessionStorage.setItem('user_email', response.user.email);
-                    sessionStorage.setItem('access_token', response.session.access_token);
-                    sessionStorage.setItem('user_full_name', response.user.user_metadata?.full_name || '');
-
-                    // Redirect to dashboard
-                    setTimeout(() => {
-                        window.location.href = 'dashboard.html';
-                    }, 1000);
-                } else {
-                    showError(document.getElementById('signin-email'), response.message);
-                }
-            } catch (error) {
-                console.error('Login error:', error);
-                alert('An unexpected error occurred: ' + error.message);
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalText;
-            }
-        });
-    }
-}
-
-/**
- * Check if user is already logged in
- */
-async function checkAuthStatus() {
-    try {
-        const { data: { session } } = await supabase.auth.getSession();
-        if (session) {
-            // User is already logged in, redirect to dashboard
-            window.location.href = 'dashboard.html';
-        }
-    } catch (error) {
-        console.error('Error checking auth status:', error);
-    }
-}
-
-export default supabase;
+// Clear errors on focus
+document.querySelectorAll('input').forEach(input => {
+    input.onfocus = function () {
+        this.closest('.input-group')?.classList.remove('error');
+    };
+});
+
+console.log('✓ Login page ready');

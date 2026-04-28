@@ -69,25 +69,20 @@ export async function displayUserInfo(elementId = 'userDisplay') {
         `;
     }
 }
-
 /**
  * Logout and redirect to login page
  */
 export async function logoutUser() {
     try {
-        const { error } = await supabase.auth.signOut();
-
-        if (error) {
-            console.error('Logout error:', error);
-            alert('Error logging out: ' + error.message);
-            return false;
-        }
-
-        // Clear session storage
+        // Clear all storage to prevent session conflicts
         sessionStorage.clear();
+        localStorage.clear();
+
+        // Sign out from Supabase
+        await supabase.auth.signOut();
 
         // Redirect to login
-        window.location.href = 'login.html';
+        window.location.replace('login.html');
         return true;
     } catch (error) {
         console.error('Unexpected logout error:', error);
