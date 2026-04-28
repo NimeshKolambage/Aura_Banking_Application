@@ -107,6 +107,10 @@
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/+esm';
 
         // Initialize Supabase
+        const SUPABASE_URL = 'https://zndmjjeirwbmsptgrwhb.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_edTDcROSO8DdrMfO6WsGAg_Uo9-J1OY';
+        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
         // Backend API URL
         const API_URL = 'http://localhost:3001/api/auth';
 
@@ -405,17 +409,25 @@
                     if (result.success && result.session) {
                         console.log('✓ Login successful:', result.user.email);
 
-                        // Store user info in sessionStorage
+                        // Important: Tell Supabase client about the session from backend
+                        const { error: sessionError } = await supabase.auth.setSession({
+                            access_token: result.session.access_token,
+                            refresh_token: result.session.refresh_token
+                        });
+
+                        if (sessionError) {
+                            console.error('Session sync error:', sessionError);
+                        }
+
+                        // Store basic info in sessionStorage for quick UI access
                         sessionStorage.setItem('user_id', result.user.id);
                         sessionStorage.setItem('user_email', result.user.email);
                         sessionStorage.setItem('user_full_name', result.user.user_metadata?.full_name || 'User');
-                        sessionStorage.setItem('access_token', result.session.access_token);
-                        sessionStorage.setItem('refresh_token', result.session.refresh_token);
 
                         // Redirect to dashboard
                         alert('Login successful! Redirecting to dashboard...');
                         setTimeout(() => {
-                            window.location.href = 'dashboard.html';
+                            window.location.replace('dashboard.html');
                         }, 500);
                     }
                 } catch (error) {
@@ -431,10 +443,14 @@
         // CHECK AUTH STATUS ON PAGE LOAD
         // ============================================
         async function checkAuthStatus() {
-            // Use existing session if available
-            const token = sessionStorage.getItem('access_token');
-            if (token) {
-                window.location.href = 'dashboard.html';
+            // Check if there's a hash in the URL (from email verification)
+            // If so, don't redirect yet, let Supabase process it
+            if (window.location.hash) return;
+
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) {
+                console.log('Active session found, redirecting to dashboard...');
+                window.location.replace('dashboard.html');
             }
         }
 

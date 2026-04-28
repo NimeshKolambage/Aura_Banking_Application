@@ -1,39 +1,41 @@
 const { supabase, supabaseAdmin } = require('../lib/supabase');
 
 /**
- * Helper to send email via Resend API
+ * Helper to send email via Brevo (Sendinblue) API
  */
-const sendResendEmail = async (to, subject, html) => {
-    if (!process.env.RESEND_API_KEY) {
-        console.warn('⚠️ RESEND_API_KEY not found in environment. Skipping email.');
+const sendBrevoEmail = async (to, subject, html) => {
+    if (!process.env.BREVO_API_KEY) {
+        console.warn('⚠️ BREVO_API_KEY not found in environment. Skipping email.');
         return null;
     }
 
     try {
-        const response = await fetch('https://api.resend.com/emails', {
+        const response = await fetch('https://api.brevo.com/v3/smtp/email', {
             method: 'POST',
             headers: {
-                'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
-                'Content-Type': 'application/json'
+                'api-key': process.env.BREVO_API_KEY,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
             },
             body: JSON.stringify({
-                from: 'Aura Bank <onboarding@resend.dev>', // Update with your verified domain
-                to: [to],
+                sender: { name: 'Aura Bank', email: 'nimeshkolambage@gmail.com' }, 
+                to: [{ email: to }],
                 subject: subject,
-                html: html
+                htmlContent: html
             })
         });
 
         const data = await response.json();
-        if (!response.ok) throw new Error(data.message || 'Failed to send email via Resend');
+        if (!response.ok) throw new Error(data.message || 'Failed to send email via Brevo');
         
-        console.log(`📧 Email sent successfully to ${to} (ID: ${data.id})`);
+        console.log(`📧 Email sent successfully via Brevo to ${to} (ID: ${data.messageId})`);
         return data;
     } catch (error) {
-        console.error('❌ Resend email error:', error.message);
+        console.error('❌ Brevo email error:', error.message);
         throw error;
     }
 };
+
 exports.signup = async (req, res) => {
     try {
         const { fullName, email, phoneNumber, password } = req.body;
@@ -47,8 +49,8 @@ exports.signup = async (req, res) => {
 
         console.log(`📝 Attempting signup for: ${email}`);
 
-        if (!supabaseAdmin || !process.env.RESEND_API_KEY) {
-            throw new Error('Email configuration missing (SERVICE_ROLE_KEY or RESEND_API_KEY).');
+        if (!supabaseAdmin || !process.env.BREVO_API_KEY) {
+            throw new Error('Email configuration missing (SERVICE_ROLE_KEY or BREVO_API_KEY).');
         }
 
         // 1. Create the user (not confirmed yet)
@@ -79,7 +81,6 @@ exports.signup = async (req, res) => {
             type: 'signup',
             email: email,
             options: {
-                // This will take the user straight to the dashboard after they click the email link
                 redirectTo: `${process.env.FRONTEND_URL || 'http://localhost:5500'}/frontend/dashboard.html`
             }
         });
@@ -87,8 +88,8 @@ exports.signup = async (req, res) => {
         if (!linkError && linkData && linkData.properties && linkData.properties.action_link) {
             const actionLink = linkData.properties.action_link;
             
-            // 3. Send via Resend
-            console.log('📧 Sending verification email via Resend...');
+            // 3. Send via Brevo
+            console.log('📧 Sending verification email via Brevo...');
             const emailHtml = `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
                     <h2 style="color: #0f766e; text-align: center;">Welcome to Aura Bank</h2>
@@ -103,10 +104,18 @@ exports.signup = async (req, res) => {
                 </div>
             `;
 
-            await sendResendEmail(email, 'Verify your Aura Bank account', emailHtml);
+            await sendBrevoEmail(email, 'Verify your Aura Bank account', emailHtml);
         } else {
             throw new Error(linkError?.message || 'Failed to generate verification link');
         }
+
+        console.log('✅ Signup and Email request complete');
+
+        return res.status(201).json({
+            success: true,
+            message: 'Success! Please check your email and click the link to go to your dashboard.',
+            user: user
+        });
 
         console.log('✅ Signup and Email request complete');
 
