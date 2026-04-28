@@ -23,17 +23,27 @@
                 <p class="subtitle">Join Aura Bank today</p>
                 <div class="input-group">
                     <i class="fas fa-user"></i>
-                    <input type="text" id="signup-name" placeholder="Full Name" />
+                    <input type="text" id="signup-name" placeholder="Full Name" required />
                 </div>
                 <div class="error-message"></div>
                 <div class="input-group">
                     <i class="fas fa-envelope"></i>
-                    <input type="email" id="signup-email" placeholder="Email" />
+                    <input type="email" id="signup-email" placeholder="Email" required />
+                </div>
+                <div class="error-message"></div>
+                <div class="input-group">
+                    <i class="fas fa-phone"></i>
+                    <input type="tel" id="signup-phone" placeholder="Phone Number" required />
                 </div>
                 <div class="error-message"></div>
                 <div class="input-group">
                     <i class="fas fa-lock"></i>
-                    <input type="password" id="signup-password" placeholder="Password" />
+                    <input type="password" id="signup-password" placeholder="Password (min 8 chars)" required />
+                </div>
+                <div class="error-message"></div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="signup-confirm-password" placeholder="Confirm Password" required />
                 </div>
                 <div class="error-message"></div>
                 <button type="submit" class="action-btn">Sign Up</button>
@@ -97,9 +107,11 @@
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/+esm';
 
         // Initialize Supabase
-        const SUPABASE_URL = 'https://zndmjjeirwbmsptgrwhb.supabase.co';
-        const SUPABASE_ANON_KEY = 'sb_publishable_edTDcROSO8DdrMfO6WsGAg_Uo9-J1OY';
-        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        // Backend API URL
+        const API_URL = 'http://localhost:3001/api/auth';
+
+        console.log('✓ Backend API URL set to:', API_URL);
+        console.log('✓ Auth module ready');
 
         console.log('✓ Supabase initialized successfully');
         console.log('✓ Auth module ready');
@@ -150,7 +162,7 @@
                 e.preventDefault();
                 e.stopPropagation();
                 console.log('Back nav button 1 clicked');
-                window.location.href = 'mainui.html';
+                window.location.href = 'index.html';
             };
             console.log('✓ Back nav button 1 listener attached');
         }
@@ -160,7 +172,7 @@
                 e.preventDefault();
                 e.stopPropagation();
                 console.log('Back nav button 2 clicked');
-                window.location.href = 'mainui.html';
+                window.location.href = 'index.html';
             };
             console.log('✓ Back nav button 2 listener attached');
         }
@@ -206,6 +218,13 @@
             }
         }
 
+        function generateAccountNumber() {
+            return '9000' + Math.floor(Math.random() * 10000000000).toString().padStart(10, '0');
+        }
+
+        // Account creation is now handled server-side or by DB triggers
+        // No need for client-side ensureProfileAndAccount with backend integration
+
         // ============================================
         // SIGN UP FORM
         // ============================================
@@ -220,11 +239,13 @@
 
                 const fullName = document.getElementById('signup-name').value.trim();
                 const email = document.getElementById('signup-email').value.trim();
+                const phoneNumber = document.getElementById('signup-phone').value.trim();
                 const password = document.getElementById('signup-password').value;
+                const confirmPassword = document.getElementById('signup-confirm-password').value;
                 const submitBtn = signupForm.querySelector('.action-btn');
                 const originalText = submitBtn.textContent;
 
-                console.log('Sign up form data:', { fullName, email, passwordLength: password.length });
+                console.log('Sign up form data:', { fullName, email, phoneLength: phoneNumber.length, passwordLength: password.length });
 
                 // Validate
                 if (!fullName) {
@@ -248,34 +269,63 @@
                     showError(document.getElementById('signup-password'), 'Password must be at least 6 characters');
                     return;
                 }
+                const phoneRegex = /^[0-9\-\+\(\)\s]{10,}$/;
+                if (!phoneNumber || !phoneRegex.test(phoneNumber)) {
+                    showError(document.getElementById('signup-phone'), 'Enter a valid phone number');
+                    return;
+                }
+                if (!confirmPassword) {
+                    showError(document.getElementById('signup-confirm-password'), 'Confirm password is required');
+                    return;
+                }
+                if (password !== confirmPassword) {
+                    showError(document.getElementById('signup-confirm-password'), 'Passwords do not match');
+                    return;
+                }
 
                 submitBtn.disabled = true;
                 submitBtn.textContent = "Creating Account...";
 
                 try {
-                    const { data, error } = await supabase.auth.signUp({
-                        email: email,
-                        password: password,
-                        options: {
-                            data: { full_name: fullName }
-                        }
+                    const response = await fetch(`${API_URL}/signup`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            fullName,
+                            email,
+                            phoneNumber,
+                            password
+                        })
                     });
 
-                    if (error) {
-                        showError(document.getElementById('signup-email'), error.message);
-                        submitBtn.disabled = false;
-                        submitBtn.textContent = originalText;
+                    const result = await response.json();
+
+                    if (!result.success) {
+                        console.error('Signup error:', result.message);
+                        showError(document.getElementById('signup-email'), result.message);
                         return;
                     }
 
-                    if (data && data.user) {
-                        alert('✓ Account created successfully!\n\nPlease check your email to confirm your account before logging in.');
+                    if (result.success) {
+                        console.log('Signup success:', result.user);
+                        
+                        // Show success message and reset form
+                        alert(result.message || '✓ Account created successfully! Please check your email to verify your account.');
+                        
                         signupForm.reset();
                         clearErrors(signupForm);
-                        if (container) container.classList.remove("right-panel-active");
+                        
+                        // Switch back to sign-in panel so they can login after verifying
+                        if (container) {
+                            container.classList.remove("right-panel-active");
+                        }
                     }
                 } catch (error) {
+                    console.error('Unexpected signup error:', error);
                     alert('An error occurred during signup: ' + error.message);
+                } finally {
                     submitBtn.disabled = false;
                     submitBtn.textContent = originalText;
                 }
@@ -324,32 +374,43 @@
                 submitBtn.textContent = "Signing in...";
 
                 try {
-                    // Sign in with Supabase
-                    const { data, error } = await supabase.auth.signInWithPassword({
-                        email: email.toLowerCase(),
-                        password: password
+                    // Sign in with Backend API
+                    const response = await fetch(`${API_URL}/login`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            email: email.toLowerCase(),
+                            password: password
+                        })
                     });
 
-                    if (error) {
-                        console.error('Login error:', error.message);
-                        const friendlyError = error.message.includes('Invalid login credentials')
-                            ? 'Email or password is incorrect'
-                            : error.message;
+                    const result = await response.json();
+
+                    if (!result.success) {
+                        console.error('Login error:', result.message);
+                        const lowerMsg = String(result.message || '').toLowerCase();
+                        const friendlyError = lowerMsg.includes('invalid login credentials')
+                            ? 'Invalid credentials or email not verified yet.'
+                            : lowerMsg.includes('email not confirmed')
+                                ? 'Email not verified. Please check your inbox.'
+                                : result.message;
                         showError(document.getElementById('signin-email'), friendlyError);
                         submitBtn.disabled = false;
                         submitBtn.textContent = originalText;
                         return;
                     }
 
-                    if (data && data.user && data.session) {
-                        console.log('✓ Login successful:', data.user.email);
+                    if (result.success && result.session) {
+                        console.log('✓ Login successful:', result.user.email);
 
-                        // Store user info in sessionStorage for access across pages
-                        sessionStorage.setItem('user_id', data.user.id);
-                        sessionStorage.setItem('user_email', data.user.email);
-                        sessionStorage.setItem('user_full_name', data.user.user_metadata?.full_name || 'User');
-                        sessionStorage.setItem('access_token', data.session.access_token);
-                        sessionStorage.setItem('refresh_token', data.session.refresh_token);
+                        // Store user info in sessionStorage
+                        sessionStorage.setItem('user_id', result.user.id);
+                        sessionStorage.setItem('user_email', result.user.email);
+                        sessionStorage.setItem('user_full_name', result.user.user_metadata?.full_name || 'User');
+                        sessionStorage.setItem('access_token', result.session.access_token);
+                        sessionStorage.setItem('refresh_token', result.session.refresh_token);
 
                         // Redirect to dashboard
                         alert('Login successful! Redirecting to dashboard...');
@@ -370,8 +431,9 @@
         // CHECK AUTH STATUS ON PAGE LOAD
         // ============================================
         async function checkAuthStatus() {
-            const { data: { session } } = await supabase.auth.getSession();
-            if (session) {
+            // Use existing session if available
+            const token = sessionStorage.getItem('access_token');
+            if (token) {
                 window.location.href = 'dashboard.html';
             }
         }
