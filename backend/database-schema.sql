@@ -379,3 +379,17 @@ CREATE TRIGGER on_auth_user_created
 AFTER INSERT ON auth.users
 FOR EACH ROW
 EXECUTE FUNCTION handle_new_auth_user();
+
+-- ===================================
+-- 8. PASSWORD RESETS TABLE (FOR OTP)
+-- ===================================
+CREATE TABLE IF NOT EXISTS password_resets (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    otp_code VARCHAR(6) NOT NULL,
+    expires_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS password_resets_email_idx ON password_resets(email);
+

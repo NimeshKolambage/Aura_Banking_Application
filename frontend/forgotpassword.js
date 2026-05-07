@@ -1,4 +1,5 @@
 // Forgot Password Form Logic
+const API_BASE_URL = 'http://localhost:3001/api/auth';
 
 document.addEventListener('DOMContentLoaded', function() {
     const emailForm = document.getElementById('emailForm');
@@ -15,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     let currentStep = 1;
     let userEmail = '';
+    let verificationCode = '';
     let resendTimer = null;
     let timerCount = 60;
 
@@ -48,10 +50,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Step 1: Email Verification
-    emailForm.addEventListener('submit', function(e) {
+    emailForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         const email = emailInput.value.trim();
         const emailError = document.getElementById('emailError');
+        const submitBtn = emailForm.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.textContent;
         
         // Clear previous error
         emailError.textContent = '';
@@ -72,12 +76,32 @@ document.addEventListener('DOMContentLoaded', function() {
         
         userEmail = email;
         
-        // Simulate sending code (in real app, send to backend)
-        console.log('Sending verification code to:', email);
-        
-        // Move to Step 2
-        goToStep(2);
-        startResendTimer();
+        try {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            
+            const response = await fetch(`${API_BASE_URL}/forgot-password`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: userEmail })
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                // Move to Step 2
+                goToStep(2);
+                startResendTimer();
+            } else {
+                showError('emailError', data.message || 'Failed to send verification code');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            showError('emailError', 'Connection error. Please try again later.');
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalBtnText;
+        }
     });
 
     // Step 2: Code Verification
@@ -90,12 +114,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (this.value.length === 1 && index < codeInputs.length - 1) {
                 codeInputs[index + 1].focus();
             }
-            
-            // Check if all filled
-            if (areAllCodesFilled()) {
-                // Auto-submit or enable button
-                codeForm.querySelector('button[type="submit"]').disabled = false;
-            }
         });
         
         input.addEventListener('keydown', function(e) {
@@ -106,60 +124,90 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    codeForm.addEventListener('submit', function(e) {
+    codeForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         const codeError = document.getElementById('codeError');
+        const submitBtn = codeForm.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.textContent;
         codeError.textContent = '';
         
         const code = Array.from(codeInputs).map(input => input.value).join('');
         
         // Check if any field is empty
-        const emptyFields = Array.from(codeInputs).some(input => input.value === '');
-        if (emptyFields) {
-            showError('codeError', 'All 6 digits are required');
-            codeInputs[0].focus();
-            return;
-        }
-        
         if (code.length !== 6) {
-            showError('codeError', 'Please enter a valid 6-digit code');
+            showError('codeError', 'Please enter the 6-digit code');
             codeInputs[0].focus();
             return;
         }
         
-        // Simulate code verification (in real app, verify with backend)
-        console.log('Verifying code:', code);
-        
-        // Move to Step 3
-        clearInterval(resendTimer);
-        goToStep(3);
+        try {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Verifying...';
+            
+            const response = await fetch(`${API_BASE_URL}/verify-otp`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: userEmail, code })
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                verificationCode = code; // Store for final step
+                clearInterval(resendTimer);
+                goToStep(3);
+            } else {
+                showError('codeError', data.message || 'Invalid verification code');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            showError('codeError', 'Connection error. Please try again.');
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalBtnText;
+        }
     });
 
     // Resend Code
-    resendBtn.addEventListener('click', function(e) {
+    resendBtn.addEventListener('click', async function(e) {
         e.preventDefault();
         
         // Clear code inputs
         codeInputs.forEach(input => input.value = '');
         codeInputs[0].focus();
         
-        // Simulate resending code
-        console.log('Resending verification code to:', userEmail);
-        
-        // Reset timer
-        if (resendTimer) clearInterval(resendTimer);
-        startResendTimer();
-        
-        showError('codeError', 'Verification code sent to ' + userEmail);
+        try {
+            resendBtn.disabled = true;
+            const response = await fetch(`${API_BASE_URL}/forgot-password`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: userEmail })
+            });
+            
+            const data = await response.json();
+            if (data.success) {
+                if (resendTimer) clearInterval(resendTimer);
+                startResendTimer();
+                showError('codeError', 'A new code has been sent to ' + userEmail);
+            } else {
+                showError('codeError', data.message || 'Failed to resend code');
+                resendBtn.disabled = false;
+            }
+        } catch (error) {
+            showError('codeError', 'Connection error');
+            resendBtn.disabled = false;
+        }
     });
 
-    resetForm.addEventListener('submit', function(e) {
+    resetForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
         const newPassword = newPasswordInput.value.trim();
         const confirmPassword = confirmPasswordInput.value.trim();
         const passwordError = document.getElementById('passwordError');
         const confirmError = document.getElementById('confirmError');
+        const submitBtn = resetForm.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.textContent;
         
         // Clear errors
         passwordError.textContent = '';
@@ -169,13 +217,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!newPassword) {
             showError('passwordError', 'New password is required');
             newPasswordInput.focus();
-            return;
-        }
-        
-        // Validate confirm password not empty
-        if (!confirmPassword) {
-            showError('confirmError', 'Please confirm your password');
-            confirmPasswordInput.focus();
             return;
         }
         
@@ -193,11 +234,34 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // Simulate password reset (in real app, send to backend)
-        console.log('Resetting password for:', userEmail);
-        
-        // Show success message
-        goToStep(4);
+        try {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Updating...';
+            
+            const response = await fetch(`${API_BASE_URL}/reset-password`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    email: userEmail, 
+                    code: verificationCode, 
+                    newPassword: newPassword 
+                })
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                goToStep(4);
+            } else {
+                showError('passwordError', data.message || 'Failed to reset password');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            showError('passwordError', 'Connection error. Please try again.');
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalBtnText;
+        }
     });
 
     // Toggle Password Visibility
@@ -274,10 +338,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function areAllCodesFilled() {
-        return Array.from(codeInputs).every(input => input.value !== '');
-    }
-
     function showError(elementId, message) {
         const element = document.getElementById(elementId);
         element.textContent = message;
@@ -334,3 +394,4 @@ document.addEventListener('DOMContentLoaded', function() {
         timer.textContent = `Resend in ${timerCount}s`;
     }
 });
+
